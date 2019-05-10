@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# from plotlib import EnhancePlotlib
+from plotlib import EnhancePlotlib
 
 
 class IDA():
@@ -17,11 +17,20 @@ class IDA():
     """
 
     def __init__(self, path, earthquakes, stories):
-        self.story_path = path['story_path']
+        self.base_shear_path = path['base_shear_path']
         self.story_drifts_path = path['story_drifts_path']
+        self.story_displacements_path = path['story_displacements_path']
         self.earthquakes = earthquakes
+        self.stories = stories
 
+        self.base_shear = None
         self.story_drifts = None
+        self.story_displacements = None
+
+        self.plotlib = EnhancePlotlib()
+
+    def __getattr__(self, attr):
+        return getattr(self.plotlib, attr)
 
     def _story2level(self, df):
         for story in self.stories:
@@ -29,13 +38,17 @@ class IDA():
 
         return df
 
-    def _init_damage_measure(self):
+    def _init_damage(self):
         """
-        init time history story drifts
-        damage_measure='story_drifts'
+        init time history story drifts or story displacements
+        damage_measure='story_drifts' or story_displacements
         """
-        filepath = self.story_drifts_path
-        sheet_name = 'Story Drifts'
+        if self.plotlib.damage_measure == 'story_drifts':
+            filepath = self.story_drifts_path
+            sheet_name = 'Story Drifts'
+        elif self.plotlib.damage_measure == 'story_displacements':
+            filepath = self.story_displacements_path
+            sheet_name = 'Story Max Avg Displacements'
 
         pkl_file = f'{filepath} for ida.pkl'
 
@@ -71,16 +84,71 @@ class IDA():
         with open(pkl_file, 'rb') as f:
             df = pickle.load(f)
 
-        self.story_drifts = df
+        if self.plotlib.damage_measure == 'story_drifts':
+            self.story_drifts = df
+        elif self.plotlib.damage_measure == 'story_displacements':
+            self.story_displacements = df
+
+    def _init_intensity(self):
+        """
+        get pushover base shear and acceleration
+        """
+        pkl_file = f'{self.base_shear_path} for ida.pkl'
+
+        if not os.path.exists(pkl_file):
+            print("Reading excel...")
+
+            read_file = f'{self.base_shear_path}.xlsx'
+
+            df = pd.read_excel(
+                read_file, sheet_name='Base Reactions', header=1, usecols=3, skiprows=[2])
+
+            # delete max and min string
+            df.loc[:, 'Load Case/Combo'] = df['Load Case/Combo'].str[:-4]
+
+            # combine max min
+            df = df.groupby('Load Case/Combo', as_index=False,
+                            sort=False).agg('max')
+
+            df['Load Case'], df['Scaled Factors'] = df['Load Case/Combo'].str.rsplit(
+                '-', 1).str
+
+            df.loc[:, 'FX'] = np.abs(df['FX'])
+            df.loc[:, 'Accel'] = df['FX'] / 299.5941 / 0.81
+
+            print("Creating pickle file ...")
+            with open(pkl_file, 'wb') as f:
+                pickle.dump(df, f, True)
+            print("Done!")
+
+        with open(pkl_file, 'rb') as f:
+            df = pickle.load(f)
+
+        self.base_shear = df
+
+    def get_intensity(self):
+        """
+        get pushover base shear and acceleration
+        """
+        if self.base_shear is None:
+            self._init_intensity()
+        return self.base_shear
 
     def get_story_damage(self):
         """
-        get every step pushover story drifts
+        get every step pushover story drifts or story displacements
         """
-        if self.story_drifts is None:
-            self._init_damage_measure()
-        return self.story_drifts
+        if self.plotlib.damage_measure == 'story_drifts':
+            if self.story_drifts is None:
+                self._init_damage()
+            return self.story_drifts
 
+        if self.plotlib.damage_measure == 'story_displacements':
+            if self.story_displacements is None:
+                self._init_damage()
+            return self.story_displacements
+
+        return None
 
     def _get_dm_col(self):
         """

@@ -4,22 +4,20 @@ ida data and function
 import os
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 
-# from plotlib import EnhancePlotlib
 
-
-class IDA():
+class Dynamic():
     """
     IDA data and function
     """
 
-    def __init__(self, path, earthquakes):
+    def __init__(self, path, earthquakes, scaled_facotrs):
         self.story_path = path['story_path']
         self.story_drifts_path = path['story_drifts_path']
 
         self.earthquakes = earthquakes
+        self.scaled_facotrs = scaled_facotrs
 
         self.story_drifts = self._init_story_damage()
         self.max_drifts = self._init_max_damage()
@@ -84,85 +82,94 @@ class IDA():
 
         return df
 
-    def get_points(self, earthquake):
+    def get_points(self, earthquake, kind='DBE'):
         """
         get damage and intensity by loadcase and damage_measure
         """
-        intensity_measure = 'sa'
+        df = self.story_drifts
 
-        damage = self.max_drifts
-        intensity = self.earthquakes[earthquake][intensity_measure]
+        case = f'{earthquake}-{self.scaled_facotrs[kind]}'
 
         # select earthquake
-        df = damage.loc[damage['Case'] == earthquake, :].copy()
-
-        # scaled to sa
-        df.loc[:, 'Scaled Factors'] = (
-            df.loc[:, 'Scaled Factors'].astype('float64') * intensity)
+        df = df.loc[df['Load Case/Combo'] == case, :].copy()
 
         # sort
-        df = df.sort_values(by=['Scaled Factors'])
+        df = df.sort_values(by=['Elevation'], ascending=False)
 
         # return pure numpy, convenience to plot figure
         return (
             df['Drift'].values,
-            df['Scaled Factors'].values
+            df['Elevation'].values
         )
 
-    def get_interp(self, percentage=0.5, num=1000):
+    def get_interp(self, percentage=0.5, kind='DBE'):
         """
-        use to interp intensity
+        use to get median
         """
         damages = pd.DataFrame()
-        intensities = pd.DataFrame()
-        interp_dm = pd.DataFrame()
 
         for eq in self.earthquakes:
-            damage, intensity = self.get_points(eq)
+            damage, intensity = self.get_points(eq, kind=kind)
 
-            # concat all drift and accel
+            # concat all drift
             damages = pd.concat([damages, pd.DataFrame({eq: damage})], axis=1)
-            intensities = pd.concat(
-                [intensities, pd.DataFrame({eq: intensity})], axis=1)
 
-        # scaled to same intensities
-        interp_im = np.linspace(
-            intensities.min().max(), intensities.max().min(), num=num)
+        damage = damages.quantile(q=percentage, axis=1).values
 
-        # interpolate to same intensities to damages
-        for col in damages:
-            interp_dm.loc[:, col] = (
-                np.interp(interp_im, intensities[col], damages[col]))
+        return damage, intensity
 
-        interp_dm = interp_dm.quantile(q=percentage, axis=1).values
+    def get_mean(self, kind='DBE'):
+        """
+        use to get mean
+        """
+        damages = pd.DataFrame()
 
-        return interp_dm, interp_im
+        for eq in self.earthquakes:
+            damage, intensity = self.get_points(eq, kind=kind)
 
-    def plot_all(self, *args, **kwargs):
+            # concat all drift
+            damages = pd.concat([damages, pd.DataFrame({eq: damage})], axis=1)
+
+        damage = damages.mean(axis=1).values
+
+        return damage, intensity
+
+    def plot_all(self, *args, kind='DBE', **kwargs):
         """
         plot ida in drift and acceleration by load case
         """
         for eq in self.earthquakes:
-            damage, intensity = self.get_points(eq)
+            damage, intensity = self.get_points(eq, kind=kind)
 
             plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
 
-    def plot(self, earthquake, *args, **kwargs):
+    def plot(self, earthquake, *args, kind='DBE', **kwargs):
         """
         plot pushover in drift and acceleration by load case
         """
-        damage, intensity = self.get_points(earthquake)
+        damage, intensity = self.get_points(earthquake, kind=kind)
         plt.plot(damage, intensity, *args, **kwargs)
 
-    def plot_interp(self, *args, percentage=0.5, **kwargs):
+    def plot_interp(self, *args, percentage=0.5, kind='DBE', **kwargs):
         """
         plot pushover in drift and acceleration by load case
         """
-        damage, intensity = self.get_interp(percentage)
+        damage, intensity = self.get_interp(percentage, kind=kind)
+        plt.plot(damage, intensity, *args, **kwargs)
+
+    def plot_mean(self, *args, kind='DBE', **kwargs):
+        """
+        plot pushover in drift and acceleration by load case
+        """
+        damage, intensity = self.get_mean(kind=kind)
         plt.plot(damage, intensity, *args, **kwargs)
 
 
 def _main():
+    scaled_facotrs = {
+        'DBE': 0.772,
+        'MCE': 1.029,
+    }
     earthquakes = {
         'RSN68_SFERN_PEL090': {'sa': 0.510},
         'RSN125_FRIULI.A_A-TMZ270': {'sa': 0.440},
@@ -194,19 +201,18 @@ def _main():
         'story_drifts_path': file_dir + '/Normal 1',
     }
 
-    ida = IDA(
-        path=path,
-        earthquakes=earthquakes,
-    )
+    ida = Dynamic(path, earthquakes, scaled_facotrs)
 
     plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
-    ida.plot_all()
-    ida.plot_interp(label='median')
+    # ida.plot('RSN68_SFERN_PEL090')
+    ida.plot_all(color='k', kind='MCE')
+    ida.plot_interp(label='median', kind='MCE')
+    ida.plot_mean(label='mean', kind='MCE')
 
-    plt.legend(loc='upper left')
+    plt.legend(loc='upper right')
     plt.show()
 
 

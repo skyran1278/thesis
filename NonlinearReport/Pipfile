@@ -12,5 +12,6 @@ pylint = "*"
 pandas = "==0.23.4"
 numpy = "==1.15.4"
 xlrd = "*"
+matplotlib = "*"
 
 [requires]
