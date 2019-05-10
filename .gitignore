@@ -1,8 +1,9 @@
 ~$*
 *.pkl
 .DS_Store
-/LinearCut/.vscode/settings.json
-/NonlinearCut/.vscode/settings.json
+LinearCut/.vscode/settings.json
+NonlinearCut/.vscode/settings.json
+NonlinearReport/.vscode/settings.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

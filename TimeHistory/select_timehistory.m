@@ -33,12 +33,12 @@ ylabel('Sa(g)');
 hold on;
 
 for index = 1 : length(filenames)
-  [ag, time_interval, ~, errCode] = parseAT2('../PEERNGARecords_Unscaled/' + filenames(index) + '.AT2');
+  [ag, time_interval, ~, errCode] = parseAT2('./PEERNGARecords_Unscaled/' + filenames(index) + '.AT2');
   if errCode == -1
     error(errCode)
   end
 
-  [vg, ~, ~, errCode] = parseAT2('../PEERNGARecords_Unscaled/' + filenames(index) + '.VT2');
+  [vg, ~, ~, errCode] = parseAT2('./PEERNGARecords_Unscaled/' + filenames(index) + '.VT2');
   if errCode == -1
     error(errCode)
   end
