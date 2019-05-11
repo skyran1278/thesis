@@ -65,9 +65,9 @@ function [dy, sdd, sdm] = evalution(config, load_pattern)
     plot(dy, ay, 'o', 'DisplayName', 'Yielding Point', 'Color', gray);
     plot(sdd, sad, 'o', 'DisplayName', '475 Performance Point', 'Color', blue);
     plot(sdm, sam, 'o', 'DisplayName', '2500 Performance Point', 'Color', red);
-    text(dy * 1.1, ay, sprintf('%.1fmm', dy), 'Color', gray);
-    text(sdd * 1.1, sad, sprintf('%.1fmm', sdd), 'Color', blue);
-    text(sdm * 1.1, sam, sprintf('%.1fmm', sdm), 'Color', red);
+    text(dy * 1.1, ay, sprintf('Yielding Point: %.1fmm', dy), 'Color', gray);
+    text(sdd * 1.1, sad, sprintf('475 Performance Point: %.1fmm', sdd), 'Color', blue);
+    text(sdm * 1.1, sam, sprintf('2500 Performance Point: %.1fmm', sdm), 'Color', red);
     legend('show','Location','southeast');
 
     fprintf('%s\n', load_pattern);
