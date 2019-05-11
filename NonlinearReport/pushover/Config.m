@@ -6,6 +6,14 @@ classdef Config
 
         structural_behavior_type = 'A';
 
+        PF = [
+            1.272, 1.172, 1.073
+        ];
+
+        effective_mass = [
+            1768.8, 219.8, 68.4
+        ];
+
         % sd(mm), sa(g)
         mmc = [
             0	0
@@ -88,6 +96,18 @@ classdef Config
                 ss = obj.SMS_SM1(1);
                 s1 = obj.SMS_SM1(2);
             end
+        end
+
+        function [PF, effective_mass] = parameter(obj, name)
+            if name == "mmc" || name == "inverted_triangle"
+                index = 1;
+            else
+                index = str2double(name(end));
+            end
+
+            PF = obj.PF(index);
+            effective_mass = obj.effective_mass(index);
+
         end
     end
 

@@ -30,7 +30,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     [ss, s1] = config.spectrum(spectrum);
 
     % 5% spectrum
-    [demand_sd, demand_sa] = design_spectrum(ss, s1, 0.05, 0.001:0.01:5);
+    [demand_sd, demand_sa] = design_spectrum(ss, s1, 0.05, 0.001:0.01:2);
 
     % get elastic intersection with 5% spectrum
     % and get vertical line intersection with pushover curve on d_star, a_star
@@ -56,7 +56,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     title('ADRS');
     xlabel('sd(mm)');
     ylabel('sa(g)');
-    axis([0 max(capacity_sd) 0 inf]);
+    % axis([0 max(capacity_sd) 0 inf]);
     plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
     plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
@@ -68,23 +68,6 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     text(sd * 1.1, sa, ['(', num2str(sd), ', ', num2str(sa), ')'], 'Color', red)
     legend('show')
 
-end
-
-
-function y = linear_interpolate(x, x1, x2, y1, y2)
-    y = (y2 - y1) / (x2 - x1) * (x - x1) + y1;
-end
-
-function [elastic_sd, elastic_sa] = get_elastic_line(capacity_sd, capacity_sa)
-    elastic_sd = [capacity_sd(1), capacity_sd(2), capacity_sd(end)];
-    elastic_sa_end = linear_interpolate(capacity_sd(end), capacity_sd(1), capacity_sd(2), capacity_sa(1), capacity_sa(2));
-    elastic_sa = [capacity_sa(1), capacity_sa(2), elastic_sa_end];
-end
-
-function [bilinear_sd, bilinear_sa] = get_bilinear_line(elastic_sd, elastic_sa, dy, ay, d_star, a_star, capacity_sd)
-    bilinear_sd = [elastic_sd(1), dy, d_star, capacity_sd(end)];
-    bilinear_sa_end = linear_interpolate(capacity_sd(end), dy, d_star, ay, a_star);
-    bilinear_sa = [elastic_sa(1), ay, a_star, bilinear_sa_end];
 end
 
 function [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, demand_sd, demand_sa)
@@ -112,21 +95,6 @@ function [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, 
 
     end
 
-end
-
-function [dy, ay] = get_yielding_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, d_star, a_star)
-    bilinear_area = 0;
-    dy = elastic_sd(1);
-    ay = elastic_sa(1);
-
-    capacity_area = trapz([capacity_sd(capacity_sd < d_star), d_star], [capacity_sa(capacity_sd < d_star), a_star]);
-
-    while abs(bilinear_area - capacity_area) > 1e-4
-        dy = dy + 1e-4;
-        ay = linear_interpolate(dy, elastic_sd(1), elastic_sd(2), elastic_sa(1), elastic_sa(2));
-
-        bilinear_area = trapz([elastic_sd(1), dy, d_star], [elastic_sa(1), ay, a_star]);
-    end
 end
 
 function [beta_eff, dpi] = get_beff_and_dpi(max_sd, d_star, a_star, dy, ay, structural_behavior_type)

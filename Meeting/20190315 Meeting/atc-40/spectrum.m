@@ -30,6 +30,6 @@ function [sd, sa, tn] = spectrum(time_history_filename, scaled_factor, damping_r
 
     end
 
-    sd = sd * 981; % g to mm
+    sd = sd * 9806.65; % g to mm
 
 end
