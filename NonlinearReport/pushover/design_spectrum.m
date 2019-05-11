@@ -1,4 +1,16 @@
 function [sd, sa] = design_spectrum(SS, S1, damping_ratio, tn)
+%
+% description.
+%
+% @since 1.0.0
+% @param {number} [SS] description.
+% @param {number} [S1] description.
+% @param {number} [damping_ratio] description.
+% @param {array} [tn] description.
+% @return {array} [sd] unit:mm.
+% @return {array} [sa] unit:g.
+% @see dependencies
+%
 
     [BS, B1] = damping_factor(damping_ratio);
 
@@ -30,7 +42,7 @@ function [sd, sa] = design_spectrum(SS, S1, damping_ratio, tn)
 end
 
 function sd = period_to_sd(period, acceleration)
-    sd = (period .^ 2) / (4 * pi .^ 2) .* acceleration * 981;
+    sd = (period .^ 2) / (4 * pi .^ 2) .* acceleration * 9806.65;
 end
 
 function [BS, B1] = damping_factor(damping_ratio)

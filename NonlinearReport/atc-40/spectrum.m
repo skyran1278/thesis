@@ -30,6 +30,8 @@ function [sd, sa, tn] = spectrum(time_history_filename, scaled_factor, damping_r
 
     end
 
+    % FIXME: worng
+    % should be 9806.65
     sd = sd * 981; % g to mm
 
 end

@@ -13,10 +13,9 @@ classdef Config
             95.44	0.233885
             104.382	0.238064
             164.546	0.247432
-
         ];
 
-        power = [
+        mmc = [
             0	0
             8.904	0.280781
             19.535	0.452255
@@ -34,7 +33,7 @@ classdef Config
             116.571	0.3316
         ];
 
-        uniform = [
+        mode1 = [
             0	0
             9.396	0.38995
             15.281	0.519193
@@ -57,16 +56,8 @@ classdef Config
 
     methods
         function [sd, sa] = load_pattern(obj, name)
-            if name == "triangle"
-                sd = obj.triangle(:, 1).';
-                sa = obj.triangle(:, 2).';
-            elseif name == "uniform"
-                sd = obj.uniform(:, 1).';
-                sa = obj.uniform(:, 2).';
-            elseif name == "power"
-                sd = obj.power(:, 1).';
-                sa = obj.power(:, 2).';
-            end
+                sd = obj.(name)(:, 1).';
+                sa = obj.(name)(:, 2).';
         end
 
         function [ss, s1] = spectrum(obj, name)
