@@ -255,13 +255,13 @@ class NewE2k(E2k):
                     f'LINELOAD  "{line}"  "{story}"  {load}\n'
                 )
 
-    def to_e2k(self):
+    def to_e2k(self, name='new'):
         """
         only call once, write to e2k
         """
         sections = self.sections.get()
 
-        with open(self.path + ' new.e2k', mode='w', encoding='big5') as self.f:
+        with open(f'{self.path} {name}.e2k', mode='w', encoding='big5') as self.f:
             for line in self.content:
                 # skip space line
                 if line == '':

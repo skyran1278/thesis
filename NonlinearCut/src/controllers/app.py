@@ -29,17 +29,17 @@ def get_hinges_rebar_area(index, abs_coors, design):
     return hinge_rebars
 
 
-def multi():
+def multi(path, sheet='多點斷筋'):
     """
     多點斷筋
     """
     from tests.config import config
 
-    design = Design(config['design_path_test_v5'])
+    design = Design(config[f'design_path_test_v{path}'], sheet)
 
-    e2k = E2k(config['e2k_path_test_v5'])
+    e2k = E2k(config[f'e2k_path_test_v{path}'])
 
-    new_e2k = NewE2k(config['e2k_path_test_v5'])
+    new_e2k = NewE2k(config[f'e2k_path_test_v{path}'])
 
     for index in range(0, design.get_len()[0], 4):
         abs_coors, rel_coors = get_hinges(index, design, e2k)
@@ -75,20 +75,20 @@ def multi():
         # then post line load
         new_e2k.post_line_loads(line_keys, (story, line_key))
 
-    new_e2k.to_e2k()
+    new_e2k.to_e2k(sheet)
 
 
-def normal():
+def normal(path):
     """
     傳統斷筋
     """
     from tests.config import config
 
-    design = Design(config['design_path_test_v5'], '傳統斷筋')
+    design = Design(config[f'design_path_test_v{path}'], '傳統斷筋')
 
-    e2k = E2k(config['e2k_path_test_v5'])
+    e2k = E2k(config[f'e2k_path_test_v{path}'])
 
-    new_e2k = NewE2k(config['e2k_path_test_v5'])
+    new_e2k = NewE2k(config[f'e2k_path_test_v{path}'])
 
     for index in range(0, design.get_len()[0], 4):
         story = design.get(index, ('樓層', ''))
@@ -111,7 +111,7 @@ def normal():
         # then post hinges
         new_e2k.post_line_hinges([line_key], story)
 
-    new_e2k.to_e2k()
+    new_e2k.to_e2k('normal')
 
 
 def main():
@@ -124,8 +124,9 @@ def main():
     # cProfile.run('multi()', 'restats')
     # p = pstats.Stats('restats')
     # p.strip_dirs().sort_stats('cumtime').print_stats(100)
-    multi()
-    # normal()
+    multi(6)
+    multi(6, '傳統斷筋')
+    normal(6)
 
 
 if __name__ == "__main__":
