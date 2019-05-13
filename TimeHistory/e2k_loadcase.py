@@ -5,10 +5,10 @@ import shlex
 
 CONFIG = {
     # different by model
-    'factors': [0.2, 0.5, 0.772, 1.029, 1.5, 2, 2.5],
-    'modal_participating_mass': [0.8528, 0.106, 0.0335, 0.0077],
-    'period': [0.094, 0.094 / 10],
-    'displacement': 0.8,
+    'factors': [1, 1.746, 1.924, 3, 4, 5],
+    'modal_participating_mass': [0.844, 0.111, 0.036],
+    'period': [0.084, 0.084 / 10],
+    'displacement': 0.5,
 }
 
 
@@ -287,10 +287,20 @@ def main():
     # 'RSN1633_MANJIL_ABBAR--T':  {'FACTORS': factors},
     # 'RSN1787_HECTOR_HEC090':  {'FACTORS': factors},
 
+    # time_historys = {
+    #     'RSN68_SFERN_PEL090':  {'FACTORS': factors},
+    #     'RSN125_FRIULI.A_A-TMZ270':  {'FACTORS': factors},
+    #     'RSN169_IMPVALL.H_H-DLT262':  {'FACTORS': factors},
+    # }
+
     time_historys = {
-        'RSN68_SFERN_PEL090':  {'FACTORS': factors},
-        'RSN125_FRIULI.A_A-TMZ270':  {'FACTORS': factors},
-        'RSN169_IMPVALL.H_H-DLT262':  {'FACTORS': factors},
+        'RSN68_SFERN_PEL090': {'FACTORS': factors},
+        'RSN125_FRIULI.A_A-TMZ270': {'FACTORS': factors},
+        'RSN1111_KOBE_NIS000': {'FACTORS': factors},
+        'RSN848_LANDERS_CLW-LN': {'FACTORS': factors},
+        'RSN1787_HECTOR_HEC000': {'FACTORS': factors},
+        'RSN174_IMPVALL.H_H-E11140': {'FACTORS': factors},
+        'RSN725_SUPER.B_B-POE360': {'FACTORS': factors},
     }
 
     put_timehistorys(time_historys, peernga_folder)

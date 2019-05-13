@@ -53,10 +53,20 @@ def main():
     # 'RSN1787_HECTOR_HEC090': 0.996,
 
     time_historys = {
-        'RSN68_SFERN_PEL090': 1.212,
-        'RSN125_FRIULI.A_A-TMZ270': 0.863,
-        'RSN169_IMPVALL.H_H-DLT262': 1.000,
+        'RSN68_SFERN_PEL090': 1.336,
+        'RSN125_FRIULI.A_A-TMZ270': 0.951,
+        'RSN1111_KOBE_NIS000': 0.620,
+        'RSN848_LANDERS_CLW-LN': 1.051,
+        'RSN1787_HECTOR_HEC000': 1.115,
+        'RSN174_IMPVALL.H_H-E11140': 0.806,
+        'RSN725_SUPER.B_B-POE360': 1.000
     }
+
+    # time_historys = {
+    #     'RSN68_SFERN_PEL090': 1.212,
+    #     'RSN125_FRIULI.A_A-TMZ270': 0.863,
+    #     'RSN169_IMPVALL.H_H-DLT262': 1.000,
+    # }
 
     for time_history in time_historys:
         normalized_data = []
