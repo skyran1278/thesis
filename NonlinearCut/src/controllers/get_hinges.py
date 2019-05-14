@@ -7,7 +7,7 @@ import numpy as np
 from src.utils.get_ld import get_ld
 
 
-def post_mid_hinges(hinges, section_index, design, e2k):
+def post_hinges(hinges, section_index, design, e2k):
     """
     3 multi hinge, side hinge, consider ld
     """
@@ -90,7 +90,7 @@ def get_hinges(section_index, design, e2k):
 
     section_index = section_index // 4 * 4
 
-    post_mid_hinges(hinges, section_index, design, e2k)
+    post_hinges(hinges, section_index, design, e2k)
 
     hinges = np.sort(hinges)
 
