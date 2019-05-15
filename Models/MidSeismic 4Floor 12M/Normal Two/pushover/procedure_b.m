@@ -36,20 +36,6 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     % and get vertical line intersection with pushover curve on d_star, a_star
     [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, demand_sd, demand_sa);
 
-    if isnan(d_star) || length(d_star) ~= 1
-        figure;
-        hold on;
-        title('ADRS');
-        xlabel('sd(mm)');
-        ylabel('sa(g)');
-        plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
-        plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
-        plot(demand_sd, demand_sa, 'DisplayName', 'Demand', 'Color', blue, 'LineWidth', 1.5);
-        axis([0 max(capacity_sd) 0 inf]);
-        legend('show')
-        return
-    end
-
     % use equal area to get yielding point
     [dy, ay] = get_yielding_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, d_star, a_star);
 
@@ -70,6 +56,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     title('ADRS');
     xlabel('sd(mm)');
     ylabel('sa(g)');
+    axis([0 max(capacity_sd) 0 inf]);
     plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
     plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
@@ -79,7 +66,6 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     plot(dy, ay, 'o', 'DisplayName', '(dy, ay)', 'Color', gray);
     plot(sd, sa, 'o', 'DisplayName', 'Performance Point', 'Color', red);
     text(sd * 1.1, sa, ['(', num2str(sd), ', ', num2str(sa), ')'], 'Color', red)
-    axis([0 max(capacity_sd) 0 inf]);
     legend('show')
 
 end
