@@ -124,9 +124,9 @@ def main():
     # cProfile.run('multi()', 'restats')
     # p = pstats.Stats('restats')
     # p.strip_dirs().sort_stats('cumtime').print_stats(100)
-    multi(6)
+    multi(1)
     # multi(6, '傳統斷筋')
-    normal(6)
+    normal(1)
 
 
 if __name__ == "__main__":
