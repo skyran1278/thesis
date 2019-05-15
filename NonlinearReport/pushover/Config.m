@@ -1,10 +1,10 @@
 classdef Config
 
     properties
+        structural_behavior_type = 'A';
+
         SDS_SD1 = [0.66, 0.49];
         SMS_SM1 = [0.8, 0.54];
-
-        structural_behavior_type = 'A';
 
         PF = [
             1.279, 1.187, 1.065
@@ -14,7 +14,7 @@ classdef Config
             1742, 228, 83
         ];
 
-        % roof disp(mm), V(tonf)
+        % roof displacement(mm), V(tonf)
         mmc = [
 
         ];
