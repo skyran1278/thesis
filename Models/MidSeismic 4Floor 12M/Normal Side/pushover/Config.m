@@ -140,9 +140,10 @@ classdef Config
 
     methods
         function [sd, sa] = load_pattern(obj, name)
+            [~, index] = max(obj.(name)(:, 2));
             [pf, mass] = obj.parameter(name);
-            sd = abs(obj.(name)(:, 1).' ./ pf);
-            sa = abs(obj.(name)(:, 2).' ./ mass);
+            sd = abs(obj.(name)(1:index, 1).' ./ pf);
+            sa = abs(obj.(name)(1:index, 2).' ./ mass);
         end
 
         function [ss, s1] = spectrum(obj, name)
