@@ -62,7 +62,7 @@ class NewE2k(E2k):
             atj = rebars[index + 1][0]
             abj = rebars[index + 1][1]
 
-            new_section = f'{copy_from} {ati} {abi} {atj} {abj}'
+            new_section = f'{copy_from} {ati} {atj} {abi} {abj}'
 
             data = {
                 'ATI': ati,
