@@ -75,16 +75,6 @@ median_acceleration = median(acceleration);
 [sad, ~] = design_spectrum(ss_s1(1), ss_s1(2), 0.05, tn);
 [sam, ~] = design_spectrum(ss_s1(3), ss_s1(4), 0.05, tn);
 
-figure;
-xlabel('T(sec)');
-ylabel('Sa(g)');
-hold on;
-
-plot(tn, sad);
-plot(tn, sam);
-plot(tn, median_acceleration);
-% plot(tn, acceleration, 'k');
-
 tol = 0.0001;
 
 period_index = abs(tn - structure_period) < tol;
@@ -94,3 +84,21 @@ sa = median_acceleration(period_index);
 fprintf('Sa: %.3f, SaD Factor: %.3f, SaM Factor: %.3f\n', sa, sad(period_index) / sa, sam(period_index) / sa);
 fprintf("'%s': {'sa': %.3f},\n", [filenames; acceleration(:, period_index).']);
 % fprintf('Records: %s, PGA: %.3f, PGA: %.3f\n', max(abs(ag)), acceleration(1));
+
+green = [26 188 156] / 256;
+blue = [52 152 219] / 256;
+red = [233 88 73] / 256;
+orange = [230 126 34] / 256;
+gray = [0.5 0.5 0.5];
+background = [247 247 247] / 256;
+
+figure;
+xlabel('T(sec)');
+ylabel('Sa(g)');
+hold on;
+
+plot(tn, sad, 'Color', blue, 'LineWidth', 1.5);
+plot(tn, sam, 'Color', green, 'LineWidth', 1.5);
+plot(tn, median_acceleration, 'Color', red);
+plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5);
+

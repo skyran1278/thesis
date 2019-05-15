@@ -49,9 +49,23 @@ function [capacity_sd, ap] = epa(config, load_pattern)
     capacity_sd = [0 capacity_sd];
     ap = [0 ap];
 
-    figure;
+    green = [26 188 156] / 256;
+    blue = [52 152 219] / 256;
+    red = [233 88 73] / 256;
+    orange = [230 126 34] / 256;
+    gray = [0.5 0.5 0.5];
+    background = [247 247 247] / 256;
 
-    plot(capacity_sd, ap, capacity_sd, [0 capacity_sa])
+    figure;
+    hold on;
+    title('EPA Curve');
+    xlabel('Displacement(mm)');
+    ylabel('Effective Peak Acceleration(g)');
+
+    plot(capacity_sd, ap, 'DisplayName', 'EPA Curve', 'Color', green, 'LineWidth', 1.5,'Marker','o')
+    plot(capacity_sd, [0 capacity_sa], 'DisplayName', 'Capacity Curve', 'Color', red, 'LineWidth', 1.5,'Marker','o')
+
+    legend('show','Location','northwest');
 
 end
 

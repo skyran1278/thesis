@@ -4,8 +4,6 @@ config = Config;
 
 [capacity_sd, ap] = epa(config, 'inverted_triangle');
 
-plot(capacity_sd, ap)
-
 evalution(config, 'mmc');
 evalution(config, 'inverted_triangle');
 [dy(1), sdd(1), sdm(1)] = evalution(config, 'mode1');
