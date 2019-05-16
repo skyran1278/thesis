@@ -254,54 +254,18 @@ def main():
 
     factors = CONFIG['factors']
 
-    # 10 history
-    # 'RSN125_FRIULI.A_A-TMZ000': {'FACTORS': factors},
-    # 'RSN767_LOMAP_G03000': {'FACTORS': factors},
-    # 'RSN1148_KOCAELI_ARE000': {'FACTORS': factors},
-    # 'RSN1602_DUZCE_BOL000': {'FACTORS': factors},
-    # 'RSN1111_KOBE_NIS090': {'FACTORS': factors},
-    # 'RSN1633_MANJIL_ABBAR--L': {'FACTORS': factors},
-    # 'RSN725_SUPER.B_B-POE270': {'FACTORS': factors},
-    # 'RSN68_SFERN_PEL180': {'FACTORS': factors},
-    # 'RSN960_NORTHR_LOS270': {'FACTORS': factors},
-    # 'RSN1485_CHICHI_TCU045-N': {'FACTORS': factors},
-
-    # 'RSN68_SFERN_PEL090':  {'FACTORS': factors},
-    # 'RSN125_FRIULI.A_A-TMZ270':  {'FACTORS': factors},
-    # 'RSN169_IMPVALL.H_H-DLT262':  {'FACTORS': factors},
-    # 'RSN174_IMPVALL.H_H-E11230':  {'FACTORS': factors},
-    # 'RSN721_SUPER.B_B-ICC090':  {'FACTORS': factors},
-    # 'RSN725_SUPER.B_B-POE360':  {'FACTORS': factors},
-    # 'RSN752_LOMAP_CAP000':  {'FACTORS': factors},
-    # 'RSN767_LOMAP_G03090':  {'FACTORS': factors},
-    # 'RSN848_LANDERS_CLW-TR':  {'FACTORS': factors},
-    # 'RSN900_LANDERS_YER270':  {'FACTORS': factors},
-    # 'RSN953_NORTHR_MUL279':  {'FACTORS': factors},
-    # 'RSN960_NORTHR_LOS000':  {'FACTORS': factors},
-    # 'RSN1111_KOBE_NIS000':  {'FACTORS': factors},
-    # 'RSN1116_KOBE_SHI000':  {'FACTORS': factors},
-    # 'RSN1148_KOCAELI_ARE090':  {'FACTORS': factors},
-    # 'RSN1158_KOCAELI_DZC180':  {'FACTORS': factors},
-    # 'RSN1244_CHICHI_CHY101-N':  {'FACTORS': factors},
-    # 'RSN1485_CHICHI_TCU045-E':  {'FACTORS': factors},
-    # 'RSN1602_DUZCE_BOL090':  {'FACTORS': factors},
-    # 'RSN1633_MANJIL_ABBAR--T':  {'FACTORS': factors},
-    # 'RSN1787_HECTOR_HEC090':  {'FACTORS': factors},
-
-    # time_historys = {
-    #     'RSN68_SFERN_PEL090':  {'FACTORS': factors},
-    #     'RSN125_FRIULI.A_A-TMZ270':  {'FACTORS': factors},
-    #     'RSN169_IMPVALL.H_H-DLT262':  {'FACTORS': factors},
-    # }
-
     time_historys = {
-        'RSN68_SFERN_PEL090': {'FACTORS': factors},
-        'RSN125_FRIULI.A_A-TMZ270': {'FACTORS': factors},
-        'RSN1111_KOBE_NIS000': {'FACTORS': factors},
-        'RSN848_LANDERS_CLW-LN': {'FACTORS': factors},
-        'RSN1787_HECTOR_HEC000': {'FACTORS': factors},
-        'RSN174_IMPVALL.H_H-E11140': {'FACTORS': factors},
         'RSN725_SUPER.B_B-POE360': {'FACTORS': factors},
+        'RSN900_LANDERS_YER270': {'FACTORS': factors},
+        'RSN953_NORTHR_MUL279': {'FACTORS': factors},
+        'RSN960_NORTHR_LOS000': {'FACTORS': factors},
+        'RSN1111_KOBE_NIS000': {'FACTORS': factors},
+        'RSN1116_KOBE_SHI000': {'FACTORS': factors},
+        'RSN1148_KOCAELI_ARE090': {'FACTORS': factors},
+        'RSN1158_KOCAELI_DZC180': {'FACTORS': factors},
+        'RSN1602_DUZCE_BOL090': {'FACTORS': factors},
+        'RSN1633_MANJIL_ABBAR--T': {'FACTORS': factors},
+        'RSN1787_HECTOR_HEC090': {'FACTORS': factors},
     }
 
     put_timehistorys(time_historys, peernga_folder)
