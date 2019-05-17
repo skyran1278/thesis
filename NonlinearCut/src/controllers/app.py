@@ -78,7 +78,7 @@ def multi(path, sheet='多點斷筋'):
     new_e2k.to_e2k(sheet)
 
 
-def normal(path):
+def tradition(path):
     """
     傳統斷筋
     """
@@ -111,7 +111,7 @@ def normal(path):
         # then post hinges
         new_e2k.post_line_hinges([line_key], story)
 
-    new_e2k.to_e2k('normal')
+    new_e2k.to_e2k('tradition')
 
 
 def main():
@@ -124,9 +124,9 @@ def main():
     # cProfile.run('multi()', 'restats')
     # p = pstats.Stats('restats')
     # p.strip_dirs().sort_stats('cumtime').print_stats(100)
-    multi(6)
-    multi(6, '傳統斷筋')
-    normal(6)
+    multi(5)
+    multi(5, '傳統斷筋')
+    # tradition(6)
 
 
 if __name__ == "__main__":
