@@ -111,11 +111,17 @@ def main():
 
     data.put_index(0)
 
-    v_demand(data)
-    etabs_to_addedld_sol(data)
-    tradition_flow(data)
-    linearcut_flow(data)
-    compare_linearcut_to_tradition(data)
+    plt.figure()
+    data.zero_line()
+
+    data.etabs_demand_line('green')
+    data.min_line()
+
+    # v_demand(data)
+    # etabs_to_addedld_sol(data)
+    # tradition_flow(data)
+    # linearcut_flow(data)
+    # compare_linearcut_to_tradition(data)
 
     plt.show()
 
