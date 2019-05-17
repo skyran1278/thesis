@@ -1,7 +1,19 @@
 clc; clear; close all;
 
-structure_period = 0.965;
-ss_s1 = [0.66, 0.49, 0.8, 0.54];
+low_seismic_4floor_12m = {
+  'structure_period', 1.010;
+  'ss_s1', [0.5, 0.3, 0.7, 0.4];
+};
+
+mid_seismic_4floor_12m = {
+  'structure_period', 0.965;
+  'ss_s1', [0.66, 0.49, 0.8, 0.54];
+};
+
+data = low_seismic_4floor_12m;
+
+structure_period = data{1,2};
+ss_s1 = data{2, 2};
 
 % pick 11 time history
 filenames = [
