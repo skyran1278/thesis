@@ -114,8 +114,10 @@ def main():
     plt.figure()
     data.zero_line()
 
-    data.etabs_demand_line('green')
-    data.min_line()
+    data.demand_line('green')
+    # data.min_line()
+    data.boundary_line()
+    # data.boundary_line(0.45)
 
     # v_demand(data)
     # etabs_to_addedld_sol(data)
