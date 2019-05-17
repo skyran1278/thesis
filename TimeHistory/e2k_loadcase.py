@@ -4,10 +4,10 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 mid_seismic_4floor_12m = {
-    'factors': [1, 1.746, 1.924, 3, 4, 5],
+    'factors': [1.071, 1.181, 2, 3, 5, 7, 9, 11, 13, 15],
     'modal_participating_mass': [0.844, 0.111, 0.036],
     'period': [0.084, 0.084 / 10],
-    'displacement': 0.5,
+    'displacement': 0.4,
 }
 
 CONFIG = mid_seismic_4floor_12m
@@ -151,7 +151,7 @@ def post_pushover_loadcases(displacement, modal_participating_mass, initial_cond
     loadcases = []
 
     loadcases.extend(
-        load('pushover x', f'LOADCASE "pushover x"  LOADPAT  "EQX"  SF  1\n'))
+        load('Pushover X', f'LOADCASE "Pushover X"  LOADPAT  "EQX"  SF  1\n'))
 
     loadcases.extend(load(
         'MMC',
@@ -163,8 +163,8 @@ def post_pushover_loadcases(displacement, modal_participating_mass, initial_cond
 
     for mode, factor in enumerate(modal_participating_mass, 1):
         loadcases.extend(load(
-            f'pushover x {mode}',
-            f'LOADCASE "pushover x {mode}"  MODE  {mode} SF  {factor}\n'
+            f'Mode {mode}',
+            f'LOADCASE "Mode {mode}"  MODE  {mode} SF  {factor}\n'
         ))
 
     return loadcases
