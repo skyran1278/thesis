@@ -29,7 +29,7 @@ def v_demand(data):
     data.v_consider_vc_demand_line('red')
     data.etabs_v_demand_line('blue')
 
-    # data.v_rabar_line('red', '傳統斷筋')
+    data.v_rabar_line('blue', '傳統斷筋')
     data.v_rabar_line('green', '多點斷筋')
 
 
@@ -104,7 +104,7 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190506 112407 SmartCut.xlsx'
+    input_file = '../data/20190518 170006 SmartCut.xlsx'
 
     path = f'{script_dir}/{input_file}'
 

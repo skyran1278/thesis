@@ -26,9 +26,13 @@ class PlotDesign:
 
         self.linewidth = 2.0
 
+        print('Load Data...')
+
         self.design = Design(path, '多點斷筋')
         self.tradition = Design(path, '傳統斷筋')
         self.etabs_design, self.etabs_design_tradition = etabs_design(path)
+
+        print('Load Data Done!')
 
         self.index = None
 
@@ -293,13 +297,13 @@ class PlotDesign:
         """
         df = self.etabs_design_on_index()
 
-        B = df['B'][0] / 100
-        fc = df['Fc'][0] / 10
-        fyt = df['Fy'][0] / 10
+        B = df['B'].iloc[0] * 100
+        fc = df['Fc'].iloc[0] / 10
+        fyt = df['Fy'].iloc[0] / 10
 
-        Asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.001
+        Asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.01
 
-        Asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.001
+        Asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.01
 
         plt.axhline(Asmin, linestyle='--', color=self.c['gray'])
         plt.axhline(Asmax, linestyle='--', color=self.c['gray'])
