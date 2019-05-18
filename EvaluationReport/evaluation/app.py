@@ -21,15 +21,16 @@ def etabs_to_addedld_sol(data):
 def v_demand(data):
     plt.figure()
     plt.xlabel('Length(m)')
-    plt.ylabel(r'Av$(m^2)$')
+    plt.ylabel('Av/s(m)')
     data.zero_line()
     data.seismic_line()
+    data.v_min_line()
 
-    # data.v_consider_vc_demand_line('green')
-    data.etabs_v_demand_line('green')
+    data.v_consider_vc_demand_line('red')
+    data.etabs_v_demand_line('blue')
 
     # data.v_rabar_line('red', '傳統斷筋')
-    # data.v_rabar_line('green', '多點斷筋')
+    data.v_rabar_line('green', '多點斷筋')
 
 
 def tradition_flow(data):

@@ -50,7 +50,7 @@ def test_stirrups():
     print(beam.head())
 
     beam_data = np.array(
-        ['#4@12', '#4@20', '#4@10', 282.5, 565, 282.5], dtype=object)
+        ['#4@12', '#4@15', '#4@10', 282.5, 565, 282.5], dtype=object)
 
     np.testing.assert_array_equal(
         beam.loc[0, beam_cols].values, beam_data)
@@ -100,7 +100,7 @@ def test_stirrups_3():
     print(beam.head())
 
     beam_data = np.array(
-        ['#4@12', '#4@22', '#4@10', 290, 530, 310], dtype=object)
+        ['#4@12', '#4@15', '#4@10', 150, 790, 190], dtype=object)
 
     np.testing.assert_array_equal(
         beam.loc[0, beam_cols].values, beam_data)

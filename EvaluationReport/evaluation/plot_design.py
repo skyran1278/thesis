@@ -286,3 +286,20 @@ class PlotDesign:
             linestyle='--',
             color=self.c['gray']
         )
+
+    def v_min_line(self):
+        """
+        v min
+        """
+        df = self.etabs_design_on_index()
+
+        B = df['B'][0] / 100
+        fc = df['Fc'][0] / 10
+        fyt = df['Fy'][0] / 10
+
+        Asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.001
+
+        Asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.001
+
+        plt.axhline(Asmin, linestyle='--', color=self.c['gray'])
+        plt.axhline(Asmax, linestyle='--', color=self.c['gray'])

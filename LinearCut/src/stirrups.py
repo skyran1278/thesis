@@ -16,14 +16,15 @@ def _calc_vc(df):
 
     seismic_area = 2 * df['H']
 
-    B = df['B']
-    fc = df['Fc']
-    fyt = df['Fy']
+    B = df['B'] / 100
+    fc = df['Fc'] / 10
+    fyt = df['Fy'] / 10
 
+    # 不確定到底要不要 phi
     new_av = np.maximum.reduce([
-        df['VRebar'] - 0.53 * np.sqrt(fc) * B / fyt,
-        0.2 * np.sqrt(fc) * B / fyt,
-        3.5 * B / fyt
+        df['VRebar'] - 0.53 * np.sqrt(fc) * B / fyt * 0.001,
+        0.2 * np.sqrt(fc) * B / fyt * 0.001,
+        3.5 * B / fyt * 0.001
     ])
 
     df['VRebarConsiderVc'] = np.where(
