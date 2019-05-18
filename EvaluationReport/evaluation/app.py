@@ -104,7 +104,7 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190518 170006 SmartCut HighSeismic 4Floor 6M.xlsx'
+    input_file = '../data/20190518 173012 SmartCut 欣詮.xlsx'
 
     path = f'{script_dir}/{input_file}'
 
