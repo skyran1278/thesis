@@ -167,17 +167,21 @@ class Dynamic():
 
 def _main():
     scaled_facotrs = {
-        'DBE': 1.746,
-        'MCE': 1.924,
+        'DBE': 1.071,
+        'MCE': 1.181,
     }
     earthquakes = {
-        'RSN68_SFERN_PEL090': {'sa': 0.335},
-        'RSN125_FRIULI.A_A-TMZ270': {'sa': 0.291},
-        'RSN1111_KOBE_NIS000': {'sa': 0.222},
-        'RSN848_LANDERS_CLW-LN': {'sa': 0.217},
-        'RSN1787_HECTOR_HEC000': {'sa': 0.340},
-        'RSN174_IMPVALL.H_H-E11140': {'sa': 0.195},
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.357},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.576},
+        'RSN900_LANDERS_YER270': {'sa': 0.474},
+        'RSN953_NORTHR_MUL279': {'sa': 0.697},
+        'RSN960_NORTHR_LOS000': {'sa': 0.444},
+        'RSN1111_KOBE_NIS000': {'sa': 0.358},
+        'RSN1116_KOBE_SHI000': {'sa': 0.567},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.166},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.359},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.867},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.495},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.375},
     }
 
     file_dir = os.path.dirname(os.path.abspath(__file__))

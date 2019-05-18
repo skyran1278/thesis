@@ -10,7 +10,7 @@ mid_seismic_4floor_12m = {
   'ss_s1', [0.66, 0.49, 0.8, 0.54];
 };
 
-data = low_seismic_4floor_12m;
+data = mid_seismic_4floor_12m;
 
 structure_period = data{1,2};
 ss_s1 = data{2, 2};
