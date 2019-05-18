@@ -26,10 +26,10 @@ def v_demand(data):
     data.seismic_line()
     data.v_min_line()
 
-    data.v_consider_vc_demand_line('red')
-    data.etabs_v_demand_line('blue')
+    data.etabs_v_demand_line('red')
+    data.v_consider_vc_demand_line('blue')
 
-    data.v_rabar_line('blue', '傳統斷筋')
+    # data.v_rabar_line('blue', '傳統斷筋')
     data.v_rabar_line('green', '多點斷筋')
 
 
@@ -60,6 +60,8 @@ def linearcut_flow(data):
 
 def compare_linearcut_to_tradition(data):
     plt.figure()
+    plt.xlabel('Length(m)')
+    plt.ylabel(r'As($m^2$)')
     data.zero_line()
     data.min_line()
     data.boundary_line()
@@ -104,7 +106,7 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190518 173012 SmartCut 欣詮.xlsx'
+    input_file = '../data/20190518 170312 SmartCut LowSeismic 4Floor 12M.xlsx'
 
     path = f'{script_dir}/{input_file}'
 
@@ -125,10 +127,10 @@ def main():
     # data.boundary_line(0.45)
 
     v_demand(data)
-    # etabs_to_addedld_sol(data)
-    # tradition_flow(data)
-    # linearcut_flow(data)
-    # compare_linearcut_to_tradition(data)
+    etabs_to_addedld_sol(data)
+    tradition_flow(data)
+    linearcut_flow(data)
+    compare_linearcut_to_tradition(data)
 
     plt.show()
 
