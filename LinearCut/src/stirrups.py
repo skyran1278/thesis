@@ -189,6 +189,23 @@ def _merge_segments(beam, etabs_design, stirrup_spacing):
     return beam, etabs_design
 
 
+def _calc_spacing_length(df, idx):
+    idx0, idx1 = idx
+
+    spacing = np.empty(3)
+    length = np.empty(3)
+
+    spacing[0] = df.loc[:idx0, 'UsrSpacing'].min()
+    spacing[1] = df.loc[idx0:idx1, 'UsrSpacing'].min()
+    spacing[2] = df.loc[idx1:, 'UsrSpacing'].min()
+
+    length[0] = df.loc[idx0, 'StnLoc'] - df['StnLoc'].min()
+    length[1] = df.loc[idx1, 'StnLoc'] - df.loc[idx0, 'StnLoc']
+    length[2] = df['StnLoc'].max() - df.loc[idx1, 'StnLoc']
+
+    return spacing, length
+
+
 def _cut_3(beam, etabs_design, usr_spacing):
     """
     轉換成 usr defined spacing
@@ -196,32 +213,6 @@ def _cut_3(beam, etabs_design, usr_spacing):
     drop size
     輸出
     """
-    def _calc_spacing_length(df, idx):
-        idx0, idx1 = idx
-
-        spacing = np.empty(3)
-        length = np.empty(3)
-
-        usr_s = usr_spacing
-
-        # 如果是雙箍，代表有潛力可以 drop，所以放寬 usr spacing 變成兩倍。
-        # 反正到最後也會被 drop 掉，不會超過 30。
-        if v_size[0] == '2':
-            usr_s = np.sort(np.unique(np.append(usr_spacing, usr_spacing * 2)))
-
-        spacing[0] = df.loc[:idx0, 'Spacing'].min()
-        spacing[1] = df.loc[idx0:idx1, 'Spacing'].min()
-        spacing[2] = df.loc[idx1:, 'Spacing'].min()
-
-        spacing[0] = usr_s[spacing[0] >= usr_s][-1]
-        spacing[1] = usr_s[spacing[1] >= usr_s][-1]
-        spacing[2] = usr_s[spacing[2] >= usr_s][-1]
-
-        length[0] = df.loc[idx0, 'StnLoc'] - df['StnLoc'].min()
-        length[1] = df.loc[idx1, 'StnLoc'] - df.loc[idx0, 'StnLoc']
-        length[2] = df['StnLoc'].max() - df.loc[idx1, 'StnLoc']
-
-        return spacing, length
 
     def _drop_size(v_size, spacing):
         if (v_size[0] == '2') & (spacing / 2 >= usr_spacing[0]):
@@ -238,11 +229,25 @@ def _cut_3(beam, etabs_design, usr_spacing):
 
     row = 0
     for _, group in etabs_design.groupby(['Story', 'BayID'], sort=False):
+        group = group.copy()
+
         # initial
         min_usage = float('Inf')
 
         # rebar size with double
         v_size = group['VSize'].iloc[0]
+
+        # 如果是雙箍，代表有潛力可以 drop，所以放寬 usr spacing 變成兩倍。
+        # 反正到最後也會被 drop 掉，不會超過 30。
+        group_spacing = np.copy(usr_spacing)
+
+        if v_size[0] == '2':
+            group_spacing = np.sort(
+                np.unique(np.append(usr_spacing, usr_spacing * 2)))
+
+        # 轉換成指定的間距
+        group.loc[:, 'UsrSpacing'] = group['Spacing'].apply(
+            lambda x, spacing=group_spacing: spacing[x >= spacing][-1])
 
         seismic_area = 2 * group['H'].iloc[0]
 
@@ -251,10 +256,10 @@ def _cut_3(beam, etabs_design, usr_spacing):
             (group['StnLoc'] < group['StnLoc'].max() - seismic_area)
         )
 
-        # diff_area = (
-        #     (group['UsrSpacing'].diff() != 0) |
-        #     (group['UsrSpacing'].diff().shift(-1) != 0)
-        # )
+        diff_area = (
+            (group['UsrSpacing'].diff() != 0) |
+            (group['UsrSpacing'].diff().shift(-1) != 0)
+        )
 
         # 梁深太深，例外處理
         # 1/4, 3/4
@@ -269,13 +274,11 @@ def _cut_3(beam, etabs_design, usr_spacing):
             combination_area.loc[
                 combination_area[group['StnLoc'] <= ((amax - amin) * 3/4 + amin)].index[-1]] = True
 
-        # idx = (
-        #     group.index[combination_area][0],
-        #     *group.index[diff_area & combination_area],
-        #     group.index[combination_area][-1]
-        # )
-
-        idx = group.index[combination_area]
+        idx = (
+            group.index[combination_area][0],
+            *group.index[diff_area & combination_area],
+            group.index[combination_area][-1]
+        )
 
         for idx0, idx1 in combinations(idx, 2):
             spacing, length = _calc_spacing_length(group, (idx0, idx1))
