@@ -80,7 +80,7 @@ def test_stirrups_3():
 
     dh_design_cols = [
         ('VRebarConsiderVc'), ('VSize'), ('Spacing'),
-        ('UsrSpacing'), ('RealVSize'), ('RealSpacing')
+        ('RealVSize'), ('RealSpacing')
     ]
 
     beam_data = np.array(
@@ -88,7 +88,7 @@ def test_stirrups_3():
 
     # 原始數據沒有四捨五入
     dh_design_data = np.array(
-        [0.00210399995557964, '#4', 0.12043726490012673, 0.12, '#4', 0.12], dtype=object)
+        [0.00210399995557964, '#4', 0.12043726490012673, '#4', 0.12], dtype=object)
 
     np.testing.assert_array_equal(
         beam.loc[0, beam_cols].values, beam_data)
