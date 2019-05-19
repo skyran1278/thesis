@@ -65,18 +65,17 @@ def cut_multiple(df, col, boundary, group_num=5):
             min_num = num.copy()
             min_length = length.copy()
 
-    print(df.head(1))
     # for local maxima
     # for local minima
     # input should be numpy array
     # return tuple
-    incompatible = ((min_usage == float('Inf')) | (
+    incompatible = ((min_usage == float('Inf')) or (
         (argrelextrema(min_num, np.greater)[0].size > 0) &
         (argrelextrema(min_num, np.less)[0].size > 0)
     ))
 
     if incompatible:
-        print('\n\nINCOMPATIBLE\n\n')
+        print(f'Retreat to {group_num - 1}')
         return cut_multiple(df, col, boundary, group_num - 1)
 
     return min_num, min_length, min_usage

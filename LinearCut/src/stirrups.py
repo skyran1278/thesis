@@ -87,17 +87,27 @@ def seismic_spacing(df):
 
     # 第一個閉合箍筋距支承構材面不得超過 5 cm。閉合箍筋最大間距不得超過
     # (1)d / 4，(2)最小主鋼筋直徑之 8 倍，(3)閉合箍筋直徑之 24 倍，及(4)30 cm。
-    spacing = np.maximum.reduce([
+    spacing = np.minimum.reduce([
         (df['H'] - 0.065) / 4,
         rebar_db(df['VSize']) * 24,
         0.3
     ])
 
+    # 圍束區
+    df['Spacing'] = np.where(
+        (
+            (df['StnLoc'] < seismic_area + amin) |
+            (df['StnLoc'] > amax - seismic_area)
+        ),
+        new_av,
+        df['VRebar']
+    )
+
     # pandas where 與 numpy where 相反
     # Replace values where the condition is False.
     df['Spacing'].where(
         (
-            (df['StnLoc'] > seismic_area + amin) |
+            (df['StnLoc'] > seismic_area + amin) &
             (df['StnLoc'] < amax - seismic_area)
         ),
         spacing
@@ -239,6 +249,7 @@ def _cut_3(beam, etabs_design, usr_spacing):
 
         # 如果是雙箍，代表有潛力可以 drop，所以放寬 usr spacing 變成兩倍。
         # 反正到最後也會被 drop 掉，不會超過 30。
+        # 這裡其實有等值的意涵存在。
         group_spacing = np.copy(usr_spacing)
 
         if v_size[0] == '2':
