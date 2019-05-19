@@ -25,11 +25,12 @@ def v_demand(data):
     data.zero_line()
     data.seismic_line()
     data.v_min_line()
+    data.boundary_line(0.25)
 
-    data.etabs_v_demand_line('red')
+    data.etabs_v_demand_line('blue')
     data.v_consider_vc_demand_line('blue')
 
-    # data.v_rabar_line('blue', '傳統斷筋')
+    data.v_rabar_line('red', '傳統斷筋')
     data.v_rabar_line('green', '多點斷筋')
 
 
@@ -91,7 +92,7 @@ def to_excel_orderby_effect(data, path):
     df['箍筋效果'] = df['箍筋量'] / tradition['箍筋量']
 
     grouped = df.groupby(
-        lambda x: (df.loc[x // 4 * 4, '主筋效果'].values[0], x // 4))
+        lambda x: (df.loc[x // 4 * 4, '箍筋效果'].values[0], x // 4))
 
     df = pd.DataFrame()
     for _, group in grouped:
@@ -106,7 +107,7 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190518 170312 SmartCut LowSeismic 4Floor 12M.xlsx'
+    input_file = '../data/20190518 173012 SmartCut 欣詮.xlsx'
 
     path = f'{script_dir}/{input_file}'
 
@@ -114,7 +115,10 @@ def main():
 
     # to_excel_orderby_effect(data, path)
 
-    data.put_index(0)
+    for index in (208, 1380, 1532, 124, 144, 1068, 72):
+        # for index in (8, 1, 4, 40, 16, 24):
+        # for index in range(0, data.design.get_len(), 4):
+        data.put_index(index)
 
     # plt.figure()
     # data.zero_line()
@@ -126,11 +130,23 @@ def main():
     # data.boundary_line()
     # data.boundary_line(0.45)
 
-    v_demand(data)
-    etabs_to_addedld_sol(data)
-    tradition_flow(data)
-    linearcut_flow(data)
-    compare_linearcut_to_tradition(data)
+        v_demand(data)
+    # plt.figure()
+    # plt.xlabel('Length(m)')
+    # plt.ylabel(r'As($m^2$)')
+    # data.zero_line()
+    # data.min_line()
+    # data.boundary_line()
+
+    # data.etabs_demand_line('green')
+    # data.demand_line('gray')
+
+    # data.rebar_line('gray', '傳統斷筋')
+    # data.rebar_line('blue', '多點斷筋')
+    # etabs_to_addedld_sol(data)
+    # tradition_flow(data)
+    # linearcut_flow(data)
+        # compare_linearcut_to_tradition(data)
 
     plt.show()
 
