@@ -17,7 +17,14 @@ mid_seismic_4floor_12m = {
     'displacement': 0.4,
 }
 
-CONFIG = low_seismic_4floor_12m
+high_seismic_4floor_6m = {
+    'factors': [1, 1.619, 1.846, 3, 5, 7, 9, 11, 13, 15],
+    'modal_participating_mass': [0.87, 0.1, 0.03],
+    'period': [0.097, 0.097 / 10],
+    'displacement': 0.4,
+}
+
+CONFIG = high_seismic_4floor_6m
 
 
 def put_timehistorys(time_historys, peernga_folder):
