@@ -107,7 +107,7 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190518 173012 SmartCut 欣詮.xlsx'
+    input_file = '../data/20190520 104202 SmartCut.xlsx'
 
     path = f'{script_dir}/{input_file}'
 
@@ -115,9 +115,10 @@ def main():
 
     # to_excel_orderby_effect(data, path)
 
-    for index in (208, 1380, 1532, 124, 144, 1068, 72):
-        # for index in (8, 1, 4, 40, 16, 24):
-        # for index in range(0, data.design.get_len(), 4):
+    # for index in (208, 1380, 1532, 124, 144, 1068, 72):
+    #     # for index in (8, 1, 4, 40, 16, 24):
+    #     # for index in range(0, data.design.get_len(), 4):
+    for index in (0, 620, 692, 764, 1472, 1324, 1204, 1332):
         data.put_index(index)
 
     # plt.figure()

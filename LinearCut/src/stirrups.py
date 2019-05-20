@@ -73,7 +73,7 @@ def _upgrade_size(etabs_design, stirrup_rebar, stirrup_spacing, v_rebar):
     return etabs_design
 
 
-def seismic_spacing(df):
+def check_seismic_spacing(df, usr_spacing):
     """
     seismic check 15.4.3.2
     but 有效深度不確定 and 主筋直徑不確定, so 先不用
@@ -87,31 +87,82 @@ def seismic_spacing(df):
 
     # 第一個閉合箍筋距支承構材面不得超過 5 cm。閉合箍筋最大間距不得超過
     # (1)d / 4，(2)最小主鋼筋直徑之 8 倍，(3)閉合箍筋直徑之 24 倍，及(4)30 cm。
-    spacing = np.minimum.reduce([
+    seismic_spacing = np.minimum(
         (df['H'] - 0.065) / 4,
-        rebar_db(df['VSize']) * 24,
-        0.3
-    ])
+        df['VSize'].apply(lambda x: rebar_db(x) * 24),
+    )
 
-    # 圍束區
+    # 由於 reduce 陣列不相等會造成問題，就算可以 broadcase 也是一樣。
+    # 所以分成兩次
+    seismic_spacing = np.minimum(
+        seismic_spacing,
+        0.3,
+    )
+
+    # 由於可能會遇到小梁，而小梁不用做耐震。
+    # 但現在程式還無法判斷小梁，所以設立最小間距 > usr defind spacing
+    seismic_spacing = np.maximum(
+        seismic_spacing,
+        usr_spacing[0],
+    )
+
+
+    spacing = (df['H'] - 0.065) / 2
+
+    # x = df['Spacing'].copy()
+    # print(df['Spacing'])
+
+    df['Spacing'] = np.where(
+        df['VSize'].str[0] == '2',
+        np.minimum(spacing * 2, df['Spacing']),
+        df['Spacing']
+    )
+
+    # print(df['Spacing'].equals(x))
+
+    df['Spacing'] = np.where(
+        df['VSize'].str[0] != '2',
+        np.minimum(spacing, df['Spacing']),
+        df['Spacing']
+    )
+    # print(df['Spacing'].equals(x))
+
     df['Spacing'] = np.where(
         (
-            (df['StnLoc'] < seismic_area + amin) |
-            (df['StnLoc'] > amax - seismic_area)
+            (
+                (df['StnLoc'] < seismic_area + amin) |
+                (df['StnLoc'] > amax - seismic_area)
+            ) & (
+                df['VSize'].str[0] == '2'
+            )
         ),
-        new_av,
-        df['VRebar']
+        np.minimum(seismic_spacing * 2, df['Spacing']),
+        df['Spacing']
     )
 
-    # pandas where 與 numpy where 相反
-    # Replace values where the condition is False.
-    df['Spacing'].where(
+    df['Spacing'] = np.where(
         (
-            (df['StnLoc'] > seismic_area + amin) &
-            (df['StnLoc'] < amax - seismic_area)
+            (
+                (df['StnLoc'] < seismic_area + amin) |
+                (df['StnLoc'] > amax - seismic_area)
+            ) & (
+                df['VSize'].str[0] != '2'
+            )
         ),
-        spacing
+        np.minimum(seismic_spacing, df['Spacing']),
+        df['Spacing']
     )
+
+    # # 圍束區
+    # # pandas where 與 numpy where 相反
+    # # Replace values where the condition is False.
+    # df['Spacing'].where(
+    #     (
+    #         (df['StnLoc'] > seismic_area + amin) &
+    #         (df['StnLoc'] < amax - seismic_area)
+    #     ),
+    #     spacing
+    # )
 
     return df
 
@@ -138,10 +189,21 @@ def _merge_segments(beam, etabs_design, stirrup_spacing):
         group_max = np.amax(group['StnLoc'])
         group_min = np.amin(group['StnLoc'])
 
+        clear_span = (group_max - group_min)
+
+        # 1/4, 2h 取大值
+        side_length = max(
+            clear_span * 1/4,
+            2 * group['H'].iloc[0]
+        )
+
+        if 2 * side_length >= clear_span:
+            side_length = clear_span * 1/4
+
         # x < 1/4
-        left = (group_max - group_min) * 1/4 + group_min
+        left = side_length + group_min
         # x > 3/4
-        right = (group_max - group_min) * 3/4 + group_min
+        right = group_max - side_length
 
         # rebar size with double
         rebar_size = group['VSize'].iloc[0]
@@ -156,9 +218,9 @@ def _merge_segments(beam, etabs_design, stirrup_spacing):
         # 這裡可能會有不保守的狀況，但沒關係，其實差不多
         # 因為不是真的落在有限的點上。
         group_length = {
-            '左': (group_max - group_min) * 1/4,
-            '中': (group_max - group_min) * 2/4,
-            '右': (group_max - group_min) * 1/4
+            '左': side_length,
+            '中': (group_max - group_min) - 2 * side_length,
+            '右': side_length
         }
 
         for loc in ('左', '中', '右'):
@@ -348,6 +410,7 @@ def calc_stirrups(beam, etabs_design, const, consider_vc=False):
     etabs_design = _calc_init_dbt_spacing(etabs_design, stirrup_rebar, v_rebar)
     etabs_design = _upgrade_size(
         etabs_design, stirrup_rebar, stirrup_spacing, v_rebar)
+    etabs_design = check_seismic_spacing(etabs_design, stirrup_spacing)
     beam, etabs_design = _merge_segments(beam, etabs_design, stirrup_spacing)
 
     return beam, etabs_design
@@ -369,6 +432,7 @@ def calc_stirrups_3(beam, etabs_design, const, consider_vc=False):
     etabs_design = _calc_init_dbt_spacing(etabs_design, stirrup_rebar, v_rebar)
     etabs_design = _upgrade_size(
         etabs_design, stirrup_rebar, stirrup_spacing, v_rebar)
+    etabs_design = check_seismic_spacing(etabs_design, stirrup_spacing)
     beam, etabs_design = _cut_3(beam, etabs_design, stirrup_spacing)
 
     return beam, etabs_design
