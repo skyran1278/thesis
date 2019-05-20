@@ -194,7 +194,7 @@ def _main():
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
     ida.plot_all(color=(0.5, 0.5, 0.5))
-    ida.plot_interp(label='median', marker='.')
+    ida.plot_interp(label='median', linewidth=3.0)
 
     plt.xlim(0, 0.05)
     plt.ylim(0, 5)

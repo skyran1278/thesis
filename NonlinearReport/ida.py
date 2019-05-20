@@ -25,7 +25,7 @@ class IDA():
         self.max_drifts = self._init_max_damage()
 
     def _init_story(self):
-        read_file = f'{self.story_path}.xlsx'
+        read_file = self.story_path
         sheet_name = 'Story Data'
 
         df = pd.read_excel(
@@ -43,7 +43,7 @@ class IDA():
         """
         story = self._init_story()
 
-        read_file = f'{self.story_drifts_path}.xlsx'
+        read_file = self.story_drifts_path
         sheet_name = 'Story Drifts'
 
         df = pd.read_excel(
@@ -145,7 +145,7 @@ class IDA():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq)
 
-            plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
+            plt.plot(damage, intensity, marker='.', *args, **kwargs)
 
     def plot(self, earthquake, *args, **kwargs):
         """
@@ -163,36 +163,113 @@ class IDA():
 
 
 def _main():
-    earthquakes = {
-        'RSN68_SFERN_PEL090': {'sa': 0.335},
-        'RSN125_FRIULI.A_A-TMZ270': {'sa': 0.291},
-        'RSN1111_KOBE_NIS000': {'sa': 0.222},
-        'RSN848_LANDERS_CLW-LN': {'sa': 0.217},
-        'RSN1787_HECTOR_HEC000': {'sa': 0.340},
-        'RSN174_IMPVALL.H_H-E11140': {'sa': 0.195},
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.357},
-    }
+    from config import midseismic_4floor_12m as data
 
-    file_dir = os.path.dirname(os.path.abspath(__file__))
-
-    path = {
-        'story_path': file_dir + '/story',
-        'story_drifts_path': file_dir + '/story_drifts',
-    }
-
-    ida = IDA(
-        path=path,
-        earthquakes=earthquakes,
+    multi = IDA(
+        path={
+            'story_path': data['story'],
+            'story_drifts_path': data['multi'],
+        },
+        earthquakes=data['earthquakes'],
     )
+
+    tradition = IDA(
+        path={
+            'story_path': data['story'],
+            'story_drifts_path': data['tradition'],
+        },
+        earthquakes=data['earthquakes'],
+    )
+
+    tradition_end = IDA(
+        path={
+            'story_path': data['story'],
+            'story_drifts_path': data['tradition_end'],
+        },
+        earthquakes=data['earthquakes'],
+    )
+
+    color = {
+        'green': np.array([26, 188, 156]) / 256,
+        'blue': np.array([52, 152, 219]) / 256,
+        'red': np.array([233, 88, 73]) / 256,
+        'orange': np.array([230, 126, 34]) / 256,
+        'gray': np.array([0.5, 0.5, 0.5]),
+        'background': np.array([247, 247, 247]) / 256
+    }
+
+    # plt.figure()
+    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+
+    # multi.plot_all(color=color['gray'])
+    # multi.plot_interp(label='Multi-Cut', linewidth=3.0)
+    # tradition.plot_interp(label='Tradition', linewidth=3.0)
+    # tradition_end.plot_interp(label='Tradition_end', linewidth=3.0)
+
+    # plt.axvline(
+    #     0.025,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
+    # plt.axvline(
+    #     0.04,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
+
+    # plt.xlim(0, 0.05)
+    # plt.ylim(0, 5)
+    # plt.legend(loc='upper left')
 
     plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
-    ida.plot_all(color=(0.5, 0.5, 0.5))
-    ida.plot_interp(label='median', marker='.')
+    tradition_end.plot_all(color=color['gray'])
+    tradition_end.plot_interp(
+        label='Median Capacity',
+        linewidth=3.0, color=color['blue']
+    )
 
-    plt.xlim(left=0)
+    plt.axvline(
+        0.025,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.axvline(
+        0.04,
+        linestyle='--',
+        color=color['gray']
+    )
+
+    plt.xlim(0, 0.05)
+    plt.ylim(0, 5)
+    plt.legend(loc='upper left')
+
+    plt.figure()
+    plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+
+    tradition.plot_all(color=color['gray'])
+    tradition.plot_interp(
+        label='Median Capacity',
+        linewidth=3.0, color=color['green']
+    )
+
+    plt.axvline(
+        0.025,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.axvline(
+        0.04,
+        linestyle='--',
+        color=color['gray']
+    )
+
+    plt.xlim(0, 0.05)
+    plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
     plt.show()
