@@ -3,15 +3,15 @@ classdef Config
     properties
         structural_behavior_type = 'A';
 
-        SDS_SD1 = [0.66, 0.49];
-        SMS_SM1 = [0.8, 0.54];
+        SDS_SD1 = [0.8, 0.675];
+        SMS_SM1 = [1, 0.77];
 
         PF = [
-            1.279, 1.187, 1.065
+            1.259, 1.138, 1.092
         ];
 
         effective_mass = [
-            1742, 228, 83
+            451, 52, 16
         ];
 
         % roof displacement(mm), V(tonf)
