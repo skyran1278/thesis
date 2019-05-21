@@ -11,10 +11,6 @@ evalution(config, 'inverted_triangle');
 [dy(3), sdd(3), sdm(3)] = evalution(config, 'mode3');
 
 
-dy = sqrt(sum(dy .^ 2));
-sdd = sqrt(sum(sdd .^ 2));
-sdm = sqrt(sum(sdm .^ 2));
-
-Ra = sdd / dy
-R = sdm / dy
+Ra = sqrt(sum(((sdd ./ dy) .^ 2)))
+R = sqrt(sum(((sdm ./ dy) .^ 2)))
 
