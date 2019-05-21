@@ -136,14 +136,14 @@ class PlotDesign:
             self.design.get(index, ('支承寬', '右'))
         )
 
-        plt.axvline(
-            (end - start) / 4 + start, linestyle='--', color=self.c['gray'])
+        # plt.axvline(
+        #     (end - start) / 4 + start, linestyle='--', color=self.c['gray'])
         plt.axvline(
             (end - start) / 3 + start, linestyle='--', color=self.c['gray'])
         plt.axvline(
             (end - start) / 3 * 2 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 4 * 3 + start, linestyle='--', color=self.c['gray'])
+        # plt.axvline(
+        #     (end - start) / 4 * 3 + start, linestyle='--', color=self.c['gray'])
         plt.axvline(
             (end - start) / 5 + start, linestyle='--', color=self.c['gray'])
         plt.axvline(
