@@ -15,9 +15,9 @@ def etabs_to_addedld_sol(data):
     data.zero_line()
     data.min_line()
 
-    data.etabs_demand_line('blue')
+    data.etabs_demand_line('green')
 
-    data.demand_line('green')
+    # data.demand_line('green')
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
 
@@ -74,12 +74,12 @@ def compare_linearcut_to_tradition(data):
     data.zero_line()
     data.min_line()
     data.tradition_boundary_line()
-    # data.boundary_line()
+    data.boundary_line()
 
-    # data.etabs_demand_line('blue')
-    # data.demand_line('blue')
+    data.etabs_demand_line('blue')
+    data.demand_line('blue')
 
-    data.rebar_line('blue', '傳統斷筋')
+    data.rebar_line('gray', '傳統斷筋')
     data.rebar_line('green', '多點斷筋')
 
 
@@ -116,11 +116,17 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    input_file = '../data/20190518 170312 SmartCut LowSeismic 4Floor 12M.xlsx'
+    input_file = '../data/HighSeismic 4Floor 6M.xlsx'
 
     path = f'{script_dir}/{input_file}'
 
     data = PlotDesign(path)
+
+    input_file = '../data/LowSeismic 4Floor 12M.xlsx'
+
+    path = f'{script_dir}/{input_file}'
+
+    data2 = PlotDesign(path)
 
     # to_excel_orderby_effect(data, path)
 
@@ -128,7 +134,19 @@ def main():
     #     # for index in (8, 1, 4, 40, 16, 24):
     # for index in range(0, data.design.get_len(), 4):
     # for index in (0, 620, 692, 764, 1472, 1324, 1204, 1332):
-    data.put_index(0)
+    data2.put_index(0)
+    data.put_index(44)
+
+    plt.figure()
+
+    data.zero_line()
+
+    data.etabs_demand_line('blue')
+    data2.etabs_demand_line('green')
+
+    # data.demand_line('green')
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
 
     # plt.figure()
     # data.zero_line()
@@ -155,9 +173,9 @@ def main():
 
     # data.rebar_line('gray', '傳統斷筋')
     # data.rebar_line('blue', '多點斷筋')
-    etabs_to_addedld_sol(data)
+    etabs_to_addedld_sol(data2)
     # tradition_flow(data)
-    linearcut_flow(data)
+    # linearcut_flow(data)
     compare_linearcut_to_tradition(data)
 
     plt.show()
