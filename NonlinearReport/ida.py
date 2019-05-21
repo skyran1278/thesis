@@ -218,12 +218,14 @@ def _main():
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
     multi.plot_all(color=color['gray'])
-    tradition.plot_all(color=color['gray'])
+    # tradition.plot_all(color=color['gray'])
+    # tradition_end.plot_all(color=color['gray'])
     multi.plot_interp(
         label='Multi-Cut', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
-        label='Tradition', linewidth=3.0, color=color['blue'])
-    # tradition_end.plot_interp(label='Tradition_end', linewidth=3.0)
+        label='Multi-Hinges', linewidth=3.0, color=color['blue'])
+    # tradition_end.plot_interp(
+    #     label='Hinges Only On Ends', linewidth=3.0, color=color['blue'])
 
     plt.axvline(
         0.025,
@@ -245,7 +247,7 @@ def _main():
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
     multi.plot_all(log=True, color=color['gray'])
-    tradition.plot_all(log=True, color=color['gray'])
+    # tradition.plot_all(log=True, color=color['gray'])
     multi.plot_interp(
         log=True, label='Multi-Cut', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
