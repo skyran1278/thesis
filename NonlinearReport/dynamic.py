@@ -3,6 +3,7 @@ ida data and function
 """
 import os
 
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -23,7 +24,7 @@ class Dynamic():
         self.max_drifts = self._init_max_damage()
 
     def _init_story(self):
-        read_file = f'{self.story_path}.xlsx'
+        read_file = self.story_path
         sheet_name = 'Story Data'
 
         df = pd.read_excel(
@@ -41,7 +42,7 @@ class Dynamic():
         """
         story = self._init_story()
 
-        read_file = f'{self.story_drifts_path}.xlsx'
+        read_file = self.story_drifts_path
         sheet_name = 'Story Drifts'
 
         df = pd.read_excel(
@@ -166,50 +167,93 @@ class Dynamic():
 
 
 def _main():
-    scaled_facotrs = {
-        'DBE': 1.746,
-        'MCE': 1.924,
-    }
-    earthquakes = {
-        'RSN68_SFERN_PEL090': {'sa': 0.335},
-        'RSN125_FRIULI.A_A-TMZ270': {'sa': 0.291},
-        'RSN1111_KOBE_NIS000': {'sa': 0.222},
-        'RSN848_LANDERS_CLW-LN': {'sa': 0.217},
-        'RSN1787_HECTOR_HEC000': {'sa': 0.340},
-        'RSN174_IMPVALL.H_H-E11140': {'sa': 0.195},
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.357},
-    }
+    from config import lowseismic_4floor_12m as data
 
-    file_dir = os.path.dirname(os.path.abspath(__file__))
+    multi = Dynamic(
+        path={
+            'story_path': data['story'],
+            'story_drifts_path': data['multi'],
+        },
+        earthquakes=data['earthquakes'],
+        scaled_facotrs=data['scaled_facotrs']
+    )
 
-    path = {
-        'story_path': file_dir + '/story',
-        'story_drifts_path': file_dir + '/story_drifts',
+    tradition = Dynamic(
+        path={
+            'story_path': data['story'],
+            'story_drifts_path': data['tradition'],
+        },
+        earthquakes=data['earthquakes'],
+        scaled_facotrs=data['scaled_facotrs']
+    )
+
+    color = {
+        'green': np.array([26, 188, 156]) / 256,
+        'blue': np.array([52, 152, 219]) / 256,
+        'red': np.array([233, 88, 73]) / 256,
+        'orange': np.array([230, 126, 34]) / 256,
+        'gray': np.array([0.5, 0.5, 0.5]),
+        'background': np.array([247, 247, 247]) / 256
     }
-
-    ida = Dynamic(path, earthquakes, scaled_facotrs)
 
     plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height(m)')
 
-    ida.plot_all(color=(0.5, 0.5, 0.5), kind='DBE')
-    ida.plot_interp(label='median', kind='DBE')
-    ida.plot_mean(label='mean', kind='DBE')
+    tradition.plot_all(color=color['gray'], kind='DBE')
+    tradition.plot_interp(label='median', kind='DBE')
+    tradition.plot_mean(label='mean', kind='DBE')
 
-    plt.xlim(right=0.01)
+    plt.axvline(
+        0.015,
+        linestyle='--',
+        color=color['gray']
+    )
     plt.legend(loc='upper right')
 
     plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height(m)')
 
-    # ida.plot('RSN68_SFERN_PEL090')
-    ida.plot_all(color=(0.5, 0.5, 0.5), kind='MCE')
-    ida.plot_interp(label='median', kind='MCE')
-    ida.plot_mean(label='mean', kind='MCE')
+    tradition.plot_all(color=color['gray'], kind='MCE')
+    tradition.plot_interp(label='median', kind='MCE')
+    tradition.plot_mean(label='mean', kind='MCE')
 
-    plt.xlim(right=0.01)
+    plt.axvline(
+        0.02,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.legend(loc='upper right')
+
+    plt.figure()
+    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel('Height(m)')
+
+    multi.plot_all(color=color['gray'], kind='DBE')
+    multi.plot_interp(label='median', kind='DBE')
+    multi.plot_mean(label='mean', kind='DBE')
+
+    plt.axvline(
+        0.015,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.legend(loc='upper right')
+
+    plt.figure()
+    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel('Height(m)')
+
+    multi.plot_all(color=color['gray'], kind='MCE')
+    multi.plot_interp(label='median', kind='MCE')
+    multi.plot_mean(label='mean', kind='MCE')
+
+    plt.axvline(
+        0.02,
+        linestyle='--',
+        color=color['gray']
+    )
     plt.legend(loc='upper right')
 
     plt.show()
