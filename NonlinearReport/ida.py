@@ -221,9 +221,9 @@ def _main():
     # tradition.plot_all(color=color['gray'])
     # tradition_end.plot_all(color=color['gray'])
     multi.plot_interp(
-        label='Multi-Cut', linewidth=3.0, color=color['green'])
+        label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
-        label='Multi-Hinges', linewidth=3.0, color=color['blue'])
+        label='Tradition', linewidth=3.0, color=color['blue'])
     # tradition_end.plot_interp(
     #     label='Hinges Only On Ends', linewidth=3.0, color=color['blue'])
 
@@ -249,7 +249,7 @@ def _main():
     multi.plot_all(log=True, color=color['gray'])
     # tradition.plot_all(log=True, color=color['gray'])
     multi.plot_interp(
-        log=True, label='Multi-Cut', linewidth=3.0, color=color['green'])
+        log=True, label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
         log=True, label='Tradition', linewidth=3.0, color=color['blue'])
     # tradition_end.plot_interp(label='Tradition_end', linewidth=3.0)

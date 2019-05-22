@@ -201,8 +201,10 @@ def _main():
     plt.ylabel('Height(m)')
 
     tradition.plot_all(color=color['gray'], kind='DBE')
-    tradition.plot_interp(label='median', kind='DBE')
-    tradition.plot_mean(label='mean', kind='DBE')
+    tradition.plot_interp(
+        color=color['green'], label='median', kind='DBE')
+    tradition.plot_mean(
+        color=color['blue'], label='mean', kind='DBE')
 
     plt.axvline(
         0.015,
@@ -216,8 +218,10 @@ def _main():
     plt.ylabel('Height(m)')
 
     tradition.plot_all(color=color['gray'], kind='MCE')
-    tradition.plot_interp(label='median', kind='MCE')
-    tradition.plot_mean(label='mean', kind='MCE')
+    tradition.plot_interp(
+        color=color['green'], label='median', kind='MCE')
+    tradition.plot_mean(
+        color=color['blue'], label='mean', kind='MCE')
 
     plt.axvline(
         0.02,
@@ -231,8 +235,10 @@ def _main():
     plt.ylabel('Height(m)')
 
     multi.plot_all(color=color['gray'], kind='DBE')
-    multi.plot_interp(label='median', kind='DBE')
-    multi.plot_mean(label='mean', kind='DBE')
+    multi.plot_interp(
+        color=color['green'], label='median', kind='DBE')
+    multi.plot_mean(
+        color=color['blue'], label='mean', kind='DBE')
 
     plt.axvline(
         0.015,
@@ -246,8 +252,10 @@ def _main():
     plt.ylabel('Height(m)')
 
     multi.plot_all(color=color['gray'], kind='MCE')
-    multi.plot_interp(label='median', kind='MCE')
-    multi.plot_mean(label='mean', kind='MCE')
+    multi.plot_interp(
+        color=color['green'], label='median', kind='MCE')
+    multi.plot_mean(
+        color=color['blue'], label='mean', kind='MCE')
 
     plt.axvline(
         0.02,
