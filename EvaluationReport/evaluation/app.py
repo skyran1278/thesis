@@ -160,17 +160,17 @@ def main():
     # data.min_line()
     # data.boundary_line()
 
-    # data.etabs_demand_line('green')
+    data2.etabs_demand_line('green', label='需求鋼筋量')
     # data.demand_line('gray')
 
-    data2.rebar_line('gray', '多點斷筋')
+    # data2.rebar_line('gray', '多點斷筋')
 
     # etabs_to_addedld_sol(data2)
     # tradition_flow(data)
     # linearcut_flow(data)
     # compare_linearcut_to_tradition(data)
     # compare_linearcut_to_tradition(data2)
-
+    plt.legend(loc='upper left')
     plt.show()
 
 

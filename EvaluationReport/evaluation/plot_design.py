@@ -199,16 +199,16 @@ class PlotDesign:
 
         return df
 
-    def etabs_demand_line(self, color):
+    def etabs_demand_line(self, color, *args, **kwargs):
         """
         ETABS Demand
         """
         df = self.etabs_design_on_index()
 
         plt.plot(
-            df['StnLoc'], df['AsTop'], color=self.c[color], linewidth=self.linewidth)
+            df['StnLoc'], df['AsTop'], color=self.c['green'], linewidth=self.linewidth)
         plt.plot(
-            df['StnLoc'], -df['AsBot'], color=self.c[color], linewidth=self.linewidth)
+            df['StnLoc'], -df['AsBot'], color=self.c['blue'], linewidth=self.linewidth)
 
     def seismic_line(self):
         """
