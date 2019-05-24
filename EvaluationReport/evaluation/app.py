@@ -13,13 +13,14 @@ def etabs_to_addedld_sol(data):
     plt.figure()
 
     data.zero_line()
-    data.min_line()
+    # data.min_line()
 
-    data.etabs_demand_line('green')
+    data.etabs_demand_line('blue', linestyle='--')
 
-    # data.demand_line('green')
+    data.demand_line('green', label='Consider $l_d$')
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.subplots_adjust(left=0.15)
 
 
 def v_demand(data):
@@ -42,6 +43,8 @@ def tradition_flow(data):
     plt.figure()
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.subplots_adjust(left=0.15)
+
     data.zero_line()
 
     data.tradition_boundary_line()
@@ -57,6 +60,8 @@ def linearcut_flow(data):
     data.zero_line()
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.subplots_adjust(left=0.15)
+
     data.min_line()
     data.boundary_line()
 
@@ -70,7 +75,8 @@ def linearcut_flow(data):
 def compare_linearcut_to_tradition(data):
     plt.figure()
     plt.xlabel('Length(m)')
-    plt.ylabel(r'As($m^2$)')
+    plt.ylabel('As($m^2$)')
+    plt.subplots_adjust(left=0.15)
     data.zero_line()
     data.min_line()
     # data.tradition_boundary_line()
@@ -133,6 +139,7 @@ def main():
     data2.zero_line()
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.subplots_adjust(left=0.15)
     # data2.rebar_line('green', '傳統斷筋')
 
     # data.etabs_demand_line('blue')
@@ -165,7 +172,7 @@ def main():
 
     # data2.rebar_line('gray', '多點斷筋')
 
-    # etabs_to_addedld_sol(data2)
+    etabs_to_addedld_sol(data2)
     # tradition_flow(data)
     # linearcut_flow(data)
     # compare_linearcut_to_tradition(data)

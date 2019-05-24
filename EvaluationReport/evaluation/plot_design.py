@@ -36,7 +36,7 @@ class PlotDesign:
 
         self.index = None
 
-    def demand_line(self, color):
+    def demand_line(self, color, *args, **kwargs):
         """
         Real Solution
         """
@@ -51,12 +51,14 @@ class PlotDesign:
         plt.plot(
             df['StnLoc'],
             df['BarTopNumLd'] * top_size_area,
-            color=self.c[color], linewidth=self.linewidth
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
         )
         plt.plot(
             df['StnLoc'],
             - df['BarBotNumLd'] * bot_size_area,
-            color=self.c[color], linewidth=self.linewidth
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
         )
 
     def v_rabar_line(self, color, df='多點斷筋'):
@@ -206,9 +208,9 @@ class PlotDesign:
         df = self.etabs_design_on_index()
 
         plt.plot(
-            df['StnLoc'], df['AsTop'], color=self.c['green'], linewidth=self.linewidth)
+            df['StnLoc'], df['AsTop'], color=self.c[color], linewidth=self.linewidth, *args, **kwargs)
         plt.plot(
-            df['StnLoc'], -df['AsBot'], color=self.c['blue'], linewidth=self.linewidth)
+            df['StnLoc'], -df['AsBot'], color=self.c[color], linewidth=self.linewidth, *args, **kwargs)
 
     def seismic_line(self):
         """
