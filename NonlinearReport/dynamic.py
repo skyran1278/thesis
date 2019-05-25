@@ -167,7 +167,7 @@ class Dynamic():
 
 
 def _main():
-    from config import lowseismic_4floor_12m as data
+    from config import data
 
     multi = Dynamic(
         path={

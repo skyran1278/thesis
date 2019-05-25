@@ -44,3 +44,28 @@ lowseismic_4floor_12m = {
     'multi': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Multi/story_drifts.xlsx',
     'tradition': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts.xlsx',
 }
+
+highseismic_4floor_6m = {
+    'scaled_facotrs': {
+        'DBE': 1.619,
+        'MCE': 1.846,
+    },
+    'earthquakes': {
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.525},
+        'RSN900_LANDERS_YER270': {'sa': 0.377},
+        'RSN953_NORTHR_MUL279': {'sa': 0.837},
+        'RSN960_NORTHR_LOS000': {'sa': 0.479},
+        'RSN1111_KOBE_NIS000': {'sa': 0.563},
+        'RSN1116_KOBE_SHI000': {'sa': 0.839},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.204},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.363},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.968},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.375},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.363},
+    },
+    'story': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/Multi/story.xlsx',
+    'multi': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Multi/story_drifts.xlsx',
+    'tradition': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Tradition/story_drifts.xlsx',
+}
+
+data = highseismic_4floor_6m

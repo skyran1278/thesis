@@ -178,7 +178,7 @@ class IDA():
 
 
 def _main():
-    from config import lowseismic_4floor_12m as data
+    from config import data
 
     multi = IDA(
         path={
