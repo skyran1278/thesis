@@ -6,21 +6,28 @@ import shlex
 low_seismic_4floor_12m = {
     'factors': [0.663, 0.884, 2, 3, 5, 7, 9, 11, 13, 15],
     'modal_participating_mass': [0.853, 0.106, 0.034],
-    'period': [0.095, 0.095 / 10],
+    'period': [],
     'displacement': 0.4,
 }
 
 mid_seismic_4floor_12m = {
     'factors': [1.071, 1.181, 2, 3, 5, 7, 9, 11, 13, 15],
     'modal_participating_mass': [0.844, 0.111, 0.036],
-    'period': [0.084, 0.084 / 10],
+    'period': [],
     'displacement': 0.4,
 }
 
 high_seismic_4floor_6m = {
     'factors': [1, 1.619, 1.846, 3, 5, 7, 9],
     'modal_participating_mass': [0.87, 0.1, 0.03],
-    'period': [0.097, 0.097 / 10],
+    'period': [],
+    'displacement': 0.3,
+}
+
+high_seismic_4floor_6m = {
+    'factors': [1, 1.444, 1.805, 3, 5, 7, 9],
+    'modal_participating_mass': [0.88, 0.09, 0.02],
+    'period': [0.763, 0.241],
     'displacement': 0.3,
 }
 
@@ -198,8 +205,10 @@ def post_timehistorys_loadcases(time_historys, period, initial_condition, direct
 
     LOADCASE "timehistory"  PRODAMPTYPE  "Period"  T1  0.344 DAMP1  0.05 T2  0.088 DAMP2  0.05
 
-    LOADCASE "timehistory"  MODALDAMPTYPE  "Constant"  CONSTDAMP  0.05
-    CONSIDERMAXMODALFREQ  "Yes"  MAXCONSIDEREDMODALFREQ  100
+    # LOADCASE "timehistory"  MODALDAMPTYPE  "Constant"  CONSTDAMP  0.05
+    # CONSIDERMAXMODALFREQ  "Yes"  MAXCONSIDEREDMODALFREQ  100
+
+    LOADCASE "timehistory"  MODALDAMPTYPE  "None"
 
     LOADCASE "timehistory"  USEEVENTSTEPPING  "No"
     """
@@ -234,9 +243,16 @@ def post_timehistorys_loadcases(time_historys, period, initial_condition, direct
                 f'T2  {period[1]} DAMP2  0.05\n'
             )
             loadcases.append(
-                f'LOADCASE "{name}"  MODALDAMPTYPE  "Constant"  CONSTDAMP  0.05 '
-                f'CONSIDERMAXMODALFREQ  "Yes"  MAXCONSIDEREDMODALFREQ  100 \n'
+                f'LOADCASE "{name}"  MODALDAMPTYPE  "None"\n'
             )
+            # loadcases.append(
+            #     f'LOADCASE "{name}"  PRODAMPTYPE  "Period"  T1  {period[0]} DAMP1  0.005 '
+            #     f'T2  {period[1]} DAMP2  0.05\n'
+            # )
+            # loadcases.append(
+            #     f'LOADCASE "{name}"  MODALDAMPTYPE  "Constant"  CONSTDAMP  0.05 '
+            #     f'CONSIDERMAXMODALFREQ  "Yes"  MAXCONSIDEREDMODALFREQ  100 \n'
+            # )
             loadcases.append(f'LOADCASE "{name}"  USEEVENTSTEPPING  "No"\n')
 
     return loadcases
