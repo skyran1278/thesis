@@ -15,6 +15,11 @@ high_seismic_4floor_6m = {
   'ss_s1', [0.8, 0.675, 1, 0.77];
 };
 
+high_seismic_4floor_6m = {
+  'structure_period', 0.763;
+  'ss_s1', [0.8, 0.675, 1, 0.77];
+};
+
 data = high_seismic_4floor_6m;
 
 structure_period = data{1,2};
