@@ -11,11 +11,6 @@ mid_seismic_4floor_12m = {
 };
 
 high_seismic_4floor_6m = {
-  'structure_period', 0.87;
-  'ss_s1', [0.8, 0.675, 1, 0.77];
-};
-
-high_seismic_4floor_6m = {
   'structure_period', 0.763;
   'ss_s1', [0.8, 0.675, 1, 0.77];
 };
@@ -57,7 +52,6 @@ end
 
 median_acceleration = median(acceleration);
 
-% 0.5 0.3 0.7 0.4
 [sad, ~] = design_spectrum(ss_s1(1), ss_s1(2), 0.05, tn);
 [sam, ~] = design_spectrum(ss_s1(3), ss_s1(4), 0.05, tn);
 
@@ -69,7 +63,6 @@ sa = median_acceleration(period_index);
 
 fprintf('Sa: %.3f, SaD Factor: %.3f, SaM Factor: %.3f\n', sa, sad(period_index), sam(period_index));
 fprintf("'%s': {'sa': %.3f, 'pga': %.3f},\n", [filenames; acceleration(:, period_index).'; acceleration(:, 1).']);
-% fprintf('Records: %s, PGA: %.3f, PGA: %.3f\n', max(abs(ag)), acceleration(1));
 
 green = [26 188 156] / 256;
 blue = [52 152 219] / 256;
