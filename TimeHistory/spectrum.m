@@ -20,7 +20,7 @@ high_seismic_4floor_6m = {
   'ss_s1', [0.8, 0.675, 1, 0.77];
 };
 
-data = high_seismic_4floor_6m;
+data = low_seismic_4floor_12m;
 
 structure_period = data{1,2};
 ss_s1 = data{2, 2};
@@ -67,8 +67,8 @@ period_index = abs(tn - structure_period) < tol;
 
 sa = median_acceleration(period_index);
 
-fprintf('Sa: %.3f, SaD Factor: %.3f, SaM Factor: %.3f\n', sa, sad(period_index) / sa, sam(period_index) / sa);
-fprintf("'%s': {'sa': %.3f},\n", [filenames; acceleration(:, period_index).']);
+fprintf('Sa: %.3f, SaD Factor: %.3f, SaM Factor: %.3f\n', sa, sad(period_index), sam(period_index));
+fprintf("'%s': {'sa': %.3f, 'pga': %.3f},\n", [filenames; acceleration(:, period_index).'; acceleration(:, 1).']);
 % fprintf('Records: %s, PGA: %.3f, PGA: %.3f\n', max(abs(ag)), acceleration(1));
 
 green = [26 188 156] / 256;

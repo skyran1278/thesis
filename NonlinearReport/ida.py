@@ -218,7 +218,7 @@ def _main():
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
     multi.plot_all(color=color['gray'])
-    # tradition.plot_all(color=color['gray'])
+    tradition.plot_all(color=color['gray'])
     # tradition_end.plot_all(color=color['gray'])
     multi.plot_interp(
         label='Multi-Cut-2', linewidth=3.0, color=color['green'])
@@ -238,7 +238,7 @@ def _main():
         color=color['gray']
     )
 
-    plt.xlim(0, 0.05)
+    plt.xlim(0, 0.15)
     plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
@@ -247,7 +247,7 @@ def _main():
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
     multi.plot_all(log=True, color=color['gray'])
-    # tradition.plot_all(log=True, color=color['gray'])
+    tradition.plot_all(log=True, color=color['gray'])
     multi.plot_interp(
         log=True, label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(

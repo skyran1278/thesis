@@ -22,24 +22,18 @@ midseismic_4floor_12m = {
     'tradition_end': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/Tradition End/story_drifts.xlsx'
 }
 
+
 lowseismic_4floor_12m = {
     'scaled_facotrs': {
-        'DBE': 0.663,
-        'MCE': 0.884,
+        'DBE': 0.297,
+        'MCE': 0.396,
     },
-    'earthquakes': {
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.548},
-        'RSN900_LANDERS_YER270': {'sa': 0.448},
-        'RSN953_NORTHR_MUL279': {'sa': 0.648},
-        'RSN960_NORTHR_LOS000': {'sa': 0.388},
-        'RSN1111_KOBE_NIS000': {'sa': 0.296},
-        'RSN1116_KOBE_SHI000': {'sa': 0.486},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.140},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.343},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.791},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.402},
-    },
+    'earthquakes': [
+        'RSN725_SUPER.B_B-POE360', 'RSN900_LANDERS_YER270', 'RSN953_NORTHR_MUL279',
+        'RSN960_NORTHR_LOS000', 'RSN1111_KOBE_NIS000', 'RSN1116_KOBE_SHI000',
+        'RSN1148_KOCAELI_ARE090', 'RSN1158_KOCAELI_DZC180', 'RSN1602_DUZCE_BOL090',
+        'RSN1633_MANJIL_ABBAR--T', 'RSN1787_HECTOR_HEC090'
+    ],
     'story': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/Multi/story.xlsx',
     'multi': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Multi/story_drifts.xlsx',
     'tradition': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts.xlsx',
@@ -77,18 +71,18 @@ highseismic_4floor_6m = {
         'RSN725_SUPER.B_B-POE360': {'sa': 0.547},
         'RSN900_LANDERS_YER270': {'sa': 0.424},
         'RSN953_NORTHR_MUL279': {'sa': 0.607},
-        'RSN960_NORTHR_LOS000': {'sa': 0.624},
-        'RSN1111_KOBE_NIS000': {'sa': 0.637},
-        'RSN1116_KOBE_SHI000': {'sa': 0.786},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.202},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.387},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.938},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.554},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.345},
+        # 'RSN960_NORTHR_LOS000': {'sa': 0.624},
+        # 'RSN1111_KOBE_NIS000': {'sa': 0.637},
+        # 'RSN1116_KOBE_SHI000': {'sa': 0.786},
+        # 'RSN1148_KOCAELI_ARE090': {'sa': 0.202},
+        # 'RSN1158_KOCAELI_DZC180': {'sa': 0.387},
+        # 'RSN1602_DUZCE_BOL090': {'sa': 0.938},
+        # 'RSN1633_MANJIL_ABBAR--T': {'sa': 0.554},
+        # 'RSN1787_HECTOR_HEC090': {'sa': 0.345},
     },
     'story': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/Multi/story.xlsx',
-    'multi': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Rayli/story_drifts.xlsx',
-    'tradition': '',
+    'multi': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Rayleigh/story_drifts.xlsx',
+    'tradition': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Modal/story_drifts.xlsx',
 }
 
-data = highseismic_4floor_6m
+data = lowseismic_4floor_12m

@@ -4,10 +4,23 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 low_seismic_4floor_12m = {
-    'factors': [0.663, 0.884, 2, 3, 5, 7, 9, 11, 13, 15],
+    'factors': [0.1, 0.297, 0.396, 0.5, 1, 1.5, 2, 2.5, 3, 4],
     'modal_participating_mass': [0.853, 0.106, 0.034],
-    'period': [],
+    'period': [1.013, 0.3],
     'displacement': 0.4,
+    'time_historys': {
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.548},
+        'RSN900_LANDERS_YER270': {'sa': 0.448},
+        'RSN953_NORTHR_MUL279': {'sa': 0.648},
+        'RSN960_NORTHR_LOS000': {'sa': 0.388},
+        'RSN1111_KOBE_NIS000': {'sa': 0.296},
+        'RSN1116_KOBE_SHI000': {'sa': 0.486},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.140},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.343},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.791},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.402},
+    },
 }
 
 mid_seismic_4floor_12m = {
@@ -25,20 +38,35 @@ high_seismic_4floor_6m = {
 }
 
 high_seismic_4floor_6m = {
-    'factors': [1, 1.444, 1.805, 3, 5, 7, 9],
+    'factors': [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
     'modal_participating_mass': [0.88, 0.09, 0.02],
     'period': [0.763, 0.241],
     'displacement': 0.3,
+    'time_historys': {
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.525},
+        'RSN900_LANDERS_YER270': {'sa': 0.377},
+        'RSN953_NORTHR_MUL279': {'sa': 0.837},
+        'RSN960_NORTHR_LOS000': {'sa': 0.479},
+        'RSN1111_KOBE_NIS000': {'sa': 0.563},
+        'RSN1116_KOBE_SHI000': {'sa': 0.839},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.204},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.363},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.968},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.375},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.363},
+    },
 }
 
-CONFIG = high_seismic_4floor_6m
+CONFIG = low_seismic_4floor_12m
 
 
-def put_timehistorys(time_historys, peernga_folder):
+def put_timehistorys(time_historys, factors, peernga_folder):
     """
     put NPTS, DT
     """
     for time_history in time_historys:
+        time_historys[time_history]['FACTORS'] = factors
+
         with open(f'{peernga_folder}/{time_history}.AT2') as f:
             words = shlex.split(f.readlines()[3])
             time_historys[time_history]['NPTS'] = int(words[1][:-1])
@@ -215,15 +243,16 @@ def post_timehistorys_loadcases(time_historys, period, initial_condition, direct
     loadcases = []
 
     for time_history in time_historys:
+        sa = time_historys[time_history]['sa']
         factors = time_historys[time_history]['FACTORS']
         number_output_steps = time_historys[time_history]['NPTS']
         delta_t = time_historys[time_history]['DT']
 
         for factor in factors:
-            name = f'{time_history}-{factor}'
+            name = f'{time_history}-{round(factor / sa, 2)}'
 
             # G to m/s2
-            factor = factor * 9.81
+            factor = round(factor / sa * 9.81, 2)
 
             loadcases.append(
                 f'LOADCASE "{name}"  TYPE  "Nonlinear Direct Integration History"  '
@@ -284,21 +313,9 @@ def main():
 
     factors = CONFIG['factors']
 
-    time_historys = {
-        'RSN725_SUPER.B_B-POE360': {'FACTORS': factors},
-        'RSN900_LANDERS_YER270': {'FACTORS': factors},
-        'RSN953_NORTHR_MUL279': {'FACTORS': factors},
-        'RSN960_NORTHR_LOS000': {'FACTORS': factors},
-        'RSN1111_KOBE_NIS000': {'FACTORS': factors},
-        'RSN1116_KOBE_SHI000': {'FACTORS': factors},
-        'RSN1148_KOCAELI_ARE090': {'FACTORS': factors},
-        'RSN1158_KOCAELI_DZC180': {'FACTORS': factors},
-        'RSN1602_DUZCE_BOL090': {'FACTORS': factors},
-        'RSN1633_MANJIL_ABBAR--T': {'FACTORS': factors},
-        'RSN1787_HECTOR_HEC090': {'FACTORS': factors},
-    }
+    time_historys = CONFIG['time_historys']
 
-    put_timehistorys(time_historys, peernga_folder)
+    put_timehistorys(time_historys, factors, peernga_folder)
 
     with open(script_folder + '/e2k_functions.e2k', mode='w', encoding='big5') as f:
         f.writelines(post_functions(time_historys, peernga_folder))
