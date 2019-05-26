@@ -4,22 +4,22 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 low_seismic_4floor_12m = {
-    'factors': [0.1, 0.297, 0.396, 0.5, 1, 1.5, 2, 2.5, 3, 4],
+    'factors': [0.1, 0.297, 0.396, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 2],
     'modal_participating_mass': [0.853, 0.106, 0.034],
     'period': [1.013, 0.3],
     'displacement': 0.4,
     'time_historys': {
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.548},
-        'RSN900_LANDERS_YER270': {'sa': 0.448},
-        'RSN953_NORTHR_MUL279': {'sa': 0.648},
-        'RSN960_NORTHR_LOS000': {'sa': 0.388},
-        'RSN1111_KOBE_NIS000': {'sa': 0.296},
-        'RSN1116_KOBE_SHI000': {'sa': 0.486},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.140},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.343},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.791},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.402},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.548, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.448, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.648, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.388, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.296, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.486, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.140, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.343, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.791, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.402, 'pga': 0.343},
     },
 }
 
@@ -28,13 +28,6 @@ mid_seismic_4floor_12m = {
     'modal_participating_mass': [0.844, 0.111, 0.036],
     'period': [],
     'displacement': 0.4,
-}
-
-high_seismic_4floor_6m = {
-    'factors': [1, 1.619, 1.846, 3, 5, 7, 9],
-    'modal_participating_mass': [0.87, 0.1, 0.03],
-    'period': [],
-    'displacement': 0.3,
 }
 
 high_seismic_4floor_6m = {
