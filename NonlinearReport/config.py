@@ -50,7 +50,7 @@ highseismic_4floor_6m = {
         'RSN1787_HECTOR_HEC090': {'sa': 0.345, 'pga': 0.343},
     },
     'story': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Tradition/story.xlsx',
-    'multi': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Tradition/story_drifts.xlsx',
+    'multi': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Multi/story_drifts.xlsx',
     'tradition': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Tradition/story_drifts.xlsx',
 }
 
