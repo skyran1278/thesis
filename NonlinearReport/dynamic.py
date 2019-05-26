@@ -91,7 +91,7 @@ class Dynamic():
 
         sa = self.earthquakes[earthquake]['sa']
 
-        case = f'{earthquake}-{self.scaled_facotrs[kind] / sa}'
+        case = f'{earthquake}-{round(self.scaled_facotrs[kind] / sa, 2)}'
 
         # select earthquake
         df = df.loc[df['Load Case/Combo'] == case, :].copy()

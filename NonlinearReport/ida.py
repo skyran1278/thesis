@@ -228,7 +228,7 @@ def _main():
     )
 
     plt.xlim(0, 0.15)
-    plt.ylim(0, 3)
+    plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
     plt.figure()
@@ -255,7 +255,7 @@ def _main():
     )
 
     plt.xlim(right=1)
-    plt.ylim(top=3)
+    plt.ylim(top=5)
     plt.grid(True, which="both")
     plt.legend(loc='upper left')
 
@@ -281,7 +281,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 3)
+    plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
     plt.figure()
@@ -306,7 +306,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 3)
+    plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
     plt.show()

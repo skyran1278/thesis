@@ -124,13 +124,18 @@ def main():
 
     data1 = PlotDesign(f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
     data2 = PlotDesign(f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
+    data3 = PlotDesign(
+        f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心.xlsx')
 
     data1.put_index(0)
     data2.put_index(0)
 
-    # to_excel_orderby_effect(data, path)
+    to_excel_orderby_effect(
+        data3, f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心')
 
-    # for index in (208, 1380, 1532, 124, 144, 1068, 72):
+    # for index in (620, 692, 764, 836, 908, 1480, 1332, 1204, 1324, 1472):
+    #     data3.put_index(index)
+    #     v_demand(data3)
     #     # for index in (8, 1, 4, 40, 16, 24):
     # for index in range(0, data.design.get_len(), 4):
     # for index in (0, 620, 692, 764, 1472, 1324, 1204, 1332):
@@ -159,7 +164,6 @@ def main():
     # data.boundary_line()
     # data.boundary_line(0.45)
 
-    # v_demand(data)
     # plt.figure()
     # plt.xlabel('Length(m)')
     # plt.ylabel(r'As($m^2$)')
@@ -171,6 +175,7 @@ def main():
     # data.demand_line('gray')
 
     # data2.rebar_line('gray', '多點斷筋')
+    # v_demand(data)
 
     etabs_to_addedld_sol(data2)
     # tradition_flow(data)
