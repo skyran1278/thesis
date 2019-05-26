@@ -14,6 +14,7 @@ config = {  # pylint: disable=invalid-name
     'e2k_path_test_v6': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/MidSeismic 4Floor 12M_V13.e2k',
     'e2k_path_test_v7': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/HighSeismic 4Floor 6M_V13.e2k',
     'e2k_path_test_v8': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/HighSeismic 4Floor 6M_V13.e2k',
+    'e2k_path_test_v9': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/MidSeismic 12Floor 9M_V13.e2k',
     'design_path': SCRIPT_DIR + '/20190323 203316 SmartCut #7.xlsx',
     'design_path_test_v1': SCRIPT_DIR + '/20190323 203316 SmartCut #7.xlsx',
     'design_path_test_v2': SCRIPT_DIR + '/20190327 164355 SmartCut #8.xlsx',
@@ -23,4 +24,5 @@ config = {  # pylint: disable=invalid-name
     'design_path_test_v6': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/20190513 222855 SmartCut.xlsx',
     'design_path_test_v7': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/20190518 170006 SmartCut.xlsx',
     'design_path_test_v8': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190525 164431 SmartCut.xlsx',
+    'design_path_test_v9': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/20190525 120644 SmartCut.xlsx',
 }
