@@ -162,7 +162,7 @@ class IDA():
             plot = plt.plot
 
         damage, intensity = self.get_points(earthquake)
-        plt.plot(damage, intensity, *args, **kwargs)
+        plot(damage, intensity, *args, **kwargs)
 
     def plot_interp(self, *args, percentage=0.5, log=False, **kwargs):
         """
@@ -174,7 +174,7 @@ class IDA():
             plot = plt.plot
 
         damage, intensity = self.get_interp(percentage)
-        plt.plot(damage, intensity, *args, **kwargs)
+        plot(damage, intensity, *args, **kwargs)
 
 
 def _main():
@@ -196,14 +196,6 @@ def _main():
         earthquakes=data['earthquakes'],
     )
 
-    # tradition_end = IDA(
-    #     path={
-    #         'story_path': data['story'],
-    #         'story_drifts_path': data['tradition_end'],
-    #     },
-    #     earthquakes=data['earthquakes'],
-    # )
-
     color = {
         'green': np.array([26, 188, 156]) / 256,
         'blue': np.array([52, 152, 219]) / 256,
@@ -219,13 +211,10 @@ def _main():
 
     multi.plot_all(color=color['gray'])
     tradition.plot_all(color=color['gray'])
-    # tradition_end.plot_all(color=color['gray'])
     multi.plot_interp(
         label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
         label='Tradition', linewidth=3.0, color=color['blue'])
-    # tradition_end.plot_interp(
-    #     label='Hinges Only On Ends', linewidth=3.0, color=color['blue'])
 
     plt.axvline(
         0.025,
@@ -239,7 +228,7 @@ def _main():
     )
 
     plt.xlim(0, 0.15)
-    plt.ylim(0, 5)
+    plt.ylim(0, 3)
     plt.legend(loc='upper left')
 
     plt.figure()
@@ -266,34 +255,9 @@ def _main():
     )
 
     plt.xlim(right=1)
-    plt.ylim(top=5)
+    plt.ylim(top=3)
     plt.grid(True, which="both")
     plt.legend(loc='upper left')
-
-    # plt.figure()
-    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-
-    # tradition_end.plot_all(color=color['gray'])
-    # tradition_end.plot_interp(
-    #     label='Median Capacity',
-    #     linewidth=3.0, color=color['blue']
-    # )
-
-    # plt.axvline(
-    #     0.025,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-    # plt.axvline(
-    #     0.04,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-
-    # plt.xlim(0, 0.05)
-    # plt.ylim(0, 5)
-    # plt.legend(loc='upper left')
 
     plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
@@ -317,7 +281,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 5)
+    plt.ylim(0, 3)
     plt.legend(loc='upper left')
 
     plt.figure()
@@ -342,7 +306,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 5)
+    plt.ylim(0, 3)
     plt.legend(loc='upper left')
 
     plt.show()
