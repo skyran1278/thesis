@@ -77,7 +77,7 @@ def cut_by_beam(const, group_num=3):
     writer = pd.ExcelWriter(
         f'{const["output_dir"]}/'
         f'{time.strftime("%Y%m%d %H%M%S", time.localtime())} '
-        f'SmartCut.xlsx'
+        f'Cut {group_num - 1}.xlsx'
     )
 
     execution.time('傳統斷筋')

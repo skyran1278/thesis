@@ -30,6 +30,7 @@ class SmartCutPanel(wx.Panel):
 
         # set 9 rows 2 cols
         fgs_1 = wx.FlexGridSizer(4, 3, 20, 20)
+        # 設定索引為idx的列為可增長列
         fgs_1.AddGrowableCol(idx=1)
 
         fgs_2 = wx.FlexGridSizer(5, 2, 20, 20)
@@ -37,8 +38,11 @@ class SmartCutPanel(wx.Panel):
         fgs_3 = wx.FlexGridSizer(rows=1, cols=5, vgap=20, hgap=20)
 
         fgs_4 = wx.FlexGridSizer(1, 2, 20, 20)
-        fgs_4.AddGrowableCol(idx=0)
-        fgs_4.AddGrowableCol(idx=1)
+        # fgs_4.AddGrowableCol(idx=1)
+
+        fgs_5 = wx.FlexGridSizer(1, 2, 20, 20)
+        fgs_5.AddGrowableCol(idx=0)
+        fgs_5.AddGrowableCol(idx=1)
 
         self.etabs_design = wx.TextCtrl(
             self, style=wx.TE_CENTRE)
@@ -99,13 +103,17 @@ class SmartCutPanel(wx.Panel):
         fgs_3.AddMany([wx.StaticText(self, label="Boundry Condition"),
                        self.left, self.leftmid, self.rightmid, self.right])
 
+        self.group_num = wx.TextCtrl(self, value='2', style=wx.TE_CENTRE)
+        fgs_4.AddMany([wx.StaticText(self, label="Cut Number"),
+                       (self.group_num, 1, wx.EXPAND | wx.RIGHT | wx.LEFT, 33)])
+
         first_run_btn = wx.Button(self, label="Run by Beam")
         first_run_btn.Bind(wx.EVT_BUTTON, self._run_by_beam)
 
         second_run_btn = wx.Button(self, label="Run by Frame")
         second_run_btn.Bind(wx.EVT_BUTTON, self._run_by_frame)
 
-        fgs_4.AddMany([(first_run_btn, 1, wx.EXPAND),
+        fgs_5.AddMany([(first_run_btn, 1, wx.EXPAND),
                        (second_run_btn, 1, wx.EXPAND)])
 
         vbox.Add(fgs_1, flag=wx.LEFT | wx.RIGHT |
@@ -114,9 +122,11 @@ class SmartCutPanel(wx.Panel):
                  wx.TOP | wx.EXPAND, border=30)
         vbox.Add(fgs_3, flag=wx.LEFT | wx.RIGHT |
                  wx.TOP | wx.EXPAND, border=30)
+        vbox.Add(fgs_4, flag=wx.LEFT | wx.RIGHT |
+                 wx.TOP | wx.EXPAND, border=30)
         vbox.Add(wx.StaticLine(self), flag=wx.LEFT | wx.RIGHT |
                  wx.TOP | wx.EXPAND, border=30)
-        vbox.Add(fgs_4, flag=wx.LEFT | wx.RIGHT |
+        vbox.Add(fgs_5, flag=wx.LEFT | wx.RIGHT |
                  wx.TOP | wx.EXPAND, border=30)
 
         self.SetSizer(vbox)
@@ -142,10 +152,10 @@ class SmartCutPanel(wx.Panel):
 
     def _run_by_beam(self, event):  # pylint: disable=unused-argument
         # 建立一個子執行緒
-        threading.Thread(target=cut_by_beam, args=(self._const(),)).start()
-        # cut_by_beam(self._const())
-        # 執行該子執行緒
-        # t.start()
+        threading.Thread(
+            target=cut_by_beam,
+            args=(self._const(), self._get_group_num())
+        ).start()
 
     def _run_by_frame(self, event):  # pylint: disable=unused-argument
         cut_by_frame(self._const())
@@ -155,6 +165,9 @@ class SmartCutPanel(wx.Panel):
             'left': np.array([self.left.GetValue(), self.leftmid.GetValue()]).astype(np.float),
             'right': np.array([self.rightmid.GetValue(), self.right.GetValue()]).astype(np.float)
         }
+
+    def _get_group_num(self):
+        return int(self.group_num.GetValue()) + 1
 
     def _get_stirrup_rebar(self):
         return self.stirrup_rebar.GetValue().replace(" ", "").split(',')
@@ -170,8 +183,9 @@ class SmartCutPanel(wx.Panel):
 
     def on_click_beam_name_btn(self, event):  # pylint: disable=unused-argument
         """ Open a file"""
-        dlg = wx.FileDialog(self, message="Choose a file",
-                            wildcard="*.xlsx", style=wx.FD_OPEN)
+        dlg = wx.FileDialog(
+            self, message="Choose a file", wildcard="*.xlsx", style=wx.FD_OPEN
+        )
         if dlg.ShowModal() == wx.ID_OK:
             self.beam_name_path = os.path.join(
                 dlg.GetDirectory(), dlg.GetFilename())
@@ -181,8 +195,10 @@ class SmartCutPanel(wx.Panel):
 
     def on_click_output_btn(self, event):  # pylint: disable=unused-argument
         """ Open a file"""
-        dlg = wx.DirDialog(self, message="Choose output directory",
-                           style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST)
+        dlg = wx.DirDialog(
+            self, message="Choose output directory",
+            style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST
+        )
         if dlg.ShowModal() == wx.ID_OK:
             self.output_dir = dlg.GetPath()
             self.output.SetValue(self.output_dir)
@@ -191,23 +207,21 @@ class SmartCutPanel(wx.Panel):
 
     def on_click_etabs_dsign_btn(self, event):  # pylint: disable=unused-argument
         """ Open a file"""
-        dlg = wx.FileDialog(self, message="Choose a file",
-                            wildcard="*.xlsx", style=wx.FD_OPEN)
+        dlg = wx.FileDialog(
+            self, message="Choose a file", wildcard="*.xlsx", style=wx.FD_OPEN
+        )
         if dlg.ShowModal() == wx.ID_OK:
             self.etabs_design_path = os.path.join(
                 dlg.GetDirectory(), dlg.GetFilename())
-            # f = open(os.path.join(self.dirname, self.filename), 'r')
-            # self.control.SetValue(f.read())
-            # f.close()
             self.etabs_design.SetValue(self.etabs_design_path)
-            # print_path()
 
         dlg.Destroy()
 
     def on_click_e2k_btn(self, event):  # pylint: disable=unused-argument
         """ Open a file"""
-        dlg = wx.FileDialog(self, message="Choose a file",
-                            wildcard="*.e2k", style=wx.FD_OPEN)
+        dlg = wx.FileDialog(
+            self, message="Choose a file", wildcard="*.e2k", style=wx.FD_OPEN
+        )
         if dlg.ShowModal() == wx.ID_OK:
             self.e2k_path = os.path.join(dlg.GetDirectory(), dlg.GetFilename())
             self.e2k.SetValue(self.e2k_path)
@@ -277,18 +291,14 @@ class SmartCutFrame(wx.Frame):
 
     def on_about(self, event):  # pylint: disable=unused-argument
         """Display an About Dialog"""
-        wx.MessageBox("Copyright 2019 RCBIMX Team. Powered by Paul.",
-                      "About Smart Cut",
-                      wx.OK | wx.ICON_INFORMATION)
+        wx.MessageBox(
+            "Copyright 2019 RCBIMX Team. Powered by Paul.",
+            "About Smart Cut",
+            wx.OK | wx.ICON_INFORMATION
+        )
 
-
-# 建立一個子執行緒
-# t = threading.Thread(target=cut_by_beam)
-
-# async def t(const):
-#     cut_by_beam(const)
 
 app = wx.App()
-frame = SmartCutFrame(None, title='Smart Cut', size=(900, 700))
+frame = SmartCutFrame(None, title='Smart Cut', size=(900, 750))
 frame.Show()
 app.MainLoop()

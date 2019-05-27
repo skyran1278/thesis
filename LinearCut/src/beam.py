@@ -1,5 +1,7 @@
 """ init beam output table
 """
+from itertools import product
+
 import pandas as pd
 import numpy as np
 
@@ -69,20 +71,26 @@ def put_column_order(df):
     """
     cols = df.columns.tolist()
 
+    # 找到共有幾個
+    total_index = 1
+    while ('主筋', f'左{total_index}') in cols:
+        total_index += 1
+
+    # 確定正確位置
+    rebar_cols = []
+    for index in range(1, total_index):
+        rebar_cols.append(f'左{index}')
     if ('主筋', '中') in cols:
-        cols = (
-            cols[:5] +
-            cols[19::4] + [cols[17]] + cols[-2:19:-4] +
-            cols[20::4] + [cols[18]] + cols[-1:19:-4] +
-            cols[5:17]
-        )
-    else:
-        cols = (
-            cols[:5] +
-            cols[17::4] + cols[-2:17:-4] +
-            cols[18::4] + cols[-1:17:-4] +
-            cols[5:17]
-        )
+        rebar_cols.append('中')
+    for index in range(total_index - 1, 0, -1):
+        rebar_cols.append(f'右{index}')
+
+    cols = (
+        cols[:5] +
+        [*product(('主筋', ), rebar_cols)] +
+        [*product(('主筋長度', ), rebar_cols)] +
+        cols[5:17]
+    )
 
     return df[cols]
 
