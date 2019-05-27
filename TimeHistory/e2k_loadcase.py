@@ -4,7 +4,7 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 low_seismic_4floor_12m = {
-    'factors': [0.1, 0.297, 0.396, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 2],
+    'factors': [0.1, 0.297, 0.396, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 2, 2.5, 3, 4],
     'modal_participating_mass': [0.853, 0.106, 0.034],
     'period': [1.013, 0.3],
     'displacement': 0.4,
@@ -70,7 +70,7 @@ high_seismic_4floor_6m = {
     },
 }
 
-CONFIG = mid_seismic_12floor_9m
+CONFIG = low_seismic_4floor_12m
 
 
 def put_timehistorys(time_historys, factors, peernga_folder):
