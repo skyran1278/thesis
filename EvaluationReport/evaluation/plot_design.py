@@ -36,7 +36,7 @@ class PlotDesign:
 
         self.index = None
 
-    def demand_line(self, color, *args, **kwargs):
+    def add_ld_line(self, color, *args, **kwargs):
         """
         Real Solution
         """
@@ -57,6 +57,31 @@ class PlotDesign:
         plt.plot(
             df['StnLoc'],
             - df['BarBotNumLd'] * bot_size_area,
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
+        )
+
+    def rebar_number_line(self, color, *args, **kwargs):
+        """
+        Real Solution
+        """
+        index = self.index
+
+        index = index // 4 * 4
+        df = self.etabs_design_on_index()
+
+        top_size_area = self.design.get_area(index, ('主筋', '左1'))
+        bot_size_area = self.design.get_area(index + 3, ('主筋', '左1'))
+
+        plt.plot(
+            df['StnLoc'],
+            df['BarTopNum'] * top_size_area,
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
+        )
+        plt.plot(
+            df['StnLoc'],
+            - df['BarBotNum'] * bot_size_area,
             color=self.c[color], linewidth=self.linewidth,
             *args, **kwargs
         )
@@ -104,25 +129,34 @@ class PlotDesign:
 
         area = []
         for col in range(5, group_num + 5):
-            area.append(df.get_total_area(index, col))
+            col_area = df.get_total_area(index, col)
+            if col_area is not None:
+                area.append(col_area)
         area = np.repeat(area, 2)
 
         length = []
         for col in range(5 + group_num, 2 * group_num + 5):
-            length.extend(df.get_abs_length(index, col))
+            col_length = df.get_abs_length(index, col)
+            if col_length is not None:
+                length.extend(col_length)
 
         plt.plot(length, area, color=self.c[color], linewidth=self.linewidth)
 
+        # 下層筋，取負號
         index += 2
 
         area = []
         for col in range(5, group_num + 5):
-            area.append(df.get_total_area(index, col))
+            col_area = df.get_total_area(index, col)
+            if col_area is not None:
+                area.append(col_area)
         area = np.repeat(area, 2)
 
         length = []
         for col in range(5 + group_num, 2 * group_num + 5):
-            length.extend(df.get_abs_length(index, col))
+            col_length = df.get_abs_length(index, col)
+            if col_length is not None:
+                length.extend(col_length)
 
         plt.plot(length, -area, color=self.c[color], linewidth=self.linewidth)
 
@@ -130,26 +164,9 @@ class PlotDesign:
         """
         1/3 1/4 1/5
         """
-        index = self.index
-
-        start = self.design.get(index, ('支承寬', '左'))
-        end = (
-            self.design.get(index, ('梁長', '')) -
-            self.design.get(index, ('支承寬', '右'))
-        )
-
-        plt.axvline(
-            (end - start) / 4 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 3 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 3 * 2 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 4 * 3 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 5 + start, linestyle='--', color=self.c['gray'])
-        plt.axvline(
-            (end - start) / 5*4 + start, linestyle='--', color=self.c['gray'])
+        self.boundary_line(1/5)
+        self.boundary_line(1/4)
+        self.boundary_line(1/3)
 
     def put_index(self, index):
         """
@@ -303,9 +320,9 @@ class PlotDesign:
         fc = df['Fc'].iloc[0] / 10
         fyt = df['Fy'].iloc[0] / 10
 
-        Asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.01
+        asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.01
 
-        Asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.01
+        asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.01
 
-        plt.axhline(Asmin, linestyle='--', color=self.c['gray'])
-        plt.axhline(Asmax, linestyle='--', color=self.c['gray'])
+        plt.axhline(asmin, linestyle='--', color=self.c['gray'])
+        plt.axhline(asmax, linestyle='--', color=self.c['gray'])

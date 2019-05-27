@@ -16,8 +16,9 @@ def etabs_to_addedld_sol(data):
     # data.min_line()
 
     data.etabs_demand_line('blue', linestyle='--')
+    data.rebar_number_line('blue', linestyle='--')
 
-    data.demand_line('green', label='Consider $l_d$')
+    data.add_ld_line('green', label='Consider $l_d$')
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
     plt.subplots_adjust(left=0.15)
@@ -66,8 +67,9 @@ def linearcut_flow(data):
     data.boundary_line()
 
     data.etabs_demand_line('blue')
+    data.rebar_number_line('blue')
 
-    data.demand_line('red')
+    data.add_ld_line('red')
 
     data.rebar_line('green', '多點斷筋')
 
@@ -83,7 +85,7 @@ def compare_linearcut_to_tradition(data):
     data.boundary_line()
 
     data.etabs_demand_line('blue')
-    data.demand_line('blue')
+    data.add_ld_line('blue')
 
     data.rebar_line('red', '傳統斷筋')
     data.rebar_line('green', '多點斷筋')
@@ -122,16 +124,17 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    data1 = PlotDesign(f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
-    data2 = PlotDesign(f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
-    data3 = PlotDesign(
-        f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心.xlsx')
+    data1 = PlotDesign(
+        f'{script_dir}/../data/LowSeismic 4Floor 12M Cut 3.xlsx')
+    # data2 = PlotDesign(f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
+    # data3 = PlotDesign(
+    #     f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心.xlsx')
 
     data1.put_index(0)
-    data2.put_index(0)
+    # data2.put_index(0)
 
-    to_excel_orderby_effect(
-        data3, f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心')
+    # to_excel_orderby_effect(
+    #     data3, f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心')
 
     # for index in (620, 692, 764, 836, 908, 1480, 1332, 1204, 1324, 1472):
     #     data3.put_index(index)
@@ -140,17 +143,18 @@ def main():
     # for index in range(0, data.design.get_len(), 4):
     # for index in (0, 620, 692, 764, 1472, 1324, 1204, 1332):
 
-    plt.figure()
-    data2.zero_line()
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
-    plt.subplots_adjust(left=0.15)
+    # plt.figure()
+    # data2.zero_line()
+    # plt.xlabel('Length(m)')
+    # plt.ylabel('As($m^2$)')
+    # plt.subplots_adjust(left=0.15)
+
     # data2.rebar_line('green', '傳統斷筋')
 
     # data.etabs_demand_line('blue')
     # data2.etabs_demand_line('green')
 
-    # data.demand_line('green')
+    # data.add_ld_line('green')
 
     # plt.figure()
     # data.zero_line()
@@ -159,7 +163,7 @@ def main():
 
     # # data.etabs_demand_line('blue')
     # # # data.rebar_line('green')
-    # data.demand_line('green')
+    # data.add_ld_line('green')
     # data.min_line()
     # data.boundary_line()
     # data.boundary_line(0.45)
@@ -171,17 +175,24 @@ def main():
     # data.min_line()
     # data.boundary_line()
 
-    data2.etabs_demand_line('green', label='需求鋼筋量')
-    # data.demand_line('gray')
+    # data2.etabs_demand_line('green', label='需求鋼筋量')
+    # data.add_ld_line('gray')
 
     # data2.rebar_line('gray', '多點斷筋')
     # v_demand(data)
 
-    etabs_to_addedld_sol(data2)
-    # tradition_flow(data)
-    # linearcut_flow(data)
-    # compare_linearcut_to_tradition(data)
-    # compare_linearcut_to_tradition(data2)
+    etabs_to_addedld_sol(data1)
+    tradition_flow(data1)
+    linearcut_flow(data1)
+    compare_linearcut_to_tradition(data1)
+    compare_linearcut_to_tradition(data1)
+
+    data1.put_index(4)
+    etabs_to_addedld_sol(data1)
+    tradition_flow(data1)
+    linearcut_flow(data1)
+    compare_linearcut_to_tradition(data1)
+    compare_linearcut_to_tradition(data1)
     plt.legend(loc='upper left')
     plt.show()
 

@@ -3,6 +3,7 @@ read multiple rebar
 """
 import os
 import pickle
+
 import pandas as pd
 
 from evaluation.rebar import get_diameter, get_area
@@ -81,8 +82,12 @@ class Design:
 
             return length, end_length
 
+        if pd.isnull(self.get(index, col)):
+            return None
+
         for iter_col in range(5 + group_num, col):
-            length = length + self.get(index, iter_col)
+            if not pd.isnull(self.get(index, iter_col)):
+                length = length + self.get(index, iter_col)
 
         end_length = length + self.get(index, col)
 
@@ -130,6 +135,9 @@ class Design:
         else:
             index = index // 4 * 4 + 2
 
+        if pd.isnull(self.get_num(index, col)):
+            return None
+
         row1 = self.get_num(index, col) * self.get_area(index, col)
         row2 = self.get_num(index + 1, col) * self.get_area(index + 1, col)
 
@@ -141,6 +149,9 @@ class Design:
         """
         num_and_size = self.get(index, col)
 
+        if pd.isnull(num_and_size):
+            return None
+
         if num_and_size == 0:
             return 0
 
@@ -151,6 +162,9 @@ class Design:
         get diameter
         """
         size = self.get(index, col)
+
+        if pd.isnull(size):
+            return None
 
         if size == 0:
             return 0
@@ -170,6 +184,9 @@ class Design:
         get area
         """
         size = self.get(index, col)
+
+        if pd.isnull(size):
+            return None
 
         if size == 0:
             return 0
@@ -204,30 +221,29 @@ class Design:
         return area / spacing
 
 
-# def main():
-#     """
-#     test
-#     """
-#     path = 'D:/GitHub/VbaProject/20180126_SmartCut/LinearCut/src/tests/20190327 173536 SmartCut'
-#     path = 'D:/GitHub/VbaProject/20180126_SmartCut/LinearCut/src/tests/20190327 180501 SmartCut'
+def main():
+    """
+    test
+    """
+    path = 'D:/GitHub/thesis/EvaluationReport/data/LowSeismic 4Floor 12M 三點.xlsx'
 
-#     design = Design(path)
+    design = Design(path, '多點斷筋')
 
-#     print(design.get_len())
-#     print(design.get(1))
-#     print(design.get(3, ('主筋', '左')))
-#     print(design.get(2, ('主筋長度', '左')))
-#     print(design.get_total_area(11, ('主筋', '左')))
-#     print(design.get_length_area(11, 0.24))
-#     print(design.get_num(6, ('主筋', '右')))
-#     print(design.get_diameter(6, ('箍筋', '右')))
-#     print(design.get_diameter(6, ('主筋', '右')))
-#     print(design.get_area(6, ('主筋', '右')))
-#     print(design.get_area(6, ('箍筋', '右')))
-#     print(design.get_spacing(10, ('箍筋', '右')))
-#     print(design.get_shear(10, ('箍筋', '右')))
-#     print(design.get_shear(10, ('箍筋', '中')))
+    print(design.get_len())
+    print(design.get(1, ('主筋', '中')))
+    # print(design.get(3, ('主筋', '左')))
+    # print(design.get(2, ('主筋長度', '左')))
+    # print(design.get_total_area(11, ('主筋', '左')))
+    # print(design.get_length_area(11, 0.24))
+    # print(design.get_num(6, ('主筋', '右')))
+    # print(design.get_diameter(6, ('箍筋', '右')))
+    # print(design.get_diameter(6, ('主筋', '右')))
+    # print(design.get_area(6, ('主筋', '右')))
+    # print(design.get_area(6, ('箍筋', '右')))
+    # print(design.get_spacing(10, ('箍筋', '右')))
+    # print(design.get_shear(10, ('箍筋', '右')))
+    # print(design.get_shear(10, ('箍筋', '中')))
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
