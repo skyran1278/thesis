@@ -23,11 +23,24 @@ low_seismic_4floor_12m = {
     },
 }
 
-mid_seismic_4floor_12m = {
-    'factors': [1.071, 1.181, 2, 3, 5, 7, 9, 11, 13, 15],
-    'modal_participating_mass': [0.844, 0.111, 0.036],
-    'period': [],
+mid_seismic_4floor_9m = {
+    'factors': [0.2, 0.471, 0.519, 0.8, 1.1, 1.5, 1.8, 2, 2.5, 3, 4],
+    'modal_participating_mass': [0.836, 0.116, 0.039],
+    'period': [1.041, 0.297],
     'displacement': 0.4,
+    'time_historys': {
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.480, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.414, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.635, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.348, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.283, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.488, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.132, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.326, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.738, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.480, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.439, 'pga': 0.343},
+    },
 }
 
 mid_seismic_12floor_9m = {
@@ -70,7 +83,7 @@ high_seismic_4floor_6m = {
     },
 }
 
-CONFIG = low_seismic_4floor_12m
+CONFIG = mid_seismic_4floor_9m
 
 
 def put_timehistorys(time_historys, factors, peernga_folder):
