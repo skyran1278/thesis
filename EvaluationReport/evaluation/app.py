@@ -24,10 +24,10 @@ def etabs_to_addedld_sol(data):
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Change To Number', 'Consider $l_d$'),
+        ('Demand', 'Demand Change To Rebar Number', 'Consider $l_d$'),
         loc='upper left'
     )
-    plt.title('Demand Add Ld')
+    plt.title('Moment Demand and Add Ld Demand')
     plt.subplots_adjust(left=0.15)
 
 
@@ -161,7 +161,7 @@ def to_excel_orderby_effect(data, path):
     df['箍筋效果'] = df['箍筋量'] / tradition['箍筋量']
 
     grouped = df.groupby(
-        lambda x: (df.loc[x // 4 * 4, '箍筋效果'].values[0], x // 4))
+        lambda x: (df.loc[x // 4 * 4, '主筋效果'].values[0], x // 4))
 
     df = pd.DataFrame()
     for _, group in grouped:
@@ -177,13 +177,13 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
-        f'{script_dir}/../data/LowSeismic 4Floor 12M Cut 3.xlsx')
+        f'{script_dir}/../data/20190520 104202 SmartCut 欣詮.xlsx')
 
     data1.put_index(0)
 
     # to_excel_orderby_effect(
-    #     data3,
-    #     f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心'
+    #     data1,
+    #     f'{script_dir}/../data/20190520 104202 SmartCut 欣詮'
     # )
 
     etabs_to_addedld_sol(data1)
