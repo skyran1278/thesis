@@ -13,82 +13,134 @@ def etabs_to_addedld_sol(data):
     plt.figure()
 
     data.zero_line()
-    # data.min_line()
+    data.min_line()
 
-    data.etabs_demand_line('blue', linestyle='--')
-    data.rebar_number_line('blue', linestyle='--')
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.rebar_number_line('red')
 
-    data.add_ld_line('green', label='Consider $l_d$')
+    line3 = data.add_ld_line('green', label='Consider $l_d$')
+
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Change To Number', 'Consider $l_d$'),
+        loc='upper left'
+    )
+    plt.title('Demand Add Ld')
     plt.subplots_adjust(left=0.15)
 
 
-def v_demand(data):
+def v_workflow(data):
     plt.figure()
+    data.zero_line()
+    data.seismic_line()
+    data.v_min_line()
+
+    line1 = data.etabs_v_demand_line('blue')
+    line2 = data.v_consider_vc_demand_line('blue')
+
+    line3 = data.v_rabar_line('green', '多點斷筋')
+
     plt.xlabel('Length(m)')
     plt.ylabel('Av/s(m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Consider $V_c$ Demand', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut Workflow')
+
+
+def v_multicut_compare_tradition(data):
+    plt.figure()
     data.zero_line()
     data.seismic_line()
     data.v_min_line()
     data.boundary_line(0.25)
 
-    data.etabs_v_demand_line('blue')
-    data.v_consider_vc_demand_line('blue')
+    line1 = data.v_consider_vc_demand_line('blue')
 
-    data.v_rabar_line('red', '傳統斷筋')
-    data.v_rabar_line('green', '多點斷筋')
+    line2 = data.v_rabar_line('red', '傳統斷筋')
+    line3 = data.v_rabar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('Av/s(m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut vs Tradition')
 
 
 def tradition_flow(data):
     plt.figure()
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
-    plt.subplots_adjust(left=0.15)
 
     data.zero_line()
-
+    data.min_line()
     data.tradition_boundary_line()
-    data.min_line()
 
-    data.etabs_demand_line('blue')
+    line1 = data.etabs_demand_line('blue')
 
-    data.rebar_line('green', '傳統斷筋')
+    line2 = data.rebar_line('green', '傳統斷筋')
 
-
-def linearcut_flow(data):
-    plt.figure()
-    data.zero_line()
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2),
+        ('Demand', 'Tradition'),
+        loc='upper left'
+    )
+    plt.title('Tradition Workflow')
     plt.subplots_adjust(left=0.15)
 
-    data.min_line()
-    data.boundary_line()
 
-    data.etabs_demand_line('blue')
-    data.rebar_number_line('blue')
-
-    data.add_ld_line('red')
-
-    data.rebar_line('green', '多點斷筋')
-
-
-def compare_linearcut_to_tradition(data):
+def multicut_flow(data):
     plt.figure()
+    data.zero_line()
+
+    data.min_line()
+    data.boundary_line(0.1)
+    data.boundary_line(0.45)
+
+    line1 = data.etabs_demand_line('blue')
+
+    line2 = data.add_ld_line('red')
+
+    line3 = data.rebar_line('green', '多點斷筋')
+
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Consider $l_d$', 'Multi-Cut'),
+        loc='upper left',
+    )
+    plt.title('Multi-Cut Workflow')
     plt.subplots_adjust(left=0.15)
+
+
+def multicut_compare_tradition(data):
+    plt.figure()
     data.zero_line()
     data.min_line()
-    # data.tradition_boundary_line()
-    data.boundary_line()
 
-    data.etabs_demand_line('blue')
+    line1 = data.etabs_demand_line('blue')
     data.add_ld_line('blue')
 
-    data.rebar_line('red', '傳統斷筋')
-    data.rebar_line('green', '多點斷筋')
+    line2 = data.rebar_line('red', '傳統斷筋')
+    line3 = data.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut vs Tradition')
+    plt.subplots_adjust(left=0.15)
 
 
 def to_excel_orderby_effect(data, path):
@@ -126,74 +178,22 @@ def main():
 
     data1 = PlotDesign(
         f'{script_dir}/../data/LowSeismic 4Floor 12M Cut 3.xlsx')
-    # data2 = PlotDesign(f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
-    # data3 = PlotDesign(
-    #     f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心.xlsx')
 
     data1.put_index(0)
-    # data2.put_index(0)
 
     # to_excel_orderby_effect(
-    #     data3, f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心')
-
-    # for index in (620, 692, 764, 836, 908, 1480, 1332, 1204, 1324, 1472):
-    #     data3.put_index(index)
-    #     v_demand(data3)
-    #     # for index in (8, 1, 4, 40, 16, 24):
-    # for index in range(0, data.design.get_len(), 4):
-    # for index in (0, 620, 692, 764, 1472, 1324, 1204, 1332):
-
-    # plt.figure()
-    # data2.zero_line()
-    # plt.xlabel('Length(m)')
-    # plt.ylabel('As($m^2$)')
-    # plt.subplots_adjust(left=0.15)
-
-    # data2.rebar_line('green', '傳統斷筋')
-
-    # data.etabs_demand_line('blue')
-    # data2.etabs_demand_line('green')
-
-    # data.add_ld_line('green')
-
-    # plt.figure()
-    # data.zero_line()
-    # plt.xlabel('Length(m)')
-    # plt.ylabel('As($m^2$)')
-
-    # # data.etabs_demand_line('blue')
-    # # # data.rebar_line('green')
-    # data.add_ld_line('green')
-    # data.min_line()
-    # data.boundary_line()
-    # data.boundary_line(0.45)
-
-    # plt.figure()
-    # plt.xlabel('Length(m)')
-    # plt.ylabel(r'As($m^2$)')
-    # data.zero_line()
-    # data.min_line()
-    # data.boundary_line()
-
-    # data2.etabs_demand_line('green', label='需求鋼筋量')
-    # data.add_ld_line('gray')
-
-    # data2.rebar_line('gray', '多點斷筋')
-    # v_demand(data)
+    #     data3,
+    #     f'{script_dir}/../data/20190520 202032 SmartCut 高雄物流中心'
+    # )
 
     etabs_to_addedld_sol(data1)
     tradition_flow(data1)
-    linearcut_flow(data1)
-    compare_linearcut_to_tradition(data1)
-    compare_linearcut_to_tradition(data1)
+    multicut_flow(data1)
+    multicut_compare_tradition(data1)
 
-    data1.put_index(4)
-    etabs_to_addedld_sol(data1)
-    tradition_flow(data1)
-    linearcut_flow(data1)
-    compare_linearcut_to_tradition(data1)
-    compare_linearcut_to_tradition(data1)
-    plt.legend(loc='upper left')
+    v_workflow(data1)
+    v_multicut_compare_tradition(data1)
+
     plt.show()
 
 

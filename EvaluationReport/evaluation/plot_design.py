@@ -1,9 +1,12 @@
 """
 plot
 """
+import math
 from itertools import repeat
 
+
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 from evaluation.design import Design, etabs_design
@@ -54,12 +57,14 @@ class PlotDesign:
             color=self.c[color], linewidth=self.linewidth,
             *args, **kwargs
         )
-        plt.plot(
+        line, = plt.plot(
             df['StnLoc'],
             - df['BarBotNumLd'] * bot_size_area,
             color=self.c[color], linewidth=self.linewidth,
             *args, **kwargs
         )
+
+        return line
 
     def rebar_number_line(self, color, *args, **kwargs):
         """
@@ -79,16 +84,19 @@ class PlotDesign:
             color=self.c[color], linewidth=self.linewidth,
             *args, **kwargs
         )
-        plt.plot(
+        line, = plt.plot(
             df['StnLoc'],
             - df['BarBotNum'] * bot_size_area,
             color=self.c[color], linewidth=self.linewidth,
             *args, **kwargs
         )
 
+        return line
+
     def v_rabar_line(self, color, df='多點斷筋'):
         """
         v rebar line
+        return line
         """
         index = self.index
 
@@ -110,11 +118,15 @@ class PlotDesign:
         for col in range(group_num * 2 + 9, group_num * 2 + 12):
             length.extend(df.get_abs_length(index, col, stirrup=True))
 
-        plt.plot(length, area, color=self.c[color], linewidth=self.linewidth)
+        line, = plt.plot(
+            length, area, color=self.c[color], linewidth=self.linewidth)
+
+        return line
 
     def rebar_line(self, color, df='多點斷筋'):
         """
         plot top and bot line
+        reutnr line
         """
         index = self.index
 
@@ -158,7 +170,11 @@ class PlotDesign:
             if col_length is not None:
                 length.extend(col_length)
 
-        plt.plot(length, -area, color=self.c[color], linewidth=self.linewidth)
+        line, = plt.plot(
+            length, -area, color=self.c[color], linewidth=self.linewidth
+        )
+
+        return line
 
     def tradition_boundary_line(self):
         """
@@ -179,24 +195,34 @@ class PlotDesign:
     def etabs_v_demand_line(self, color):
         """
         etabs v demand
+        return line
         """
 
         # ETABS Demand
         df = self.etabs_design_on_index()
 
-        plt.plot(
-            df['StnLoc'], df['VRebar'], color=self.c[color], linewidth=self.linewidth)
+        line, = plt.plot(
+            df['StnLoc'], df['VRebar'],
+            color=self.c[color], linewidth=self.linewidth
+        )
+
+        return line
 
     def v_consider_vc_demand_line(self, color):
         """
         etabs v demand
+        return line
         """
 
         # ETABS Demand
         df = self.etabs_design_on_index()
 
-        plt.plot(
-            df['StnLoc'], df['VRebarConsiderVc'], color=self.c[color], linewidth=self.linewidth)
+        line, = plt.plot(
+            df['StnLoc'], df['VRebarConsiderVc'],
+            color=self.c[color], linewidth=self.linewidth
+        )
+
+        return line
 
     def etabs_design_on_index(self, df='多點斷筋'):
         """
@@ -221,13 +247,22 @@ class PlotDesign:
     def etabs_demand_line(self, color, *args, **kwargs):
         """
         ETABS Demand
+        reuturn line
         """
         df = self.etabs_design_on_index()
 
         plt.plot(
-            df['StnLoc'], df['AsTop'], color=self.c[color], linewidth=self.linewidth, *args, **kwargs)
-        plt.plot(
-            df['StnLoc'], -df['AsBot'], color=self.c[color], linewidth=self.linewidth, *args, **kwargs)
+            df['StnLoc'], df['AsTop'],
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
+        )
+        line, = plt.plot(
+            df['StnLoc'], -df['AsBot'],
+            color=self.c[color], linewidth=self.linewidth,
+            *args, **kwargs
+        )
+
+        return line
 
     def seismic_line(self):
         """
@@ -279,13 +314,22 @@ class PlotDesign:
         """
         min area
         """
-        index = self.index
+        df = self.etabs_design_on_index()
 
-        top_size_area = self.design.get_area(index, ('主筋', '左1'))
-        bot_size_area = self.design.get_area(index + 3, ('主筋', '左1'))
+        top_size_area = self.design.get_area(self.index, ('主筋', '左1'))
+        bot_size_area = self.design.get_area(self.index + 3, ('主筋', '左1'))
 
-        plt.axhline(2 * top_size_area, linestyle='--', color=self.c['gray'])
-        plt.axhline(-2 * bot_size_area, linestyle='--', color=self.c['gray'])
+        b = df['B'].iloc[0] * 100
+        d = df['H'].iloc[0] * 100 - 10  # 假設保護層 10cm
+        fc = df['Fc'].iloc[0] / 10
+        fy = df['Fy'].iloc[0] / 10
+
+        asmin = max(0.8 * math.sqrt(fc) / fy * b * d, 14 / fy * b * d) / 10000
+
+        plt.axhline(
+            max(asmin, 2 * top_size_area), linestyle='--', color=self.c['gray'])
+        plt.axhline(
+            min(-asmin, -2 * bot_size_area), linestyle='--', color=self.c['gray'])
 
     def boundary_line(self, boundary=0.1):
         """
