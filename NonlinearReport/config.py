@@ -64,7 +64,7 @@ midseismic_12floor_9m = {
     },
     'story': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story.xlsx',
     'multi': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story_drifts.xlsx',
-    'tradition': '',
+    'tradition': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Tradition/story_drifts.xlsx',
 }
 
-data = highseismic_4floor_6m
+data = midseismic_12floor_9m
