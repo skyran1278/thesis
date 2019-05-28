@@ -32,8 +32,10 @@ mid_seismic_20floor_9m = {
 
 data = mid_seismic_20floor_9m;
 
-structure_period = data{1,2};
+structure_period = data{1, 2};
 ss_s1 = data{2, 2};
+
+k = fema273(structure_period)
 
 % pick 11 time history
 filenames = [
@@ -96,3 +98,12 @@ plot(tn, sam, 'Color', green, 'LineWidth', 1.5);
 plot(tn, median_acceleration, 'Color', red);
 plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5);
 
+function k = fema273(t)
+    if t <= 0.5
+        k = 1;
+    elseif t >= 2.5
+        k = 2;
+    else
+        k = (t - 0.5) / (2.5 - 0.5) * (2 - 1) + 1;
+    end
+end
