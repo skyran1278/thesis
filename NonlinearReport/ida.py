@@ -227,7 +227,7 @@ def _main():
         color=color['gray']
     )
 
-    plt.xlim(0, 0.15)
+    plt.xlim(0, 0.25)
     plt.ylim(0, 5)
     plt.legend(loc='upper left')
 
@@ -254,60 +254,60 @@ def _main():
         color=color['gray']
     )
 
-    plt.xlim(right=1)
+    plt.xlim(right=0.25)
     plt.ylim(top=5)
     plt.grid(True, which="both")
     plt.legend(loc='upper left')
 
-    plt.figure()
-    plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    # plt.figure()
+    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
-    tradition.plot_all(color=color['gray'])
-    tradition.plot_interp(
-        label='Median Capacity',
-        linewidth=3.0, color=color['blue']
-    )
+    # tradition.plot_all(color=color['gray'])
+    # tradition.plot_interp(
+    #     label='Median Capacity',
+    #     linewidth=3.0, color=color['blue']
+    # )
 
-    plt.axvline(
-        0.025,
-        linestyle='--',
-        color=color['gray']
-    )
-    plt.axvline(
-        0.04,
-        linestyle='--',
-        color=color['gray']
-    )
+    # plt.axvline(
+    #     0.025,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
+    # plt.axvline(
+    #     0.04,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
 
-    plt.xlim(0, 0.05)
-    plt.ylim(0, 5)
-    plt.legend(loc='upper left')
+    # plt.xlim(0, 0.05)
+    # plt.ylim(0, 5)
+    # plt.legend(loc='upper left')
 
-    plt.figure()
-    plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    # plt.figure()
+    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
 
-    multi.plot_all(color=color['gray'])
-    multi.plot_interp(
-        label='Median Capacity',
-        linewidth=3.0, color=color['green']
-    )
+    # multi.plot_all(color=color['gray'])
+    # multi.plot_interp(
+    #     label='Median Capacity',
+    #     linewidth=3.0, color=color['green']
+    # )
 
-    plt.axvline(
-        0.025,
-        linestyle='--',
-        color=color['gray']
-    )
-    plt.axvline(
-        0.04,
-        linestyle='--',
-        color=color['gray']
-    )
+    # plt.axvline(
+    #     0.025,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
+    # plt.axvline(
+    #     0.04,
+    #     linestyle='--',
+    #     color=color['gray']
+    # )
 
-    plt.xlim(0, 0.05)
-    plt.ylim(0, 5)
-    plt.legend(loc='upper left')
+    # plt.xlim(0, 0.05)
+    # plt.ylim(0, 5)
+    # plt.legend(loc='upper left')
 
     plt.show()
 

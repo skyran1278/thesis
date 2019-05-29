@@ -44,7 +44,7 @@ midseismic_4floor_9m = {
     'tradition': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/Tradition/story_drifts.xlsx',
 }
 
-lowseismic_12floor_12m = {
+lowseismic_4floor_12m = {
     'scaled_facotrs': {
         'DBE': 0.297,
         'MCE': 0.396,
@@ -64,7 +64,7 @@ lowseismic_12floor_12m = {
     },
     'story': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Multi/story.xlsx',
     'multi': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Multi/story_drifts.xlsx',
-    'tradition': '',
+    'tradition': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts.xlsx',
 }
 
 midseismic_12floor_9m = {

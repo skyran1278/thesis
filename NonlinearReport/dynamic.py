@@ -144,7 +144,7 @@ class Dynamic():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq, kind=kind)
 
-            plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
+            plt.plot(damage, intensity, marker='.', *args, **kwargs)
 
     def plot(self, earthquake, *args, kind='DBE', **kwargs):
         """
