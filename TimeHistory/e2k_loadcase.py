@@ -103,7 +103,7 @@ mid_seismic_20floor_9m = {
     },
 }
 
-CONFIG = mid_seismic_20floor_9m
+CONFIG = high_seismic_4floor_6m
 
 
 def put_timehistorys(time_historys, factors, peernga_folder):
