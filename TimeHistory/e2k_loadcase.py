@@ -4,7 +4,7 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 high_seismic_4floor_6m = {
-    'factors': [0.5, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.5, 3],
+    'factors': [0.5, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.5, 3, 4, 5],
     'modal_participating_mass': [0.88, 0.09, 0.02],
     'period': [0.763, 0.241],
     'displacement': 0.4,
