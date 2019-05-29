@@ -11,7 +11,7 @@ classdef Config
         % SMS_SM1 = [1, 0.77];
 
         PF = [
-            1.305, 1.326, 1.329
+            1.305, 1.315, 1.304
         ];
 
         effective_mass = [
