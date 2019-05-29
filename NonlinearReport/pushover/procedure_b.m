@@ -30,7 +30,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     [ss, s1] = config.spectrum(spectrum);
 
     % 5% spectrum
-    [demand_sd, demand_sa] = design_spectrum(ss, s1, 0.05, 0.001:0.01:2);
+    [demand_sd, demand_sa] = design_spectrum(ss, s1, 0.05, 0.001:0.1:3);
 
     % get elastic intersection with 5% spectrum
     % and get vertical line intersection with pushover curve on d_star, a_star
@@ -45,7 +45,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
         plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
         plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
         plot(demand_sd, demand_sa, 'DisplayName', 'Demand', 'Color', blue, 'LineWidth', 1.5);
-        axis([0 max(capacity_sd) 0 inf]);
+        % axis([0 max(capacity_sd) 0 inf]);
         legend('show')
         return
     end
@@ -79,7 +79,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     plot(dy, ay, 'o', 'DisplayName', '(dy, ay)', 'Color', gray);
     plot(sd, sa, 'o', 'DisplayName', 'Performance Point', 'Color', red);
     text(sd * 1.1, sa, ['(', num2str(sd), ', ', num2str(sa), ')'], 'Color', red)
-    axis([0 max(capacity_sd) 0 inf]);
+    % axis([0 max(capacity_sd) 0 inf]);
     legend('show')
 
 end
@@ -91,7 +91,7 @@ function [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, 
     point_temp = InterX([elastic_sd; elastic_sa], [demand_sd; demand_sa]);
 
     if size(point_temp, 2) == 1
-       
+
         % plus 1.1, cause point maybe same then no intersection
         point_star = InterX([capacity_sd; capacity_sa], [[point_temp(1, :), point_temp(1, :)]; [0, point_temp(2, :) * 1.1]]);
 
