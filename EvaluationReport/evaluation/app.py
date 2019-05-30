@@ -38,7 +38,7 @@ def v_workflow(data):
     data.v_min_line()
 
     line1 = data.etabs_v_demand_line('blue')
-    line2 = data.v_consider_vc_demand_line('blue')
+    line2 = data.v_consider_vc_demand_line('red')
 
     line3 = data.v_rabar_line('green', '多點斷筋')
 
@@ -46,7 +46,7 @@ def v_workflow(data):
     plt.ylabel('Av/s(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Consider $V_c$ Demand', 'Multi-Cut'),
+        ('$V_u$', 'Consider $V_c$ Demand', 'Multi-Cut'),
         loc='upper left'
     )
     plt.title('Multi-Cut Workflow')
@@ -177,7 +177,7 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
-        f'{script_dir}/../data/20190520 104202 SmartCut 欣詮.xlsx')
+        f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
 
     data1.put_index(0)
 
