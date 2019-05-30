@@ -90,4 +90,4 @@ midseismic_12floor_9m = {
     'tradition': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Tradition/story_drifts.xlsx',
 }
 
-data = midseismic_12floor_9m
+data = highseismic_4floor_6m
