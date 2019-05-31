@@ -26,7 +26,7 @@ config = {  # pylint: disable=invalid-name
     'design_path_test_v6': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/20190513 222855 SmartCut.xlsx',
     'design_path_test_v7': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/No 2500 Performance Point/20190529 111454 Cut 2.xlsx',
     'design_path_test_v8': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190525 164431 SmartCut.xlsx',
-    'design_path_test_v9': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/20190525 120644 SmartCut.xlsx',
+    'design_path_test_v9': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/20190531 160727 Cut 2.xlsx',
     'design_path_test_v10': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/20190520 150644 SmartCut.xlsx',
     'design_path_test_v11': 'D:/GitHub/thesis/Models/MidSeismic 20Floor 9M/20190526 171958 SmartCut.xlsx',
 }

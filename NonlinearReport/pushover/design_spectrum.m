@@ -28,11 +28,12 @@ function [sd, sa] = design_spectrum(SS, S1, damping_ratio, tn)
         elseif T > (0.2 * T0) && T <= T0
             sa(1, index) = SS / BS;
 
-        elseif T > T0 && T <= 2.5 * T0
-            sa(1, index) = S1 / (B1 * T);
+        % elseif T > T0 && T <= 2.5 * T0
+        %     sa(1, index) = S1 / (B1 * T);
 
         else
-            sa(1, index) = 0.4 * SS / BS;
+            % sa(1, index) = 0.4 * SS / BS;
+            sa(1, index) = S1 / (B1 * T);
 
         end
     end
