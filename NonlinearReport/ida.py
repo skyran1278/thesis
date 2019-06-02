@@ -211,10 +211,10 @@ def _main():
 
     multi.plot_all(color=color['gray'])
     tradition.plot_all(color=color['gray'])
-    multi.plot_interp(
-        label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
         label='Tradition', linewidth=3.0, color=color['blue'])
+    multi.plot_interp(
+        label='Multi-Cut-2', linewidth=3.0, color=color['green'])
 
     plt.axvline(
         0.025,
@@ -227,8 +227,8 @@ def _main():
         color=color['gray']
     )
 
-    plt.xlim(0, 0.25)
-    plt.ylim(0, 5)
+    plt.xlim(0, 0.05)
+    plt.ylim(0, 3)
     plt.legend(loc='upper left')
 
     plt.figure()
@@ -237,10 +237,10 @@ def _main():
 
     multi.plot_all(log=True, color=color['gray'])
     tradition.plot_all(log=True, color=color['gray'])
-    multi.plot_interp(
-        log=True, label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     tradition.plot_interp(
         log=True, label='Tradition', linewidth=3.0, color=color['blue'])
+    multi.plot_interp(
+        log=True, label='Multi-Cut-2', linewidth=3.0, color=color['green'])
     # tradition_end.plot_interp(label='Tradition_end', linewidth=3.0)
 
     plt.axvline(
