@@ -63,7 +63,7 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     [single_demand_sd, single_demand_sa] = get_single_demand(config, beta_eff, dpi, spectrum);
 
     % single demand curve intersection with bilinear curve to get performance point
-    [sd, sa] = get_performance_point(single_demand_sd, single_demand_sa, bilinear_sd, bilinear_sa);
+    [sd, sa] = get_performance_point(single_demand_sd, single_demand_sa, capacity_sd, capacity_sa);
 
     figure;
     hold on;
@@ -169,11 +169,11 @@ function [sd, sa] = get_single_demand(config, beta_eff, dpi, spectrum)
 
 end
 
-function [sd, sa] = get_performance_point(single_demand_sd, single_demand_sa, bilinear_sd, bilinear_sa)
+function [sd, sa] = get_performance_point(single_demand_sd, single_demand_sa, capacity_sd, capacity_sa)
     sd = NaN;
     sa = NaN;
 
-    point_temp = InterX([single_demand_sd; single_demand_sa], [bilinear_sd; bilinear_sa]);
+    point_temp = InterX([single_demand_sd; single_demand_sa], [capacity_sd; capacity_sa]);
 
     if size(point_temp, 2) == 1
         sd = point_temp(1, :);
