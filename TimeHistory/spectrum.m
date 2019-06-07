@@ -30,7 +30,7 @@ mid_seismic_20floor_9m = {
   'ss_s1', [0.66, 0.49, 0.8, 0.54];
 };
 
-data = mid_seismic_20floor_9m;
+data = high_seismic_4floor_6m;
 
 structure_period = data{1, 2};
 ss_s1 = data{2, 2};
@@ -93,10 +93,11 @@ xlabel('T(sec)');
 ylabel('Sa(g)');
 hold on;
 
-plot(tn, sad, 'Color', blue, 'LineWidth', 1.5);
-plot(tn, sam, 'Color', green, 'LineWidth', 1.5);
-plot(tn, median_acceleration, 'Color', red);
-plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5);
+plot(tn, sad, 'Color', blue, 'LineWidth', 1.5, 'DisplayName', '設計地震反應譜');
+plot(tn, sam, 'Color', green, 'LineWidth', 1.5, 'DisplayName', '最大考量地震反應譜');
+plot(tn, median_acceleration, 'Color', red, 'DisplayName', '地震歷時反應譜');
+plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5, 'DisplayName', '結構週期');
+legend;
 
 function k = fema273(t)
     if t <= 0.5
