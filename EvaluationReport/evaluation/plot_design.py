@@ -39,7 +39,7 @@ class PlotDesign:
 
         self.index = None
 
-    def add_ld_line(self, color, *args, **kwargs):
+    def add_ld_line(self, color, *args, top=True, bot=True, **kwargs):
         """
         Real Solution
         """
@@ -51,22 +51,25 @@ class PlotDesign:
         top_size_area = self.design.get_area(index, ('主筋', '左1'))
         bot_size_area = self.design.get_area(index + 3, ('主筋', '左1'))
 
-        plt.plot(
-            df['StnLoc'],
-            df['BarTopNumLd'] * top_size_area,
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
-        line, = plt.plot(
-            df['StnLoc'],
-            - df['BarBotNumLd'] * bot_size_area,
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
+        if top:
+            line, = plt.plot(
+                df['StnLoc'],
+                df['BarTopNumLd'] * top_size_area,
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
+
+        if bot:
+            line, = plt.plot(
+                df['StnLoc'],
+                - df['BarBotNumLd'] * bot_size_area,
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
 
         return line
 
-    def rebar_number_line(self, color, *args, **kwargs):
+    def rebar_number_line(self, color, *args, top=True, bot=True, **kwargs):
         """
         Real Solution
         """
@@ -77,19 +80,20 @@ class PlotDesign:
 
         top_size_area = self.design.get_area(index, ('主筋', '左1'))
         bot_size_area = self.design.get_area(index + 3, ('主筋', '左1'))
-
-        plt.plot(
-            df['StnLoc'],
-            df['BarTopNum'] * top_size_area,
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
-        line, = plt.plot(
-            df['StnLoc'],
-            - df['BarBotNum'] * bot_size_area,
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
+        if top:
+            line, = plt.plot(
+                df['StnLoc'],
+                df['BarTopNum'] * top_size_area,
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
+        if bot:
+            line, = plt.plot(
+                df['StnLoc'],
+                - df['BarBotNum'] * bot_size_area,
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
 
         return line
 
@@ -123,7 +127,7 @@ class PlotDesign:
 
         return line
 
-    def rebar_line(self, color, df='多點斷筋'):
+    def rebar_line(self, color, df='多點斷筋', top=True, bot=True):
         """
         plot top and bot line
         reutnr line
@@ -151,8 +155,9 @@ class PlotDesign:
             col_length = df.get_abs_length(index, col)
             if col_length is not None:
                 length.extend(col_length)
-
-        plt.plot(length, area, color=self.c[color], linewidth=self.linewidth)
+        if top:
+            line, = plt.plot(
+                length, area, color=self.c[color], linewidth=self.linewidth)
 
         # 下層筋，取負號
         index += 2
@@ -170,9 +175,10 @@ class PlotDesign:
             if col_length is not None:
                 length.extend(col_length)
 
-        line, = plt.plot(
-            length, -area, color=self.c[color], linewidth=self.linewidth
-        )
+        if bot:
+            line, = plt.plot(
+                length, -area, color=self.c[color], linewidth=self.linewidth
+            )
 
         return line
 
@@ -244,23 +250,25 @@ class PlotDesign:
 
         return df
 
-    def etabs_demand_line(self, color, *args, **kwargs):
+    def etabs_demand_line(self, color, *args, top=True, bot=True, **kwargs):
         """
         ETABS Demand
         reuturn line
         """
         df = self.etabs_design_on_index()
 
-        plt.plot(
-            df['StnLoc'], df['AsTop'],
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
-        line, = plt.plot(
-            df['StnLoc'], -df['AsBot'],
-            color=self.c[color], linewidth=self.linewidth,
-            *args, **kwargs
-        )
+        if top:
+            line, = plt.plot(
+                df['StnLoc'], df['AsTop'],
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
+        if bot:
+            line, = plt.plot(
+                df['StnLoc'], -df['AsBot'],
+                color=self.c[color], linewidth=self.linewidth,
+                *args, **kwargs
+            )
 
         return line
 
@@ -310,7 +318,7 @@ class PlotDesign:
             linewidth=self.linewidth
         )
 
-    def min_line(self):
+    def min_line(self, top=True, bot=True):
         """
         min area
         """
@@ -326,10 +334,13 @@ class PlotDesign:
 
         asmin = max(0.8 * math.sqrt(fc) / fy * b * d, 14 / fy * b * d) / 10000
 
-        plt.axhline(
-            max(asmin, 2 * top_size_area), linestyle='--', color=self.c['gray'])
-        plt.axhline(
-            min(-asmin, -2 * bot_size_area), linestyle='--', color=self.c['gray'])
+        if top:
+            plt.axhline(
+                max(asmin, 2 * top_size_area), linestyle='--', color=self.c['gray'])
+
+        if bot:
+            plt.axhline(
+                min(-asmin, -2 * bot_size_area), linestyle='--', color=self.c['gray'])
 
     def boundary_line(self, boundary=0.1):
         """
