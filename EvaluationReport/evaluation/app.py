@@ -124,22 +124,22 @@ def multicut_flow(data):
 def multicut_compare_tradition(data):
     plt.figure()
     data.zero_line()
-    data.min_line()
+    # data.min_line()
 
-    line1 = data.etabs_demand_line('blue')
-    data.add_ld_line('blue')
+    line1 = data.etabs_demand_line('blue', bot=False)
+    line4 = data.add_ld_line('orange', bot=False)
 
-    line2 = data.rebar_line('red', '傳統斷筋')
-    line3 = data.rebar_line('green', '多點斷筋')
+    line2 = data.rebar_line('red', '傳統斷筋', bot=False)
+    line3 = data.rebar_line('green', '多點斷筋', bot=False)
 
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
     plt.legend(
-        (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
         loc='upper left'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Mid Seismic Multi-Cut vs Tradition')
     plt.subplots_adjust(left=0.15)
 
 
@@ -169,6 +169,45 @@ def to_excel_orderby_effect(data, path):
     df.to_excel(f'{path} OrderbyEffect.xlsx')
 
 
+def f48(data1, data2):
+    plt.figure()
+    plt.subplot(2, 1, 1)
+    data1.zero_line()
+    line1 = data1.etabs_demand_line('blue', bot=False)
+    line4 = data1.add_ld_line('orange', bot=False)
+
+    line2 = data1.rebar_line('red', '傳統斷筋', bot=False)
+    line3 = data1.rebar_line('green', '多點斷筋', bot=False)
+
+    plt.ylabel('As($m^2$)')
+    # plt.xlabel('Length(m)')
+    plt.legend(
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        loc='lower right'
+    )
+    plt.title('(a)High Seismic Case')
+
+    plt.subplot(2, 1, 2)
+    data2.zero_line()
+
+    line1 = data2.etabs_demand_line('blue', bot=False)
+    line4 = data2.add_ld_line('orange', bot=False)
+
+    line2 = data2.rebar_line('red', '傳統斷筋', bot=False)
+    line3 = data2.rebar_line('green', '多點斷筋', bot=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        loc='lower right'
+    )
+    plt.title('(b)Mid Seismic Case')
+    plt.tight_layout()
+
+
 def main():
     """
     test
@@ -179,13 +218,16 @@ def main():
     data1 = PlotDesign(
         f'{script_dir}/../data/HighSeismic 4Floor 6M.xlsx')
     data2 = PlotDesign(
-        f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
+        f'{script_dir}/../data/MidSeismic 4Floor 6M.xlsx')
     data3 = PlotDesign(
         f'{script_dir}/../data/HighSeismic 4Floor 12M.xlsx')
 
     data1.put_index(24)
     data2.put_index(24)
-    data3.put_index(24)
+
+    f48(data1, data2)
+
+    # data3.put_index(24)
 
     # plt.figure()
     # data1.zero_line()
@@ -215,12 +257,12 @@ def main():
     # v_multicut_compare_tradition(data3)
     # tradition_flow(data1)
     # multicut_flow(data1)
-    multicut_compare_tradition(data1)
+    # multicut_compare_tradition(data1)
     # tradition_flow(data2)
 
     # etabs_to_addedld_sol(data2)
     multicut_compare_tradition(data2)
-    multicut_compare_tradition(data3)
+    # multicut_compare_tradition(data3)
 
     # v_workflow(data1)
 
