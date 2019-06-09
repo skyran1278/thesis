@@ -208,7 +208,20 @@ def f4_9(data1, data2):
     plt.tight_layout()
 
 
-def f4_10(data1, data2, data3):
+def f4_10():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    data1 = PlotDesign(
+        f'{script_dir}/../data/MidSeismic 4Floor 6M.xlsx')
+    data2 = PlotDesign(
+        f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
+    data3 = PlotDesign(
+        f'{script_dir}/../data/MidSeismic 4Floor 12M.xlsx')
+
+    data1.put_index(24)
+    data2.put_index(24)
+    data3.put_index(24)
+
     plt.figure(figsize=(6.4, 8))
 
     plt.subplot(3, 1, 1)
@@ -268,6 +281,79 @@ def f4_10(data1, data2, data3):
     plt.tight_layout()
 
 
+def f4_11():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    data1 = PlotDesign(
+        f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
+    data2 = PlotDesign(
+        f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
+    data3 = PlotDesign(
+        f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
+
+    data1.put_index(24)
+    data2.put_index(24)
+    data3.put_index(24)
+
+    plt.figure(figsize=(6.4, 8))
+
+    plt.subplot(3, 1, 1)
+    data1.zero_line()
+
+    line1 = data1.etabs_demand_line('blue', top=False)
+    line4 = data1.add_ld_line('orange', top=False)
+
+    line2 = data1.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data1.rebar_line('green', '多點斷筋', top=False)
+
+    plt.ylabel('As($m^2$)')
+    plt.xlabel('Length(m)')
+    plt.legend(
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('(a)High Seismic Case')
+
+    plt.subplot(3, 1, 2)
+    data2.zero_line()
+
+    line1 = data2.etabs_demand_line('blue', top=False)
+    line4 = data2.add_ld_line('orange', top=False)
+
+    line2 = data2.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data2.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('(b)Mid Seismic Case')
+
+    plt.subplot(3, 1, 3)
+    data3.zero_line()
+
+    line1 = data3.etabs_demand_line('blue', top=False)
+    line4 = data3.add_ld_line('orange', top=False)
+
+    line2 = data3.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data3.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line4, line2, line3),
+        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('(c)Low Seismic Case')
+
+    plt.tight_layout()
+
+
 def main():
     """
     test
@@ -276,18 +362,17 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
-        f'{script_dir}/../data/MidSeismic 4Floor 6M.xlsx')
+        f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
     data2 = PlotDesign(
         f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
     data3 = PlotDesign(
-        f'{script_dir}/../data/MidSeismic 4Floor 12M.xlsx')
+        f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
 
     data1.put_index(24)
     data2.put_index(24)
     data3.put_index(24)
 
-    # f4_9(data1, data2)
-    f4_10(data1, data2, data3)
+    f4_11()
 
     # data3.put_index(24)
 
