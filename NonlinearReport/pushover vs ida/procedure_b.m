@@ -34,7 +34,7 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
     % and get vertical line intersection with pushover curve on d_star, a_star
     [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, demand_sd, demand_sa);
 
-    if isnan(d_star) || length(d_star) ~= 1
+    if isnan(d_star) || (length(d_star) ~= 1)
         figure;
         hold on;
         title('ADRS');
@@ -107,7 +107,7 @@ function [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, 
 
     if size(point_temp, 2) == 1
 
-        point_star = InterX([capacity_sd; capacity_sa], [[point_temp(1, :), point_temp(1, :)]; [0, point_temp(2, :)]]);
+        point_star = InterX([capacity_sd; capacity_sa], [[point_temp(1, :), point_temp(1, :)]; [0, point_temp(2, :) * 1.1]]);
 
         d_star = point_star(1, :);
         a_star = point_star(2, :);

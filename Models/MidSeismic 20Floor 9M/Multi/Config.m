@@ -11,11 +11,11 @@ classdef Config
         % SMS_SM1 = [1, 0.77];
 
         PF = [
-            1.377, 1.321, 2.145
+            1.377, 0.548, 0.295
         ];
 
         effective_mass = [
-            4351, 816, 204
+            4351, 817, 202
         ];
 
         % roof displacement(mm), V(tonf)
