@@ -37,7 +37,7 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
     if isnan(d_star) || (length(d_star) ~= 1)
         figure;
         hold on;
-        title('ADRS');
+        title('ATC-40 Procedure B');
         xlabel('sd(mm)');
         ylabel('sa(g)');
         axis([0 max(demand_sd) 0 max(demand_sa)]);
@@ -65,7 +65,7 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
 
     figure;
     hold on;
-    title('ADRS');
+    title('ATC-40 Procedure B');
     xlabel('sd(mm)');
     ylabel('sa(g)');
     % axis([0 max(demand_sd) 0 max(demand_sa)]);
