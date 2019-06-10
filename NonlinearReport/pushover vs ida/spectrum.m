@@ -10,8 +10,12 @@ function [sd, sa, tn] = spectrum(time_history_filename, scaled_factor, damping_r
         scaled_factor = 1.0;
     end
 
-    period = filename_to_array(time_history_filename, 2, 1); % s
-    ag = filename_to_array(time_history_filename, 2, 2) * scaled_factor; % g
+    [ag, time_interval, NPTS, errCode] = parseAT2('D:/GitHub/thesis/TimeHistory/PEERNGARecords_Normalized/' + time_history_filename + '.AT2');
+
+    period = 0 : time_interval : (NPTS - 1) * time_interval;
+
+    % period = filename_to_array(time_history_filename, 2, 1); % s
+    ag = ag * scaled_factor; % g
 
     tn = 0.1 : 0.1 : 3;
 

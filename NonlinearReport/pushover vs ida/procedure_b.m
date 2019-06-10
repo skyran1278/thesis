@@ -68,7 +68,7 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
     title('ADRS');
     xlabel('sd(mm)');
     ylabel('sa(g)');
-%     axis([0 max(demand_sd) 0 max(demand_sa)]);
+    % axis([0 max(demand_sd) 0 max(demand_sa)]);
     plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
     plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
