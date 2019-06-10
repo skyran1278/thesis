@@ -20,8 +20,12 @@ for index = 1 : scaled_factor_length
     end
 end
 
-median_sd = median(sd);
-median_sa = median(sa);
+median_sd = nanmedian(sd);
+median_sa = nanmedian(sa);
+
+for
+
+median_sa = interp1(sa, sd,0:0.01: 0.5)
 
 green = [26 188 156] / 256;
 blue = [52 152 219] / 256;
@@ -35,7 +39,7 @@ hold on;
 title('ADRS');
 xlabel('sd(mm)');
 ylabel('sa(g)');
-plot(sd, sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
+plot(sd.', sa.', 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
 plot(median_sd, median_sa, 'DisplayName', 'Elastic', 'Color', green, 'LineWidth', 1.5);
 fprintf('        [%.3f, %.3f],\n', [sd; sa]);
 % plot(sd_uniform, sa_uniform, 'DisplayName', 'Elastic', 'Color', blue, 'LineWidth', 1.5);
