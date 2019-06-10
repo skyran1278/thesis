@@ -300,8 +300,6 @@ def _main():
         'RSN1787_HECTOR_HEC090': {'sa': 0.402, 'pga': 0.343},
     }
 
-    file_dir = os.path.dirname(os.path.abspath(__file__))
-
     path = {
         'base_shear_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/base_shear',
         'story_drifts_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts',
@@ -319,15 +317,14 @@ def _main():
     ])
 
     pushover_sa_sd = np.array([
-        [0.821, 0.003],
-        [18.009, 0.070],
-        [32.853, 0.125],
-        [41.262, 0.142],
-        [51.253, 0.163],
-        [63.122, 0.183],
-        [79.854, 0.208],
-        [101.558, 0.228],
-        [129.980, 0.246],
+        [2.724, 0.010],
+        [27.416, 0.100],
+        [45.763, 0.200],
+        [67.865, 0.297],
+        [100.645, 0.396],
+        [102.078, 0.400],
+        [131.893, 0.500],
+        [136.188, 0.600],
     ])
 
     color = {
@@ -344,17 +341,6 @@ def _main():
         earthquakes=earthquakes,
         stories=stories
     )
-
-    # print(ida.get_intensity())
-
-    # ida.figure(xlim_max=0.025, intensity_measure='pga')
-    # ida.plot_all()
-    # ida.plot_median()
-    # plt.legend(loc='upper left')
-
-    # ida.figure(intensity_measure='sa')
-    # ida.plot_median()
-    # plt.legend(loc='upper left')
 
     ida.figure(
         ylim_max=800,
@@ -377,14 +363,15 @@ def _main():
         intensity_measure='sa',
         damage_measure='story_displacements'
     )
-    ida.plot(
-        'RSN1158_KOCAELI_DZC180',
-        color=color['gray'], label='IDA Curve', marker='.'
-    )
+    # ida.plot(
+    #     'RSN1158_KOCAELI_DZC180',
+    #     color=color['gray'], label='IDA Curve', marker='.'
+    # )
+    ida.plot_median(color=color['gray'])
 
     plt.plot(
         pushover_sa_sd[:, 0], pushover_sa_sd[:, 1],
-        label='Pushover Curve', color=color['gray'], linestyle='--', marker='.')
+        label='median pushover Curve', color=color['gray'], linestyle='--', marker='.')
 
     plt.legend(loc='upper left')
     plt.grid(True, which='both', linestyle=':')

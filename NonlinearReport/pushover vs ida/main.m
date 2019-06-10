@@ -2,9 +2,9 @@ clc; clear; close all;
 
 config = Config;
 
-scaled_factor = [0.01, 0.1, 0.297, 0.396, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 2, 2.5];
+scaled_factor = [0.01, 0.1, 0.2, 0.297, 0.396, 0.4, 0.5, 0.6, 0.65];
 
-sas = [
+file_sa = [
     0.480, 0.414, 0.635, 0.348, 0.283, 0.488, 0.132, 0.326, 0.738, 0.480, 0.439
 ];
 
@@ -18,7 +18,7 @@ sa = NaN(1, length(scaled_factor));
 for index = 1 : length(scaled_factor)
     for filename = 1 : length(filenames)
         config.filename = filenames(filename);
-        [sd(filename, index), ~] = procedure_b(config, 'inverted_triangle', scaled_factor(index) / sas(index));
+        [sd(filename, index), ~] = procedure_b(config, 'inverted_triangle', scaled_factor(index) / file_sa(filename));
         sa(1, index) = scaled_factor(index);
     end
 end
