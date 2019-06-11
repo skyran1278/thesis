@@ -25,10 +25,11 @@ def etabs_to_addedld_sol(data):
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Demand Change To Rebar Number', 'Consider $l_d$'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('Moment Demand and Add Ld Demand')
     plt.subplots_adjust(left=0.15)
+    plt.grid(True, which='both', linestyle=':')
 
 
 def v_workflow(data):
@@ -47,9 +48,10 @@ def v_workflow(data):
     plt.legend(
         (line1, line2, line3),
         ('$V_u$', 'Consider $V_c$ Demand', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('Multi-Cut Workflow')
+    plt.grid(True, which='both', linestyle=':')
 
 
 def v_multicut_compare_tradition(data):
@@ -69,9 +71,10 @@ def v_multicut_compare_tradition(data):
     plt.legend(
         (line1, line2, line3),
         ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('Multi-Cut vs Tradition')
+    plt.grid(True, which='both', linestyle=':')
 
 
 def tradition_flow(data):
@@ -90,10 +93,11 @@ def tradition_flow(data):
     plt.legend(
         (line1, line2),
         ('Demand', 'Tradition'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('Tradition Workflow')
     plt.subplots_adjust(left=0.15)
+    plt.grid(True, which='both', linestyle=':')
 
 
 def multicut_flow(data):
@@ -115,10 +119,11 @@ def multicut_flow(data):
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$', 'Multi-Cut'),
-        loc='upper left',
+        loc='best',
     )
     plt.title('Multi-Cut Workflow')
     plt.subplots_adjust(left=0.15)
+    plt.grid(True, which='both', linestyle=':')
 
 
 def multicut_compare_tradition(data):
@@ -137,10 +142,11 @@ def multicut_compare_tradition(data):
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('Mid Seismic Multi-Cut vs Tradition')
     plt.subplots_adjust(left=0.15)
+    plt.grid(True, which='both', linestyle=':')
 
 
 def to_excel_orderby_effect(data, path):
@@ -169,6 +175,38 @@ def to_excel_orderby_effect(data, path):
     df.to_excel(f'{path} OrderbyEffect.xlsx')
 
 
+def f3_1():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    data = PlotDesign(
+        f'{script_dir}/../data/LowSeismic 4Floor 12M.xlsx')
+
+    data.put_index(0)
+
+    plt.figure()
+
+    data.zero_line(linestyle='-')
+    # data.min_line()
+
+    line1 = data.etabs_demand_line('gray', bot=False, linestyle='--')
+    line2 = data.etabs_demand_line('gray', top=False, linestyle='-.')
+    # line2 = data.rebar_number_line('red')
+
+    # line3 = data.add_ld_line('green', label='Consider $l_d$')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2),
+        ('Top', 'Bottom'),
+        loc='best'
+    )
+    plt.title('Beam Reinforcement')
+    # plt.subplots_adjust(left=0.15)
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
 def f4_9(data1, data2):
     plt.figure()
     plt.subplot(2, 1, 1)
@@ -187,6 +225,7 @@ def f4_9(data1, data2):
         loc='lower right'
     )
     plt.title('(a)High Seismic Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.subplot(2, 1, 2)
     data2.zero_line()
@@ -205,6 +244,7 @@ def f4_9(data1, data2):
         loc='lower right'
     )
     plt.title('(b)Mid Seismic Case')
+    plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
 
@@ -238,9 +278,10 @@ def f4_10():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(a)Beam Length 6m Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.subplot(3, 1, 2)
     data2.zero_line()
@@ -256,12 +297,13 @@ def f4_10():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(b)Beam Length 9m Case')
 
     plt.subplot(3, 1, 3)
     data3.zero_line()
+    plt.grid(True, which='both', linestyle=':')
 
     line1 = data3.etabs_demand_line('blue', top=False)
     line4 = data3.add_ld_line('orange', top=False)
@@ -274,9 +316,10 @@ def f4_10():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(c)Beam Length 12m Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
 
@@ -311,9 +354,10 @@ def f4_11():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(a)High Seismic Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.subplot(3, 1, 2)
     data2.zero_line()
@@ -329,9 +373,10 @@ def f4_11():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(b)Mid Seismic Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.subplot(3, 1, 3)
     data3.zero_line()
@@ -347,9 +392,10 @@ def f4_11():
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='upper left'
+        loc='best'
     )
     plt.title('(c)Low Seismic Case')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
 
@@ -372,8 +418,8 @@ def main():
     data2.put_index(24)
     data3.put_index(24)
 
-    f4_11()
-
+    # f4_11()
+    f3_1()
     # data3.put_index(24)
 
     # plt.figure()
@@ -398,7 +444,7 @@ def main():
     #     f'{script_dir}/../data/20190520 104202 SmartCut 欣詮'
     # )
 
-    # etabs_to_addedld_sol(data1)
+    etabs_to_addedld_sol(data1)
     # v_multicut_compare_tradition(data1)
     # v_multicut_compare_tradition(data2)
     # v_multicut_compare_tradition(data3)

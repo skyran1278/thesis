@@ -298,7 +298,7 @@ class PlotDesign:
             color=self.c['gray']
         )
 
-    def zero_line(self):
+    def zero_line(self, *args, **kwargs):
         """
         zero
         """
@@ -311,11 +311,11 @@ class PlotDesign:
         )
 
         # 基準線
-        plt.plot(
-            [start, end],
-            [0, 0],
+        plt.axhline(
+            0,
             color=self.c['gray'],
-            linewidth=self.linewidth
+            linewidth=self.linewidth,
+            *args, **kwargs
         )
 
     def min_line(self, top=True, bot=True):
