@@ -69,6 +69,8 @@ function [dy, sdd, sdm] = evalution(config, load_pattern)
     text(sdd * 1.1, sad, sprintf('475 Performance Point: %.1fmm', sdd), 'Color', blue);
     text(sdm * 1.1, sam, sprintf('2500 Performance Point: %.1fmm', sdm), 'Color', red);
     legend('show','Location','southeast');
+    grid on;
+    grid minor;
 
     fprintf('%s\n', load_pattern);
     fprintf('Ra=%.2f\n', Ra);

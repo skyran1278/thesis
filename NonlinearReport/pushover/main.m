@@ -2,7 +2,7 @@ clc; clear; close all;
 
 config = Config;
 
-[capacity_sd, ap] = epa(config, 'inverted_triangle');
+% [capacity_sd, ap] = epa(config, 'inverted_triangle');
 
 evalution(config, 'inverted_triangle');
 

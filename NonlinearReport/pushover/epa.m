@@ -66,6 +66,8 @@ function [capacity_sd, ap] = epa(config, load_pattern)
     plot(capacity_sd, [0 capacity_sa], 'DisplayName', 'Capacity Curve', 'Color', red, 'LineWidth', 1.5,'Marker','o')
 
     legend('show','Location','northwest');
+    grid on;
+    grid minor;
 
 end
 

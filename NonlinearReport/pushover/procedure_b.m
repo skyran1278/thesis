@@ -46,7 +46,9 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
         plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
         plot(demand_sd, demand_sa, 'DisplayName', 'Demand', 'Color', blue, 'LineWidth', 1.5);
         % axis([0 max(capacity_sd) 0 inf]);
-        legend('show')
+        legend('show');
+        grid on;
+        grid minor;
         return
     end
 
@@ -80,7 +82,9 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     plot(sd, sa, 'o', 'DisplayName', 'Performance Point', 'Color', red);
     text(sd * 1.1, sa, ['(', num2str(sd), ', ', num2str(sa), ')'], 'Color', red)
     % axis([0 max(capacity_sd) 0 inf]);
-    legend('show')
+    legend('show');
+    grid on;
+    grid minor;
 
 end
 
