@@ -144,7 +144,7 @@ class Dynamic():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq, kind=kind)
 
-            plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
+            plt.plot(damage, intensity, marker='.', *args, **kwargs)
 
     def plot(self, earthquake, *args, kind='DBE', **kwargs):
         """
@@ -213,24 +213,9 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
+    plt.title('(a) Tradition')
     plt.legend(loc='upper right')
-
-    plt.figure()
-    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
-
-    tradition.plot_all(color=color['gray'], kind='MCE')
-    tradition.plot_interp(
-        color=color['green'], label='median', kind='MCE')
-    tradition.plot_mean(
-        color=color['blue'], label='mean', kind='MCE')
-
-    plt.axvline(
-        0.02,
-        linestyle='--',
-        color=color['gray']
-    )
-    plt.legend(loc='upper right')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
@@ -247,7 +232,28 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
+    plt.title('(b) Multi-Cut')
     plt.legend(loc='upper right')
+    plt.grid(True, which='both', linestyle=':')
+
+    plt.figure()
+    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel('Height(m)')
+
+    tradition.plot_all(color=color['gray'], kind='MCE')
+    tradition.plot_interp(
+        color=color['green'], label='median', kind='MCE')
+    tradition.plot_mean(
+        color=color['blue'], label='mean', kind='MCE')
+
+    plt.axvline(
+        0.02,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.title('(a) Tradition')
+    plt.legend(loc='upper right')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
@@ -264,7 +270,9 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
+    plt.title('(b) Multi-Cut')
     plt.legend(loc='upper right')
+    plt.grid(True, which='both', linestyle=':')
 
     plt.show()
 

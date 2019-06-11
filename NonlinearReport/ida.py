@@ -1,8 +1,6 @@
 """
 ida data and function
 """
-import os
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -109,7 +107,7 @@ class IDA():
             df['Scaled Factors'].values
         )
 
-    def get_interp(self, percentage=0.5, num=1000):
+    def get_interp(self, percentage=0.5, num=1000, mean=False):
         """
         use to interp intensity
         """
@@ -134,7 +132,10 @@ class IDA():
             interp_dm.loc[:, col] = (
                 np.interp(interp_im, intensities[col], damages[col]))
 
-        interp_dm = interp_dm.quantile(q=percentage, axis=1).values
+        if not mean:
+            interp_dm = interp_dm.quantile(q=percentage, axis=1).values
+        else:
+            interp_dm = interp_dm.mean(axis=1).values
 
         return interp_dm, interp_im
 
@@ -150,9 +151,11 @@ class IDA():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq)
 
-            plot(damage, intensity, marker='.', *args, **kwargs)
+            line, = plot(damage, intensity, marker='.', *args, **kwargs)
 
-    def plot(self, earthquake, log=False, *args, **kwargs):
+        return line
+
+    def plot(self, earthquake, *args, log=False, **kwargs):
         """
         plot pushover in drift and acceleration by load case
         """
@@ -164,7 +167,7 @@ class IDA():
         damage, intensity = self.get_points(earthquake)
         plot(damage, intensity, *args, **kwargs)
 
-    def plot_interp(self, *args, percentage=0.5, log=False, **kwargs):
+    def plot_interp(self, *args, percentage=0.5, log=False, mean=False, **kwargs):
         """
         plot pushover in drift and acceleration by load case
         """
@@ -173,7 +176,7 @@ class IDA():
         else:
             plot = plt.plot
 
-        damage, intensity = self.get_interp(percentage)
+        damage, intensity = self.get_interp(percentage, mean=mean)
         plot(damage, intensity, *args, **kwargs)
 
 
@@ -208,106 +211,88 @@ def _main():
     plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    plt.title('(a) Tradition versus Multi-Cut eleven IDA curves')
 
-    multi.plot_all(color=color['gray'])
-    tradition.plot_all(color=color['gray'])
-    tradition.plot_interp(
-        label='Tradition', linewidth=3.0, color=color['blue'])
-    multi.plot_interp(
-        label='Multi-Cut-2', linewidth=3.0, color=color['green'])
+    line_tradition = tradition.plot_all(color=color['gray'], linestyle='--')
+    line_multi = multi.plot_all(color=color['gray'])
+    # tradition.plot_interp(
+    #     label='Tradition', linewidth=3.0, color=color['blue'])
+    # multi.plot_interp(
+    #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
+
+    damage, intensity = tradition.get_interp()
+    print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
+    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
+
+    damage, intensity = multi.get_interp()
+    print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
+    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
 
     plt.axvline(
         0.025,
-        linestyle='--',
+        linestyle='-.',
         color=color['gray']
     )
     plt.axvline(
         0.04,
-        linestyle='--',
+        linestyle='-.',
         color=color['gray']
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 3)
-    plt.legend(loc='upper left')
+    plt.ylim(0, 5)
+    plt.grid(True, which='both', linestyle=':')
+    plt.legend(
+        (line_tradition, line_multi),
+        ('Tradition', 'Multi-Cut-2'),
+        loc='upper left'
+    )
 
     plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    plt.title('(b) Tradition versus Multi-Cut median IDA curves')
 
-    multi.plot_all(log=True, color=color['gray'])
-    tradition.plot_all(log=True, color=color['gray'])
+    # multi.plot_all(log=True, color=color['gray'])
+    # tradition.plot_all(log=True, color=color['gray'])
+    # tradition.plot_interp(
+    #     percentage=0.16,
+    #     log=True, label='Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
+    # multi.plot_interp(
+    #     percentage=0.16,
+    #     log=True, label='Multi-Cut-2', linewidth=2.0, color=color['green'], linestyle='--')
     tradition.plot_interp(
-        log=True, label='Tradition', linewidth=3.0, color=color['blue'])
+        log=True, label='Median Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
     multi.plot_interp(
-        log=True, label='Multi-Cut-2', linewidth=3.0, color=color['green'])
-    # tradition_end.plot_interp(label='Tradition_end', linewidth=3.0)
+        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['gray'])
+    tradition.plot_interp(
+        mean=True,
+        log=True, label='Median Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
+    multi.plot_interp(
+        mean=True,
+        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['gray'])
+    # tradition.plot_interp(
+    #     percentage=0.84,
+    #     log=True, label='Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
+    # multi.plot_interp(
+    #     percentage=0.84,
+    #     log=True, label='Multi-Cut-2', linewidth=2.0, color=color['green'], linestyle='--')
 
     plt.axvline(
         0.025,
-        linestyle='--',
+        linestyle='-.',
         color=color['gray']
     )
     plt.axvline(
         0.04,
-        linestyle='--',
+        linestyle='-.',
         color=color['gray']
     )
 
     plt.xlim(right=0.25)
     plt.ylim(top=5)
-    plt.grid(True, which="both")
+    plt.grid(True, which='both', linestyle=':')
     plt.legend(loc='upper left')
-
-    # plt.figure()
-    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-
-    # tradition.plot_all(color=color['gray'])
-    # tradition.plot_interp(
-    #     label='Median Capacity',
-    #     linewidth=3.0, color=color['blue']
-    # )
-
-    # plt.axvline(
-    #     0.025,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-    # plt.axvline(
-    #     0.04,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-
-    # plt.xlim(0, 0.05)
-    # plt.ylim(0, 5)
-    # plt.legend(loc='upper left')
-
-    # plt.figure()
-    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-
-    # multi.plot_all(color=color['gray'])
-    # multi.plot_interp(
-    #     label='Median Capacity',
-    #     linewidth=3.0, color=color['green']
-    # )
-
-    # plt.axvline(
-    #     0.025,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-    # plt.axvline(
-    #     0.04,
-    #     linestyle='--',
-    #     color=color['gray']
-    # )
-
-    # plt.xlim(0, 0.05)
-    # plt.ylim(0, 5)
-    # plt.legend(loc='upper left')
 
     plt.show()
 
