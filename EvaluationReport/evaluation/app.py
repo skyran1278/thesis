@@ -28,8 +28,8 @@ def etabs_to_addedld_sol(data):
         loc='best'
     )
     plt.title('Moment Demand and Add Ld Demand')
-    plt.subplots_adjust(left=0.15)
     plt.grid(True, which='both', linestyle=':')
+    plt.subplots_adjust(left=0.15)
 
 
 def v_workflow(data):
@@ -96,8 +96,8 @@ def tradition_flow(data):
         loc='best'
     )
     plt.title('Tradition Workflow')
-    plt.subplots_adjust(left=0.15)
     plt.grid(True, which='both', linestyle=':')
+    plt.subplots_adjust(left=0.15)
 
 
 def multicut_flow(data):
@@ -122,8 +122,8 @@ def multicut_flow(data):
         loc='best',
     )
     plt.title('Multi-Cut Workflow')
-    plt.subplots_adjust(left=0.15)
     plt.grid(True, which='both', linestyle=':')
+    plt.subplots_adjust(left=0.15)
 
 
 def multicut_compare_tradition(data):
@@ -145,8 +145,8 @@ def multicut_compare_tradition(data):
         loc='best'
     )
     plt.title('Mid Seismic Multi-Cut vs Tradition')
-    plt.subplots_adjust(left=0.15)
     plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
 
 def to_excel_orderby_effect(data, path):
@@ -408,18 +408,20 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
-        f'{script_dir}/../data/HighSeismic 4Floor 9M.xlsx')
-    data2 = PlotDesign(
-        f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
-    data3 = PlotDesign(
-        f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
+        f'{script_dir}/../data/20190612 192700 Cut 2.xlsx')
+    # data2 = PlotDesign(
+    #     f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
+    # data3 = PlotDesign(
+    #     f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
 
-    data1.put_index(24)
-    data2.put_index(24)
-    data3.put_index(24)
+    for index in range(0, data1.design.get_len(), 4):
+        data1.put_index(index)
+        multicut_flow(data1)
+    # data2.put_index(24)
+    # data3.put_index(24)
 
     # f4_11()
-    f3_1()
+    # f3_1()
     # data3.put_index(24)
 
     # plt.figure()
@@ -444,7 +446,7 @@ def main():
     #     f'{script_dir}/../data/20190520 104202 SmartCut 欣詮'
     # )
 
-    etabs_to_addedld_sol(data1)
+    # etabs_to_addedld_sol(data1)
     # v_multicut_compare_tradition(data1)
     # v_multicut_compare_tradition(data2)
     # v_multicut_compare_tradition(data3)
