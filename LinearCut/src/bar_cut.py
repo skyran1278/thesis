@@ -18,7 +18,7 @@ def cut_multiple(df, loc, boundary, group_num=5):
     if group_num <= 3:
         return cut_3(df, loc, boundary)
 
-    col = 'Bar' + loc + 'Num'
+    col = 'Bar' + loc + 'NumLd'
 
     # initial
     min_usage = float('Inf')
@@ -87,11 +87,11 @@ def cut_3(df, loc, boundary):
     """
     cut 3, depands on boundary, ex: 0.1~0.45, 0.55~0.9
     """
-    def calc_length(left, mid, right):
+    def calc_mid_idx(left, mid, right):
         maxstress_id = df.loc[left:right, 'As' + loc].idxmax()
 
-        num_left = df.loc[left:mid, col].max()
-        num_right = df.loc[mid:right, col].max()
+        num_left = df.loc[left:mid, 'Bar' + loc + 'Num'].max()
+        num_right = df.loc[mid:right, 'Bar' + loc + 'Num'].max()
 
         ld = df.loc[maxstress_id, loc + 'Ld']
         max_d_12db = (
@@ -105,23 +105,23 @@ def cut_3(df, loc, boundary):
         if num_left > num_right:
             station = max(ld, max_d_12db) + df.loc[maxstress_id, 'StnLoc']
             idx = df.index[df['StnLoc'].gt(station)]
-            if idx.empty:
-                return right
-            return min(idx[0], right)
-            # max(ld, max_d_12db) + df.loc[maxstress_id, 'StnLoc'] - df.loc[left, 'StnLoc']
+            if idx.empty or idx[0] > right:
+                print(f'{station} empty')
+                return False
+                # return right
+            return idx[0]
+            # return min(idx[0], right)
 
         if num_left < num_right:
             station = df.loc[maxstress_id, 'StnLoc'] - max(ld, max_d_12db)
             idx = df.index[df['StnLoc'].lt(station)]
-            if idx.empty:
-                return left
-            return max(idx[-1], left)
-            # return (
-            #     - max(ld, max_d_12db) +
-            #     df.loc[maxstress_id, 'StnLoc'] - df.loc[left, 'StnLoc']
-            # )
+            if idx.empty or idx[-1] < left:
+                print(f'{station} empty')
+                return False
+                # return left
+            return idx[-1]
+            # return max(idx[-1], left)
         return mid
-        # return df.loc[mid, 'StnLoc'] - df.loc[left, 'StnLoc']
 
     col = 'Bar' + loc + 'Num'
 
@@ -158,12 +158,12 @@ def cut_3(df, loc, boundary):
         num[1] = df.loc[idx[0]:idx[1], col].max()
         num[2] = df.loc[idx[1]:, col].max()
 
-        idx0 = calc_length(df['StnLoc'].idxmin(), idx[0], idx[1])
-        idx1 = calc_length(idx0, idx[1], df['StnLoc'].idxmax())
-        # length[2] = (
-        #     df['StnLoc'].max() - df['StnLoc'].min() -
-        #     length[0] - length[1]
-        # )
+        idx0 = calc_mid_idx(df['StnLoc'].idxmin(), idx[0], idx[1])
+        if not idx0:
+            continue
+        idx1 = calc_mid_idx(idx0, idx[1], df['StnLoc'].idxmax())
+        if not idx1:
+            continue
 
         length[0] = df.loc[idx0, 'StnLoc'] - df['StnLoc'].min()
         length[1] = df.loc[idx1, 'StnLoc'] - df.loc[idx0, 'StnLoc']
@@ -262,7 +262,7 @@ def main():
     beam, etabs_design = calc_stirrups(beam, etabs_design, const)
     etabs_design = calc_db('BayID', etabs_design, const)
     etabs_design = calc_ld(etabs_design, const)
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
 
     execution.time('cut 3')
     # beam = output_3(beam, etabs_design, const)
