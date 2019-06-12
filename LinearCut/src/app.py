@@ -35,7 +35,7 @@ def cut_multiple(etabs_design, const, vc, by='BayID', group_num=3):
     # 計算延伸長度
     etabs_design = calc_ld(etabs_design, const)
     # 加上延伸長度
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
     # 多點斷筋
     beam = cut_optimization(beam, etabs_design, const, group_num)
 
@@ -159,7 +159,7 @@ def cut_by_frame(const, moment=3):
 
 #     # 加上延伸長度
 #     execution.time('Add Ld')
-#     ld_design = add_ld(ld_design, 'Ld', const['rebar'])
+#     ld_design = add_ld(ld_design, 'Ld', const)
 #     ld_design = load_pkl(output_dir + '/ld_design.pkl', ld_design)
 #     execution.time()
 

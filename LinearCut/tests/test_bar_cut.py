@@ -24,7 +24,7 @@ def test_bar_cut_3():
     beam, etabs_design = calc_stirrups_3(beam, etabs_design, const)
     etabs_design = calc_db('BayID', etabs_design, const)
     etabs_design = calc_ld(etabs_design, const)
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
 
     beam = cut_optimization(beam, etabs_design, const, 3)
     print(beam.head())
@@ -61,7 +61,7 @@ def test_bar_cut_multiple():
     beam, etabs_design = calc_stirrups_3(beam, etabs_design, const)
     etabs_design = calc_db('BayID', etabs_design, const)
     etabs_design = calc_ld(etabs_design, const)
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
 
     beam = cut_optimization(beam, etabs_design, const, 5)
     print(beam.head())

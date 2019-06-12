@@ -73,7 +73,7 @@ def test_put_column_order():
     beam, etabs_design = calc_stirrups(beam, etabs_design, const)
     etabs_design = calc_db('BayID', etabs_design, const)
     etabs_design = calc_ld(etabs_design, const)
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
 
     beam = cut_optimization(beam, etabs_design, const)
 

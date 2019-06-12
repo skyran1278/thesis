@@ -2,7 +2,7 @@
 """
 import numpy as np
 
-from src.rebar import double_area, rebar_area, rebar_db
+from src.rebar import double_area, rebar_area, rebar_db, get_diameter
 
 
 def _double_size_area(real_v_size):
@@ -107,11 +107,12 @@ def calc_ld(etbas_design, const):
     return etbas_design
 
 
-def add_ld(etbas_design, ld_type, rebar):
+def add_ld(etbas_design, ld_type, const):
     """
     add ld
     ld_type: 'Ld', 'SimpleLd' I think 'SimpleLd' maybe not necessary
     """
+    rebar = const['rebar']
     ld_design = etbas_design.copy()
 
     def init_ld(df):
@@ -122,6 +123,7 @@ def add_ld(etbas_design, ld_type, rebar):
     # 好像可以不用分上下層
     # 分比較方便
     for loc in rebar:
+        bar_size = f'Bar{loc}Size'
         bar_num = 'Bar' + loc + 'Num'
         ld = loc + ld_type  # pylint: disable=invalid-name
         bar_num_ld = bar_num + ld_type
@@ -139,14 +141,30 @@ def add_ld(etbas_design, ld_type, rebar):
                 iteration = (0, -1)
 
             for row in iteration:
-                stn_loc = group.at[group.index[row], 'StnLoc']
-                stn_ld = group.at[group.index[row], ld]
+                db = get_diameter(group[bar_size].iat[0])
+                if group[f'Bar{loc}2nd'].iat[row] == 0:
+                    d = (  # pylint: disable=invalid-name
+                        group['H'].iat[0] -
+                        0.04 -
+                        get_diameter(group['RealVSize'].iat[row]) -
+                        0.5 * db
+                    )
+                else:
+                    d = (  # pylint: disable=invalid-name
+                        group['H'].iat[0] -
+                        0.04 -
+                        get_diameter(group['RealVSize'].iat[row]) -
+                        1.5 * db
+                    )
+
+                stn_loc = group['StnLoc'].iat[row]
+                stn_ld = max(group[ld].iat[row], 12 * db, d)
                 stn_inter = (
                     (group['StnLoc'] >= stn_loc - stn_ld) &
                     (group['StnLoc'] <= stn_loc + stn_ld)
                 )
                 group.loc[stn_inter, bar_num_ld] = np.maximum(
-                    group.at[group.index[row], bar_num], group.loc[stn_inter, bar_num_ld])
+                    group[bar_num].iat[row], group.loc[stn_inter, bar_num_ld])
 
             ld_design.loc[group.index, bar_num_ld] = group[bar_num_ld]
 
@@ -184,13 +202,13 @@ def main():
     execution.time('ld')
 
     execution.time('add_ld')
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
     print(etabs_design.head())
     execution.time('add_ld')
 
     # 非常有可能會搞錯，不是所有都加 simple ld，只有兩端，所以建議可以不要這個。
     execution.time('add_simple_ld')
-    etabs_design = add_ld(etabs_design, 'SimpleLd', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'SimpleLd', const)
     print(etabs_design.head(100))
     execution.time('add_simple_ld')
 

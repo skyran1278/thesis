@@ -26,10 +26,10 @@ def test_calc_db():
     etabs_design = calc_ld(etabs_design, const)
     print(etabs_design.head())
 
-    etabs_design = add_ld(etabs_design, 'Ld', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'Ld', const)
     print(etabs_design.head())
 
-    etabs_design = add_ld(etabs_design, 'SimpleLd', const['rebar'])
+    etabs_design = add_ld(etabs_design, 'SimpleLd', const)
     print(etabs_design.head())
 
     columns = [
