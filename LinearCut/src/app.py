@@ -12,7 +12,7 @@ from src.e2k import load_e2k
 from src.etabs_design import load_etabs_design, post_e2k
 from src.stirrups import calc_stirrups, calc_stirrups_3
 from src.bar_size_num import calc_db
-from src.bar_ld import calc_ld, add_ld
+from src.bar_ld import calc_ld, add_ld, add_max_d_12db
 from src.bar_cut import cut_optimization
 from src.bar_traditional import cut_traditional
 
@@ -36,6 +36,7 @@ def cut_multiple(etabs_design, const, vc, by='BayID', group_num=3):
     etabs_design = calc_ld(etabs_design, const)
     # 加上延伸長度
     etabs_design = add_ld(etabs_design, 'Ld', const)
+    # etabs_design = add_max_d_12db(etabs_design, const)
     # 多點斷筋
     beam = cut_optimization(beam, etabs_design, const, group_num)
 

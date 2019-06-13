@@ -141,6 +141,46 @@ def add_ld(etbas_design, ld_type, const):
                 iteration = (0, -1)
 
             for row in iteration:
+                stn_loc = group['StnLoc'].iat[row]
+                stn_ld = group[ld].iat[row]
+                stn_inter = (
+                    (group['StnLoc'] >= stn_loc - stn_ld) &
+                    (group['StnLoc'] <= stn_loc + stn_ld)
+                )
+                group.loc[stn_inter, bar_num_ld] = np.maximum(
+                    group[bar_num].iat[row], group.loc[stn_inter, bar_num_ld])
+
+            ld_design.loc[group.index, bar_num_ld] = group[bar_num_ld]
+
+            count += 1
+            if count % 100 == 0:
+                print(name)
+
+    return ld_design
+
+
+def add_max_d_12db(etbas_design, const):
+    """
+    add_max_d_12db
+    """
+    # pylint: disable=invalid-name
+    rebar = const['rebar']
+    ld_design = etbas_design.copy()
+
+    # 好像可以不用分上下層
+    # 分比較方便
+    for loc in rebar:
+        bar_size = f'Bar{loc}Size'
+        bar_num = 'Bar' + loc + 'Num'
+        bar_num_ld = bar_num + 'Ld'
+
+        count = 0
+
+        for name, group in ld_design.groupby(['Story', 'BayID'], sort=False):
+            group = group.copy()
+            group_max = group[bar_num].max()
+
+            for row in range(len(group)):
                 db = get_diameter(group[bar_size].iat[0])
                 if group[f'Bar{loc}2nd'].iat[row] == 0:
                     d = (  # pylint: disable=invalid-name
@@ -158,13 +198,15 @@ def add_ld(etbas_design, ld_type, const):
                     )
 
                 stn_loc = group['StnLoc'].iat[row]
-                stn_ld = max(group[ld].iat[row], 12 * db, d)
+                stn_ld = max(12 * db, d)
                 stn_inter = (
                     (group['StnLoc'] >= stn_loc - stn_ld) &
                     (group['StnLoc'] <= stn_loc + stn_ld)
                 )
                 group.loc[stn_inter, bar_num_ld] = np.maximum(
-                    group[bar_num].iat[row], group.loc[stn_inter, bar_num_ld])
+                    min(group[bar_num].iat[row] + 1, group_max),
+                    group.loc[stn_inter, bar_num_ld]
+                )
 
             ld_design.loc[group.index, bar_num_ld] = group[bar_num_ld]
 
