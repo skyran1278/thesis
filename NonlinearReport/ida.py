@@ -135,6 +135,7 @@ class IDA():
         if not mean:
             interp_dm = interp_dm.quantile(q=percentage, axis=1).values
         else:
+            interp_dm = interp_dm.where(interp_dm < 0.5, np.nan)
             interp_dm = interp_dm.mean(axis=1).values
 
         return interp_dm, interp_im
@@ -267,10 +268,10 @@ def _main():
         log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['gray'])
     tradition.plot_interp(
         mean=True,
-        log=True, label='Median Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
+        log=True, label='Median Tradition', linewidth=2.0, color=color['blue'], linestyle='--')
     multi.plot_interp(
         mean=True,
-        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['gray'])
+        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['blue'])
     # tradition.plot_interp(
     #     percentage=0.84,
     #     log=True, label='Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
