@@ -123,7 +123,6 @@ def add_ld(etbas_design, ld_type, const):
     # 好像可以不用分上下層
     # 分比較方便
     for loc in rebar:
-        bar_size = f'Bar{loc}Size'
         bar_num = 'Bar' + loc + 'Num'
         ld = loc + ld_type  # pylint: disable=invalid-name
         bar_num_ld = bar_num + ld_type
@@ -172,39 +171,56 @@ def add_max_d_12db(etbas_design, const):
     for loc in rebar:
         bar_size = f'Bar{loc}Size'
         bar_num = 'Bar' + loc + 'Num'
+        bar_num_2nd = f'Bar{loc}2nd'
         bar_num_ld = bar_num + 'Ld'
 
         count = 0
 
         for name, group in ld_design.groupby(['Story', 'BayID'], sort=False):
             group = group.copy()
-            group_max = group[bar_num].max()
 
-            for row in range(len(group)):
+            diff_area = (
+                (group[bar_num].diff() != 0) |
+                (group[bar_num].diff().shift(-1) != 0)
+            )
+
+            idxs = group.index[diff_area]
+
+            for idx0, idx1 in zip(idxs, idxs[1:]):
+                left = group.at[idx0, bar_num]
+                right = group.at[idx1, bar_num]
+
+                if left == right:
+                    continue
+
                 db = get_diameter(group[bar_size].iat[0])
-                if group[f'Bar{loc}2nd'].iat[row] == 0:
+                if group.at[idx0, bar_num_2nd] == 0:
                     d = (  # pylint: disable=invalid-name
                         group['H'].iat[0] -
                         0.04 -
-                        get_diameter(group['RealVSize'].iat[row]) -
+                        get_diameter(group.at[idx0, 'RealVSize']) -
                         0.5 * db
                     )
                 else:
                     d = (  # pylint: disable=invalid-name
                         group['H'].iat[0] -
                         0.04 -
-                        get_diameter(group['RealVSize'].iat[row]) -
+                        get_diameter(group.at[idx0, 'RealVSize']) -
                         1.5 * db
                     )
 
-                stn_loc = group['StnLoc'].iat[row]
                 stn_ld = max(12 * db, d)
-                stn_inter = (
-                    (group['StnLoc'] >= stn_loc - stn_ld) &
-                    (group['StnLoc'] <= stn_loc + stn_ld)
-                )
+                stn_loc = group.at[idx0, 'StnLoc']
+
+                if left > right:
+                    num = left
+                    stn_inter = group['StnLoc'] <= stn_loc + stn_ld
+                else:
+                    num = right
+                    stn_inter = group['StnLoc'] >= stn_loc - stn_ld
+
                 group.loc[stn_inter, bar_num_ld] = np.maximum(
-                    min(group[bar_num].iat[row] + 1, group_max),
+                    num,
                     group.loc[stn_inter, bar_num_ld]
                 )
 
