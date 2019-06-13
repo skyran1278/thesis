@@ -135,7 +135,7 @@ class IDA():
         if not mean:
             interp_dm = interp_dm.quantile(q=percentage, axis=1).values
         else:
-            interp_dm = interp_dm.where(interp_dm < 0.5, np.nan)
+            # interp_dm = interp_dm.where(interp_dm < 0.5, np.nan)
             interp_dm = interp_dm.mean(axis=1).values
 
         return interp_dm, interp_im

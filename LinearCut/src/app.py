@@ -14,6 +14,7 @@ from src.stirrups import calc_stirrups, calc_stirrups_3
 from src.bar_size_num import calc_db
 from src.bar_ld import calc_ld, add_ld, add_max_d_12db
 from src.bar_cut import cut_optimization
+from src.bar_cut_v1 import cut_optimization as cut_optimization_v1
 from src.bar_traditional import cut_traditional
 
 # 不管是物件導向設計還是函數式編程 只要能解決問題的就是好方法
@@ -36,9 +37,9 @@ def cut_multiple(etabs_design, const, vc, by='BayID', group_num=3):
     etabs_design = calc_ld(etabs_design, const)
     # 加上延伸長度
     etabs_design = add_ld(etabs_design, 'Ld', const)
-    # etabs_design = add_max_d_12db(etabs_design, const)
+    etabs_design = add_max_d_12db(etabs_design, const)
     # 多點斷筋
-    beam = cut_optimization(beam, etabs_design, const, group_num)
+    beam = cut_optimization_v1(beam, etabs_design, const, group_num)
 
     beam = put_column_order(beam)
 

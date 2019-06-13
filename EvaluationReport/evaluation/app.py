@@ -109,7 +109,7 @@ def multicut_flow(data):
     data.boundary_line(0.45)
 
     line1 = data.etabs_demand_line('blue')
-    # line2 = data.rebar_number_line('red')
+    line2 = data.rebar_number_line('red')
 
     line2 = data.add_ld_line('red')
 
@@ -409,7 +409,7 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
-        f'{script_dir}/../data/20190613 115822 Cut 10.xlsx')
+        f'{script_dir}/../data/20190613 195843 Cut 2.xlsx')
     # data2 = PlotDesign(
     #     f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
     # data3 = PlotDesign(
