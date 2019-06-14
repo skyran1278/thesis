@@ -193,31 +193,59 @@ def add_max_d_12db(etbas_design, const):
                 if left == right:
                     continue
 
-                db = get_diameter(group[bar_size].iat[0])
-                if group.at[idx0, bar_num_2nd] == 0:
-                    d = (  # pylint: disable=invalid-name
-                        group['H'].iat[0] -
-                        0.04 -
-                        get_diameter(group.at[idx0, 'RealVSize']) -
-                        0.5 * db
-                    )
-                else:
-                    d = (  # pylint: disable=invalid-name
-                        group['H'].iat[0] -
-                        0.04 -
-                        get_diameter(group.at[idx0, 'RealVSize']) -
-                        1.5 * db
-                    )
-
-                stn_ld = max(12 * db, d)
-                stn_loc = group.at[idx0, 'StnLoc']
-
-                if left > right:
+                elif left > right:
                     num = left
-                    stn_inter = group['StnLoc'] <= stn_loc + stn_ld
+                    idx = idx0
+
+                    db = get_diameter(group[bar_size].iat[0])
+                    if group.at[idx, bar_num_2nd] == 0:
+                        d = (  # pylint: disable=invalid-name
+                            group['H'].iat[0] -
+                            0.04 -
+                            get_diameter(group.at[idx, 'RealVSize']) -
+                            0.5 * db
+                        )
+                    else:
+                        d = (  # pylint: disable=invalid-name
+                            group['H'].iat[0] -
+                            0.04 -
+                            get_diameter(group.at[idx, 'RealVSize']) -
+                            1.5 * db
+                        )
+
+                    stn_ld = max(12 * db, d)
+                    stn_loc = group.at[idx, 'StnLoc']
+                    stn_inter = (
+                        (group['StnLoc'] <= stn_loc + stn_ld) &
+                        (group['StnLoc'] >= stn_loc)
+                    )
+
                 else:
                     num = right
-                    stn_inter = group['StnLoc'] >= stn_loc - stn_ld
+                    idx = idx1
+
+                    db = get_diameter(group[bar_size].iat[0])
+                    if group.at[idx, bar_num_2nd] == 0:
+                        d = (  # pylint: disable=invalid-name
+                            group['H'].iat[0] -
+                            0.04 -
+                            get_diameter(group.at[idx, 'RealVSize']) -
+                            0.5 * db
+                        )
+                    else:
+                        d = (  # pylint: disable=invalid-name
+                            group['H'].iat[0] -
+                            0.04 -
+                            get_diameter(group.at[idx, 'RealVSize']) -
+                            1.5 * db
+                        )
+
+                    stn_ld = max(12 * db, d)
+                    stn_loc = group.at[idx, 'StnLoc']
+                    stn_inter = (
+                        (group['StnLoc'] >= stn_loc - stn_ld) &
+                        (group['StnLoc'] <= stn_loc)
+                    )
 
                 group.loc[stn_inter, bar_num_ld] = np.maximum(
                     num,
