@@ -189,5 +189,5 @@ def cut_by_frame(const, moment=3):
 if __name__ == "__main__":
     from tests.const import const as constants
 
-    cut_by_beam(constants, 3)
+    cut_by_beam(constants, 30)
     # cut_by_frame(constants)
