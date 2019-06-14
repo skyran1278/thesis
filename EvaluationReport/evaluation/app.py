@@ -109,7 +109,7 @@ def multicut_flow(data):
     data.boundary_line(0.45)
 
     line1 = data.etabs_demand_line('blue')
-    line2 = data.rebar_number_line('red')
+    # line2 = data.rebar_number_line('red')
 
     line2 = data.add_ld_line('red')
 
@@ -408,16 +408,33 @@ def main():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    data1 = PlotDesign(
-        f'{script_dir}/../data/20190613 195843 Cut 2.xlsx')
-    # data2 = PlotDesign(
-    #     f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
-    # data3 = PlotDesign(
-    #     f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
+    datas = [
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 154022 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/MidSeismic 4Floor 6M/20190614 154236 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 6M/20190614 154117 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 9M/20190614 154041 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/20190614 154307 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 9M/20190614 154143 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 12M/20190614 154055 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/20190614 154334 Cut 2.xlsx',
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190614 154200 Cut 2.xlsx'
+    ]
 
+    data1 = PlotDesign(
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 203005 Cut 29.xlsx')
     for index in range(0, data1.design.get_len(), 4):
         data1.put_index(index)
         multicut_flow(data1)
+    # for data in datas:
+    #     data1 = PlotDesign(data)
+    # # data2 = PlotDesign(
+    # #     f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
+    # # data3 = PlotDesign(
+    # #     f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
+
+    #     for index in range(0, data1.design.get_len(), 4):
+    #         data1.put_index(index)
+    #         multicut_flow(data1)
     # data2.put_index(24)
     # data3.put_index(24)
 
