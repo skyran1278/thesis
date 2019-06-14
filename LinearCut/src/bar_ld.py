@@ -170,9 +170,9 @@ def add_max_d_12db(etbas_design, const):
     # 分比較方便
     for loc in rebar:
         bar_size = f'Bar{loc}Size'
-        bar_num = 'Bar' + loc + 'Num'
+        bar_num = f'Bar{loc}Num'
         bar_num_2nd = f'Bar{loc}2nd'
-        bar_num_ld = bar_num + 'Ld'
+        bar_num_ld = f'{bar_num}Ld'
 
         count = 0
 

@@ -1,7 +1,7 @@
 """
 smart cut
 """
-from itertools import combinations, product, groupby
+from itertools import combinations, product
 
 import numpy as np
 from scipy.signal import find_peaks
@@ -9,6 +9,122 @@ from scipy.signal import find_peaks
 
 from src.bar_functions import concat_num_size, num_to_1st_2nd
 from src.rebar import rebar_area, get_diameter
+
+
+def add_ld_12db(df, loc, left, mid, right):
+    """
+    calc ld and 12db d
+    """
+    # pylint: disable=invalid-name
+    bar_size = f'Bar{loc}Size'
+    bar_num = f'Bar{loc}Num'
+    maxstress_id = df.loc[left:right, f'As{loc}'].idxmax()
+
+    num_left = df.loc[left:mid, bar_num].max()
+    num_right = df.loc[mid:right, bar_num].max()
+
+    # print(df.loc[left:right, bar_num])
+
+    ld = df.at[maxstress_id, f'{loc}Ld']
+    db = get_diameter(df.at[mid, bar_size])
+
+    if df.at[mid, f'Bar{loc}2nd'] == 0:
+        d = (
+            df.at[mid, 'H'] -
+            0.04 -
+            get_diameter(df.at[mid, 'RealVSize']) -
+            0.5 * db
+        )
+    else:
+        d = (
+            df.at[mid, 'H'] -
+            0.04 -
+            get_diameter(df.at[mid, 'RealVSize']) -
+            1.5 * db
+        )
+
+    max_d_12db = (
+        abs(df.at[mid, 'StnLoc'] - df.at[maxstress_id, 'StnLoc']) +
+        max(12 * db, d)
+    )
+
+    if maxstress_id <= mid:
+        # 向右延伸
+        station = max(ld, max_d_12db) + df.at[maxstress_id, 'StnLoc']
+        # 不確定是否有值
+        idx = df.index[df['StnLoc'].lt(station)]
+        if idx.empty:
+            idx = df['StnLoc'].idxmax()
+        else:
+            idx = idx[-1]
+
+        df.loc[left:idx, 'Num'] = np.maximum(
+            num_left, df.loc[left:idx, 'Num']
+        )
+        df.loc[left:right, 'Num'] = np.maximum(
+            num_right, df.loc[left:right, 'Num']
+        )
+
+    if maxstress_id >= mid:
+        # 向左延伸
+        station = df.at[maxstress_id, 'StnLoc'] - max(ld, max_d_12db)
+        idx = df.index[df['StnLoc'].gt(station)]
+        if idx.empty:
+            idx = df['StnLoc'].idxmin()
+        else:
+            idx = idx[0]
+
+        df.loc[idx:right, 'Num'] = np.maximum(
+            num_right, df.loc[idx:right, 'Num']
+        )
+        df.loc[left:right, 'Num'] = np.maximum(
+            num_left, df.loc[left:right, 'Num']
+        )
+
+    # if df.loc[:, 'Num'].isnull().values.any():
+    #     raise Exception('NaN')
+
+    return df['Num']
+
+
+def find_min_usage(group_num, df, new_idxs):
+    """
+    find min usage in Num
+    """
+    min_usage = float('Inf')
+    num = np.empty(group_num)
+    length = np.empty(group_num)
+
+    if len(new_idxs) < group_num - 1:
+        return find_min_usage(group_num - 1, df, new_idxs)
+
+    for new_idx in combinations(new_idxs, group_num - 1):
+        new_idx = (df['StnLoc'].idxmin(), *new_idx, df['StnLoc'].idxmax())
+        i = 0
+        for left, right in zip(new_idx, new_idx[1:]):
+            num[i] = df.loc[left:right, 'Num'].max()
+            length[i] = df.loc[right, 'StnLoc'] - df.loc[left, 'StnLoc']
+            i += 1
+
+        usage = np.sum(num * length)
+
+        if usage < min_usage:
+            min_usage = usage
+            # by reference, so deep copy
+            min_num = num.copy()
+            min_length = length.copy()
+
+    if new_idxs.empty:
+        span = df['StnLoc'].max() - df['StnLoc'].min()
+
+        min_num = np.full(3, df['Num'].max())
+        min_length = np.full(3, span / 3)
+        min_usage = np.sum(min_num * min_length)
+
+    # if len(new_idxs) == 1:
+    #     pass
+
+    return min_num, min_length, min_usage
 
 
 def cut_multiple(df, loc, boundary, group_num=5):
@@ -22,8 +138,6 @@ def cut_multiple(df, loc, boundary, group_num=5):
 
     # initial
     min_usage = float('Inf')
-    num = np.empty(group_num)
-    length = np.empty(group_num)
 
     amin = df['StnLoc'].min()
     amax = df['StnLoc'].max()
@@ -54,31 +168,20 @@ def cut_multiple(df, loc, boundary, group_num=5):
         idx = (df['StnLoc'].idxmin(), *idx, df['StnLoc'].idxmax())
 
         for left, mid, right in zip(idx, idx[1:], idx[2:]):
-            df = calc_mid_idx(df, loc, left, mid, right)
+            df['Num'] = add_ld_12db(df, loc, left, mid, right)
 
         diff_area = (
             (df['Num'].diff() != 0) |
             (df['Num'].diff().shift(-1) != 0)
         )
 
-        new_idx = np.unique((
-            df['StnLoc'].idxmin(),
-            *df.index[diff_area],
-            df['StnLoc'].idxmax()
-        ))
+        new_idxs = df.index[diff_area][1:-1]
 
-        num = np.array([])
-        length = np.array([])
-        for id0, id1 in zip(new_idx, new_idx[1:]):
-            num = np.append(num, df.loc[id0:id1, 'Num'].max())
-            length = np.append(
-                length, df.loc[id1, 'StnLoc'] - df.loc[id0, 'StnLoc']
-            )
-
-        usage = np.sum(num * length)
+        num, length, usage = find_min_usage(group_num, df, new_idxs)
 
         if usage < min_usage:
             min_usage = usage
+            # by reference, so deep copy
             min_num = num.copy()
             min_length = length.copy()
 
@@ -111,8 +214,6 @@ def cut_3(df, loc, boundary):
     # initial
     idxs = {}
     min_usage = float('Inf')
-    num = np.empty(3)
-    length = np.empty(3)
 
     amin = df['StnLoc'].min()
     amax = df['StnLoc'].max()
@@ -143,39 +244,16 @@ def cut_3(df, loc, boundary):
         idx = (df['StnLoc'].idxmin(), *idx, df['StnLoc'].idxmax())
 
         for left, mid, right in zip(idx, idx[1:], idx[2:]):
-            df['Num'] = calc_mid_idx(df, loc, left, mid, right)
+            df['Num'] = add_ld_12db(df, loc, left, mid, right)
 
-        i = 0
-        station = 0
-        for k, g in groupby(df['Num']):
-            num[i] = k
+        diff_area = (
+            (df['Num'].diff() != 0) |
+            (df['Num'].diff().shift(-1) != 0)
+        )
 
-            left = df['StnLoc'].iloc[station]
-            if i == 0:
-                station -= 1
-            station += len(list(g))
-            length[i] = (
-                df['StnLoc'].iloc[station] - left
-            )
+        new_idxs = df.index[diff_area][1:-1]
 
-        # diff_area = (
-        #     (df['Num'].diff() != 0) |
-        #     (df['Num'].diff().shift(-1) != 0)
-        # )
-
-        # new_idx = np.unique((
-        #     df['StnLoc'].idxmin(),
-        #     *df.index[diff_area],
-        #     df['StnLoc'].idxmax()
-        # ))
-
-        # for id0, id1 in zip(new_idx, new_idx[1:]):
-        #     num[i] = np.append(num, df.loc[id0:id1, 'Num'].max())
-        #     length[i] = np.append(
-        #         length, df.loc[id1, 'StnLoc'] - df.loc[id0, 'StnLoc']
-        #     )
-
-        usage = np.sum(num * length)
+        num, length, usage = find_min_usage(3, df, new_idxs)
 
         if usage < min_usage:
             min_usage = usage
@@ -183,81 +261,7 @@ def cut_3(df, loc, boundary):
             min_num = num.copy()
             min_length = length.copy()
 
-    # if all none, use max
-    if (min_usage == float('Inf')) or (min_num.size == 1):
-        span = df['StnLoc'].max() - df['StnLoc'].min()
-
-        min_num = np.full(3, df[col].max())
-        min_length = np.full(3, span / 3)
-        min_usage = np.sum(num * length)
-
     return min_num, min_length, min_usage
-
-
-def calc_mid_idx(df, loc, left, mid, right):
-    # pylint: disable=invalid-name
-    bar_size = f'Bar{loc}Size'
-    bar_num = f'Bar{loc}Num'
-    maxstress_id = df.loc[left:right, 'As' + loc].idxmax()
-
-    num_left = df.loc[left:mid, bar_num].max()
-    num_right = df.loc[mid:right, bar_num].max()
-
-    ld = df.at[maxstress_id, f'{loc}Ld']
-    db = get_diameter(df.at[mid, bar_size])
-
-    if df.at[mid, f'Bar{loc}2nd'] == 0:
-        d = (
-            df.at[mid, 'H'] -
-            0.04 -
-            get_diameter(df.at[mid, 'RealVSize']) -
-            0.5 * db
-        )
-    else:
-        d = (
-            df.at[mid, 'H'] -
-            0.04 -
-            get_diameter(df.at[mid, 'RealVSize']) -
-            1.5 * db
-        )
-
-    max_d_12db = (
-        abs(df.at[mid, 'StnLoc'] - df.at[maxstress_id, 'StnLoc']) +
-        max(12 * db, d)
-    )
-
-    if num_left > num_right:
-        station = max(ld, max_d_12db) + df.at[maxstress_id, 'StnLoc']
-        # 不確定是否有值
-        idx = df.index[df['StnLoc'].gt(station)]
-        if idx.empty:
-            idx = df['StnLoc'].idxmax()
-        else:
-            idx = idx[0]
-
-        df.loc[left:idx, 'Num'] = np.maximum(
-            num_left, df.loc[left:idx, 'Num']
-        )
-        df.loc[left:right, 'Num'] = np.maximum(
-            num_right, df.loc[left:right, 'Num']
-        )
-
-    if num_left < num_right:
-        station = df.at[maxstress_id, 'StnLoc'] - max(ld, max_d_12db)
-        idx = df.index[df['StnLoc'].lt(station)]
-        if idx.empty:
-            idx = df['StnLoc'].idxmin()
-        else:
-            idx = idx[-1]
-
-        df.loc[idx:right, 'Num'] = np.maximum(
-            num_right, df.loc[idx:right, 'Num']
-        )
-        df.loc[left:right, 'Num'] = np.maximum(
-            num_left, df.loc[left:right, 'Num']
-        )
-
-    return df['Num']
 
 
 def cut_optimization(beam, etabs_design, const, group_num=3):
