@@ -208,7 +208,17 @@ def f3_1():
     plt.tight_layout()
 
 
-def f4_9(data1, data2):
+def f4_():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    data1 = PlotDesign(
+        f'{script_dir}/../data/HighSeismic 4Floor 6M.xlsx')
+    data2 = PlotDesign(
+        f'{script_dir}/../data/MidSeismic 4Floor 6M.xlsx')
+
+    data1.put_index(24)
+    data2.put_index(24)
+
     plt.figure()
     plt.subplot(2, 1, 1)
     data1.zero_line()
@@ -341,7 +351,6 @@ def f4_9():
     data1.zero_line()
 
     line1 = data1.etabs_demand_line('blue', top=False)
-    line4 = data1.add_ld_line('orange', top=False)
 
     line2 = data1.rebar_line('red', '傳統斷筋', top=False)
     line3 = data1.rebar_line('green', '多點斷筋', top=False)
@@ -349,9 +358,9 @@ def f4_9():
     plt.ylabel('As($m^2$)')
     plt.xlabel('Length(m)')
     plt.legend(
-        (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='best'
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
     )
     plt.title('(a)High Seismic Case')
     plt.grid(True, which='both', linestyle=':')
@@ -360,7 +369,6 @@ def f4_9():
     data2.zero_line()
 
     line1 = data2.etabs_demand_line('blue', top=False)
-    line4 = data2.add_ld_line('orange', top=False)
 
     line2 = data2.rebar_line('red', '傳統斷筋', top=False)
     line3 = data2.rebar_line('green', '多點斷筋', top=False)
@@ -368,9 +376,9 @@ def f4_9():
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
     plt.legend(
-        (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='best'
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
     )
     plt.title('(b)Mid Seismic Case')
     plt.grid(True, which='both', linestyle=':')
@@ -379,7 +387,6 @@ def f4_9():
     data3.zero_line()
 
     line1 = data3.etabs_demand_line('blue', top=False)
-    line4 = data3.add_ld_line('orange', top=False)
 
     line2 = data3.rebar_line('red', '傳統斷筋', top=False)
     line3 = data3.rebar_line('green', '多點斷筋', top=False)
@@ -387,9 +394,9 @@ def f4_9():
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
     plt.legend(
-        (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
-        loc='best'
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
     )
     plt.title('(c)Low Seismic Case')
     plt.grid(True, which='both', linestyle=':')
@@ -645,7 +652,7 @@ def main():
     """
     test
     """
-    f4_8()
+    f4_9()
 
     # script_dir = os.path.dirname(os.path.abspath(__file__))
 
