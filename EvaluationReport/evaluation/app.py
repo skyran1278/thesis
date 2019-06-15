@@ -1,6 +1,7 @@
 """
 main
 """
+# pylint: disable=missing-docstring
 import os
 
 import pandas as pd
@@ -24,12 +25,12 @@ def etabs_to_addedld_sol(data):
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Demand Change To Rebar Number', 'Consider $l_d$'),
+        ('Demand', 'Demand-Allowed-Cut', 'Consider $l_d$'),
         loc='best'
     )
-    plt.title('Moment Demand and Add Ld Demand')
+    plt.title('Consider Ld Demand')
     plt.grid(True, which='both', linestyle=':')
-    plt.subplots_adjust(left=0.15)
+    plt.tight_layout()
 
 
 def v_workflow(data):
@@ -97,7 +98,7 @@ def tradition_flow(data):
     )
     plt.title('Tradition Workflow')
     plt.grid(True, which='both', linestyle=':')
-    plt.subplots_adjust(left=0.15)
+    plt.tight_layout()
 
 
 def multicut_flow(data):
@@ -124,7 +125,7 @@ def multicut_flow(data):
     )
     plt.title('Multi-Cut Workflow')
     plt.grid(True, which='both', linestyle=':')
-    plt.subplots_adjust(left=0.15)
+    plt.tight_layout()
 
 
 def multicut_compare_tradition(data):
@@ -132,11 +133,11 @@ def multicut_compare_tradition(data):
     data.zero_line()
     # data.min_line()
 
-    line1 = data.etabs_demand_line('blue', bot=False)
-    line4 = data.add_ld_line('orange', bot=False)
+    line1 = data.etabs_demand_line('blue')
+    line4 = data.add_ld_line('orange')
 
-    line2 = data.rebar_line('red', '傳統斷筋', bot=False)
-    line3 = data.rebar_line('green', '多點斷筋', bot=False)
+    line2 = data.rebar_line('red', '傳統斷筋')
+    line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
     plt.ylabel('As($m^2$)')
@@ -145,7 +146,7 @@ def multicut_compare_tradition(data):
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
         loc='best'
     )
-    plt.title('Mid Seismic Multi-Cut vs Tradition')
+    plt.title('Multi-Cut vs Tradition')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -203,7 +204,6 @@ def f3_1():
         loc='best'
     )
     plt.title('Beam Reinforcement')
-    # plt.subplots_adjust(left=0.15)
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -249,7 +249,7 @@ def f4_9(data1, data2):
     plt.tight_layout()
 
 
-def f4_10():
+def f4_8():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
@@ -401,12 +401,257 @@ def f4_11():
     plt.tight_layout()
 
 
+def f3_3and3_4():
+    data1 = PlotDesign(
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 221325 Cut 29 無退縮.xlsx')
+    data1.put_index(4)
+    multicut_flow(data1)
+    tradition_flow(data1)
+
+    data1 = PlotDesign(
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 203005 Cut 29.xlsx')
+    data1.put_index(4)
+    multicut_flow(data1)
+    tradition_flow(data1)
+
+
+def f3_5and3_6and3_7():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 104919 Cut 2 Procedure B.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line()
+
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.rebar_number_line('red')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2),
+        ('Demand', 'Demand-Allowed-Cut'),
+        loc='best'
+    )
+    plt.title('Demand-Allowed-Cut')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data.zero_line()
+    data.min_line()
+
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.rebar_number_line('red')
+
+    line3 = data.add_ld_line('green', label='Consider $l_d$')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Demand-Allowed-Cut', 'Consider $l_d$'),
+        loc='best'
+    )
+    plt.title('Consider Ld Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    multicut_flow(data)
+
+
+def f4_1():
+    data = PlotDesign(
+        'D:/GitHub/thesis/EvaluationReport/data/20190520 104202 SmartCut 欣詮.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line()
+
+    line1 = data.etabs_demand_line('blue')
+    # line2 = data.rebar_number_line('red')
+
+    line2 = data.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2),
+        ('Demand', 'Min: 2 Reinforcement'),
+        loc='best'
+    )
+    plt.title('Demand less than code minimum limit')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f4_3():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+
+    data.zero_line()
+    data.min_line()
+
+    line1 = data.etabs_demand_line('blue')
+    # line2 = data.rebar_number_line('red')
+
+    line3 = data.add_ld_line('green', label='Consider $l_d$')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line3),
+        ('Demand', 'Consider $l_d$'),
+        loc='best'
+    )
+    plt.title('Consider Ld Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f4_4():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    # data.min_line(top=False)
+
+    line1 = data.etabs_demand_line('blue', top=False)
+
+    line2 = data.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut vs Tradition')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f4_5():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 9M/20190614 154143 Cut 2.xlsx')
+    data.put_index(12)
+
+    plt.figure()
+    data.zero_line()
+    # data.min_line(top=False)
+
+    line1 = data.etabs_demand_line('blue', top=False)
+
+    line2 = data.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut vs Tradition')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f4_6():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/HighSeismic 4Floor 9M/20190614 154041 Cut 2.xlsx')
+    data.put_index(28)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line()
+
+    line1 = data.etabs_demand_line('blue')
+
+    line2 = data.rebar_line('red', '傳統斷筋')
+    line3 = data.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut vs Tradition')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f3_8():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.seismic_line()
+    data.v_min_line()
+
+    line1 = data.etabs_v_demand_line('blue')
+    # line2 = data.v_consider_vc_demand_line('red')
+
+    line3 = data.v_rabar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('Av/s(m)')
+    plt.legend(
+        (line1, line3),
+        ('$V_u$', 'Multi-Cut'),
+        loc='upper left'
+    )
+    plt.title('Multi-Cut Workflow')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def f4_7():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.seismic_line()
+    data.v_min_line()
+
+    line1 = data.etabs_v_demand_line('blue')
+    line2 = data.v_rabar_line('red', '傳統斷筋')
+    line3 = data.v_rabar_line('green', '多點斷筋')
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('Av/s(m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
+        loc='best'
+    )
+
+    plt.title('Multi-Cut Workflow')
+    plt.grid(True, which='both', linestyle=':')
+
+
 def main():
     """
     test
     """
+    f4_8()
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
 
     datas = [
         'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 154022 Cut 2.xlsx',
@@ -417,24 +662,29 @@ def main():
         'D:/GitHub/thesis/Models/LowSeismic 4Floor 9M/20190614 154143 Cut 2.xlsx',
         'D:/GitHub/thesis/Models/HighSeismic 4Floor 12M/20190614 154055 Cut 2.xlsx',
         'D:/GitHub/thesis/Models/MidSeismic 4Floor 12M/20190614 154334 Cut 2.xlsx',
-        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190614 154200 Cut 2.xlsx'
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx'
     ]
 
-    data1 = PlotDesign(
-        'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 203005 Cut 29.xlsx')
-    for index in range(0, data1.design.get_len(), 4):
-        data1.put_index(index)
-        multicut_flow(data1)
+    # data1 = PlotDesign(
+    #     'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    # for index in range(0, data1.design.get_len(), 4):
+    #     data1.put_index(index)
+    #     multicut_flow(data1)
+    #     # tradition_flow(data1)
+    #     multicut_compare_tradition(data1)
+
+    # v_workflow(data1)
     # for data in datas:
+    #     data1 = PlotDesign(data)
+    #     # for index in range(0, data1.design.get_len(), 24):
+    #     data1.put_index(0)
+    #     multicut_flow(data1)
     #     data1 = PlotDesign(data)
     # # data2 = PlotDesign(
     # #     f'{script_dir}/../data/MidSeismic 4Floor 9M.xlsx')
     # # data3 = PlotDesign(
     # #     f'{script_dir}/../data/LowSeismic 4Floor 9M.xlsx')
 
-    #     for index in range(0, data1.design.get_len(), 4):
-    #         data1.put_index(index)
-    #         multicut_flow(data1)
     # data2.put_index(24)
     # data3.put_index(24)
 
@@ -457,7 +707,7 @@ def main():
 
     # plt.xlabel('Length(m)')
     # plt.ylabel('As($m^2$)')
-    # plt.subplots_adjust(left=0.15)
+    # plt.tight_layout()
 
     # to_excel_orderby_effect(
     #     data1,
