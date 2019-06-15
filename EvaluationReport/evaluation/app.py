@@ -250,8 +250,6 @@ def f4_9(data1, data2):
 
 
 def f4_8():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-
     data1 = PlotDesign(
         'D:/GitHub/thesis/Models/MidSeismic 4Floor 6M/20190614 154236 Cut 2.xlsx')
     data2 = PlotDesign(
@@ -263,7 +261,7 @@ def f4_8():
     data2.put_index(24)
     data3.put_index(24)
 
-    plt.figure(figsize=(6.4, 9.6))
+    plt.figure(figsize=(6.4, 8.6))
 
     plt.subplot(3, 1, 1)
     data1.zero_line()
@@ -323,7 +321,7 @@ def f4_8():
     plt.tight_layout()
 
 
-def f4_11():
+def f4_9():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     data1 = PlotDesign(
