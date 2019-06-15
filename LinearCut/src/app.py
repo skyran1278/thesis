@@ -84,12 +84,12 @@ def cut_by_beam(const, group_num=3):
 
     execution.time('傳統斷筋')
     beam_tra, etabs_design_tra = cut_trational(
-        etabs_design, const, vc=True, by='BayID')
+        etabs_design, const, vc=False, by='BayID')
     execution.time()
 
     execution.time('多點斷筋')
     beam, etabs_design = cut_multiple(
-        etabs_design, const, vc=True, by='BayID', group_num=group_num)
+        etabs_design, const, vc=False, by='BayID', group_num=group_num)
     execution.time()
 
     beam_name_empty = init_beam_name(etabs_design)

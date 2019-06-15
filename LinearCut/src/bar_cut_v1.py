@@ -51,8 +51,11 @@ def add_ld_12db(df, loc, left, mid, right):
     if maxstress_id <= mid:
         # 向右延伸
         station = max(ld, max_d_12db) + df.at[maxstress_id, 'StnLoc']
-        # 不確定是否有值
+        # 若要超過其長度應為 gt 之第一點
+        # 但由於之後會做兩點之間取大值的動作
+        # 所以取 lt 之最後一點
         idx = df.index[df['StnLoc'].lt(station)]
+        # 不確定是否有值
         if idx.empty:
             idx = df['StnLoc'].idxmax()
         else:
