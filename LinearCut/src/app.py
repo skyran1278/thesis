@@ -39,7 +39,7 @@ def cut_multiple(etabs_design, const, vc, by='BayID', group_num=3):
     etabs_design = add_ld(etabs_design, 'Ld', const)
     etabs_design = add_max_d_12db(etabs_design, const)
     # 多點斷筋
-    beam = cut_optimization_v1(beam, etabs_design, const, group_num)
+    beam = cut_optimization(beam, etabs_design, const, group_num)
 
     beam = put_column_order(beam)
 
