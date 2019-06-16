@@ -153,7 +153,7 @@ def add_ld(etbas_design, ld_type, const):
 
             count += 1
             if count % 100 == 0:
-                print(name)
+                print(f'consider ld {name} {loc}')
 
     return ld_design
 
@@ -173,8 +173,6 @@ def add_max_d_12db(etbas_design, const):
         bar_num = f'Bar{loc}Num'
         bar_num_2nd = f'Bar{loc}2nd'
         bar_num_ld = f'{bar_num}Ld'
-
-        count = 0
 
         for name, group in ld_design.groupby(['Story', 'BayID'], sort=False):
             group = group.copy()
@@ -253,10 +251,6 @@ def add_max_d_12db(etbas_design, const):
                 )
 
             ld_design.loc[group.index, bar_num_ld] = group[bar_num_ld]
-
-            count += 1
-            if count % 100 == 0:
-                print(name)
 
     return ld_design
 

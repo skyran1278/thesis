@@ -156,7 +156,9 @@ def cut_optimization(beam, etabs_design, const, group_num=3):
         row = output_loc[loc]['START_LOC']
         to_2nd = output_loc[loc]['TO_2nd']
 
-        for _, group in etabs_design.groupby(['Story', 'BayID'], sort=False):
+        count = 0
+
+        for name, group in etabs_design.groupby(['Story', 'BayID'], sort=False):
             output_num = {}
             output_length = {}
             # group capacity and size
@@ -190,6 +192,10 @@ def cut_optimization(beam, etabs_design, const, group_num=3):
             beam.at[row, ('主筋量', '')] = usage * rebar_area(size) * 1000000
 
             row += 4
+
+            count += 1
+            if row % 100 == 0:
+                print(f'multi cut {name} {loc}')
 
     return beam
 

@@ -4,6 +4,7 @@ GUI for SmartCut.
 import os
 import time
 import threading
+import multiprocessing
 
 import wx
 import numpy as np
