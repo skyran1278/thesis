@@ -77,7 +77,7 @@ def cut_multiple(df, col, boundary, group_num=5):
     if incompatible:
         print(
             f'{df["Story"].iat[0]} {df["BayID"].iat[0]} '
-            f'{loc} Retreat to {group_num - 2} cut'
+            f'Retreat to {group_num - 2} cut'
         )
         return cut_multiple(df, col, boundary, group_num - 1)
 
