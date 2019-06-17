@@ -1,4 +1,4 @@
-function [sd, sa] = procedure_b(config, load_pattern, spectrum)
+function [sd, sa] = procedure_b(config, load_pattern, spectrum, nofigure)
 %
 % Procedure B assumes ay, dy and the post-yield slope remains constant that is not made in the other two procedures.
 % Procedure A have to judge equal-acceleration or equal-velocity, so not applicable to real time history.
@@ -17,9 +17,9 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     green = [26 188 156] / 256;
     blue = [52 152 219] / 256;
     red = [233 88 73] / 256;
-    orange = [230 126 34] / 256;
+    % orange = [230 126 34] / 256;
     gray = [0.5 0.5 0.5];
-    background = [247 247 247] / 256;
+    % background = [247 247 247] / 256;
 
     % pushover curve
     [capacity_sd, capacity_sa] = config.load_pattern(load_pattern);
@@ -37,6 +37,10 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
     [d_star, a_star] = get_star_point(elastic_sd, elastic_sa, capacity_sd, capacity_sa, demand_sd, demand_sa);
 
     if isnan(d_star) || length(d_star) ~= 1
+        if nofigure
+            return
+        end
+
         figure;
         hold on;
         title('ADRS');
@@ -66,6 +70,10 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum)
 
     % single demand curve intersection with bilinear curve to get performance point
     [sd, sa] = get_performance_point(single_demand_sd, single_demand_sa, capacity_sd, capacity_sa);
+
+    if nofigure
+        return
+    end
 
     figure;
     hold on;

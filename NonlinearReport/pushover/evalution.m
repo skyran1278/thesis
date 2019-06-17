@@ -1,4 +1,4 @@
-function [dy, sdd, sdm] = evalution(config, load_pattern)
+function [dy, sdd, sdm] = evalution(config, load_pattern, multi)
 %
 % description.
 %
@@ -14,8 +14,8 @@ function [dy, sdd, sdm] = evalution(config, load_pattern)
     gray = [0.5 0.5 0.5];
     background = [247 247 247] / 256;
 
-    [sdd, sad] = procedure_b(config, load_pattern, 'DBE');
-    [sdm, sam] = procedure_b(config, load_pattern, 'MCE');
+    [sdd, sad] = procedure_b(config, load_pattern, 'DBE', true);
+    [sdm, sam] = procedure_b(config, load_pattern, 'MCE', true);
 
     % pushover parameter PF and effective_mass
     [PF, effective_mass] = config.parameter(load_pattern);
@@ -55,9 +55,17 @@ function [dy, sdd, sdm] = evalution(config, load_pattern)
     sad = effective_mass * sad;
     sam = effective_mass * sam;
 
-    figure;
-    hold on;
-    title('Pushover Curve');
+    if multi == "multi"
+        figure('Position', [10 10 640 860]);
+        subplot(2, 1, 1);
+        hold on;
+        title('(a) Multi-Cut');
+    else
+        subplot(2, 1, 2);
+        title('(b) Tradition');
+        hold on;
+    end
+
     xlabel('Displacement(mm)');
     ylabel('Base Shear(tonf)');
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
