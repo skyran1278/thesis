@@ -198,81 +198,87 @@ def _main():
         'background': np.array([247, 247, 247]) / 256
     }
 
-    plt.figure()
-    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
-
-    tradition.plot_all(color=color['gray'], kind='DBE')
-    tradition.plot_interp(
-        color=color['green'], label='median', kind='DBE')
-    tradition.plot_mean(
-        color=color['blue'], label='mean', kind='DBE')
-
-    plt.axvline(
-        0.015,
-        linestyle='--',
-        color=color['gray']
-    )
-    plt.title('(a) Tradition')
-    plt.legend(loc='upper right')
-    plt.grid(True, which='both', linestyle=':')
-
-    plt.figure()
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height(m)')
 
     multi.plot_all(color=color['gray'], kind='DBE')
     multi.plot_interp(
-        color=color['green'], label='median', kind='DBE')
+        color=color['green'], label='Median', kind='DBE')
     multi.plot_mean(
-        color=color['blue'], label='mean', kind='DBE')
+        color=color['blue'], label='Mean', kind='DBE')
 
     plt.axvline(
         0.015,
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(b) Multi-Cut')
+    plt.title('(a) Multi-Cut')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
 
-    plt.figure()
+    plt.subplot(2, 1, 2)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height(m)')
 
-    tradition.plot_all(color=color['gray'], kind='MCE')
+    tradition.plot_all(color=color['gray'], kind='DBE')
     tradition.plot_interp(
-        color=color['green'], label='median', kind='MCE')
+        color=color['green'], label='Median', kind='DBE')
     tradition.plot_mean(
-        color=color['blue'], label='mean', kind='MCE')
+        color=color['blue'], label='Mean', kind='DBE')
 
     plt.axvline(
-        0.02,
+        0.015,
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(a) Tradition')
+    plt.title('(b) Tradition')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
 
-    plt.figure()
+    plt.tight_layout()
+
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height(m)')
 
     multi.plot_all(color=color['gray'], kind='MCE')
     multi.plot_interp(
-        color=color['green'], label='median', kind='MCE')
+        color=color['green'], label='Median', kind='MCE')
     multi.plot_mean(
-        color=color['blue'], label='mean', kind='MCE')
+        color=color['blue'], label='Mean', kind='MCE')
 
     plt.axvline(
         0.02,
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(b) Multi-Cut')
+    plt.title('(a) Multi-Cut')
+
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
+
+    plt.subplot(2, 1, 2)
+    plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel('Height(m)')
+
+    tradition.plot_all(color=color['gray'], kind='MCE')
+    tradition.plot_interp(
+        color=color['green'], label='Median', kind='MCE')
+    tradition.plot_mean(
+        color=color['blue'], label='Mean', kind='MCE')
+
+    plt.axvline(
+        0.02,
+        linestyle='--',
+        color=color['gray']
+    )
+    plt.title('(b) Tradition')
+    plt.legend(loc='upper right')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
     plt.show()
 

@@ -93,11 +93,11 @@ xlabel('T(sec)');
 ylabel('Sa(g)');
 hold on;
 
-plot(tn, sad, 'Color', blue, 'LineWidth', 1.5, 'DisplayName', '設計地震反應譜');
-plot(tn, sam, 'Color', green, 'LineWidth', 1.5, 'DisplayName', '最大考量地震反應譜');
-plot(tn, median_acceleration, 'Color', red, 'DisplayName', '地震歷時反應譜');
-plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5, 'DisplayName', '結構週期');
-legend;
+plot(tn, sad, 'Color', blue, 'LineWidth', 1.5, 'DisplayName', 'Design Base Spectrum');
+plot(tn, sam, 'Color', green, 'LineWidth', 1.5, 'DisplayName', 'Maximum Consider Spectrum');
+plot(tn, median_acceleration, 'Color', red, 'DisplayName', 'Time History Spectrum');
+plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5, 'DisplayName', 'Structure Period');
+legend('show');
 
 function k = fema273(t)
     if t <= 0.5

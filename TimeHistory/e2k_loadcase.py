@@ -63,6 +63,7 @@ low_seismic_4floor_12m = {
     },
 }
 
+# FIXME: 這裡地震歷時 scaled 有錯
 mid_seismic_12floor_9m = {
     'factors': [0.1, 0.179, 0.198, 0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 3],
     'modal_participating_mass': [0.782, 0.119, 0.037, 0.021],

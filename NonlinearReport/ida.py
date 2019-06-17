@@ -209,31 +209,15 @@ def _main():
         'background': np.array([247, 247, 247]) / 256
     }
 
-    plt.figure()
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
     plt.title('(a) Tradition versus Multi-Cut eleven IDA curves')
 
     line_tradition = tradition.plot_all(color=color['gray'], linestyle='--')
     line_multi = multi.plot_all(color=color['gray'])
-    # tradition.plot_interp(
-    #     label='Tradition', linewidth=3.0, color=color['blue'])
-    # multi.plot_interp(
-    #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
 
-    damage, intensity = tradition.get_interp()
-    print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
-    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
-
-    damage, intensity = multi.get_interp()
-    print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
-    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
-
-    plt.axvline(
-        0.025,
-        linestyle='-.',
-        color=color['gray']
-    )
     plt.axvline(
         0.04,
         linestyle='-.',
@@ -245,55 +229,71 @@ def _main():
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         (line_tradition, line_multi),
-        ('Tradition', 'Multi-Cut-2'),
+        ('Tradition Curves', 'Multi-Cut Curves'),
         loc='upper left'
     )
 
-    plt.figure()
+    # tradition.plot_interp(
+    #     label='Tradition', linewidth=3.0, color=color['blue'])
+    # multi.plot_interp(
+    #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
+
+    damage, intensity = tradition.get_interp()
+    # print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
+    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
+
+    damage, intensity = multi.get_interp()
+    # print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
+    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
+
+    plt.subplot(2, 1, 2)
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
     plt.title('(b) Tradition versus Multi-Cut median IDA curves')
 
     # multi.plot_all(log=True, color=color['gray'])
     # tradition.plot_all(log=True, color=color['gray'])
-    # tradition.plot_interp(
-    #     percentage=0.16,
-    #     log=True, label='Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
-    # multi.plot_interp(
-    #     percentage=0.16,
-    #     log=True, label='Multi-Cut-2', linewidth=2.0, color=color['green'], linestyle='--')
-    tradition.plot_interp(
-        log=True, label='Median Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
     multi.plot_interp(
-        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['gray'])
+        percentage=0.16,
+        log=True, label='Multi-Cut-2', linewidth=2.0, color=color['green'])
     tradition.plot_interp(
-        mean=True,
-        log=True, label='Median Tradition', linewidth=2.0, color=color['blue'], linestyle='--')
-    multi.plot_interp(
-        mean=True,
-        log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['blue'])
-    # tradition.plot_interp(
-    #     percentage=0.84,
-    #     log=True, label='Tradition', linewidth=2.0, color=color['gray'], linestyle='--')
-    # multi.plot_interp(
-    #     percentage=0.84,
-    #     log=True, label='Multi-Cut-2', linewidth=2.0, color=color['green'], linestyle='--')
+        percentage=0.16,
+        log=True, label='Tradition', linewidth=2.0, color=color['green'], linestyle='--')
 
-    plt.axvline(
-        0.025,
-        linestyle='-.',
-        color=color['gray']
-    )
+    multi.plot_interp(
+        log=True, label='Median Multi-Cut', linewidth=2.0, color=color['blue'])
+    tradition.plot_interp(
+        log=True, label='Median Tradition', linewidth=2.0, color=color['blue'], linestyle='--')
+
+    # tradition.plot_interp(
+    #     mean=True,
+    #     log=True, label='Median Tradition', linewidth=2.0, color=color['blue'], linestyle='--')
+    # multi.plot_interp(
+    #     mean=True,
+    #     log=True, label='Median Multi-Cut-2', linewidth=2.0, color=color['blue'])
+    multi.plot_interp(
+        percentage=0.84,
+        log=True, label='Multi-Cut-2', linewidth=2.0, color=color['red'])
+    tradition.plot_interp(
+        percentage=0.84,
+        log=True, label='Tradition', linewidth=2.0, color=color['red'], linestyle='--')
+
     plt.axvline(
         0.04,
         linestyle='-.',
         color=color['gray']
     )
 
-    plt.xlim(right=0.25)
+    plt.xlim(right=0.15)
     plt.ylim(top=5)
     plt.grid(True, which='both', linestyle=':')
-    plt.legend(loc='upper left')
+    plt.legend(
+        ('16% Multi-Cut', '16% Tradition', '50% Multi-Cut',
+         '50% Tradition', '84% Multi-Cut', '84% Tradition'),
+        loc='upper left'
+    )
+
+    plt.tight_layout()
 
     plt.show()
 

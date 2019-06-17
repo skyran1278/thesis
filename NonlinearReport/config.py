@@ -67,23 +67,24 @@ lowseismic_4floor_12m = {
     'tradition': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts.xlsx',
 }
 
+# FIXME: 這裡地震歷時 scaled 有錯
 midseismic_12floor_9m = {
     'scaled_facotrs': {
-        'DBE': 0.264,
-        'MCE': 0.32,
+        'DBE': 0.179,
+        'MCE': 0.198
     },
     'earthquakes': {
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.278, 'pga': 0.463},
-        'RSN900_LANDERS_YER270': {'sa': 0.130, 'pga': 0.224},
-        'RSN953_NORTHR_MUL279': {'sa': 0.112, 'pga': 0.343},
-        'RSN960_NORTHR_LOS000': {'sa': 0.227, 'pga': 0.426},
-        'RSN1111_KOBE_NIS000': {'sa': 0.192, 'pga': 0.483},
-        'RSN1116_KOBE_SHI000': {'sa': 0.223, 'pga': 0.336},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.084, 'pga': 0.157},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.201, 'pga': 0.248},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.101, 'pga': 0.574},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.319, 'pga': 0.460},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.143, 'pga': 0.343},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.236, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.114, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.091, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.158, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.126, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.178, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.085, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.112, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.072, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.286, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.111, 'pga': 0.343},
     },
     'story': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story.xlsx',
     'multi': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story_drifts.xlsx',
