@@ -14,13 +14,13 @@ class EnhancePlotlib():
     damage_measure = None
 
     @classmethod
-    def figure(cls, ylim_max=None, xlim_max=None,
+    def figure(cls, *args, ylim_max=None, xlim_max=None,
                damage_measure='story_drifts', intensity_measure='sa',
-               title='IDA versus Static Pushover for a 4-storey moment resisting frame'):
+               title='IDA versus Static Pushover for a 4-storey moment resisting frame', **kwargs):
         """
         figure
         """
-        plt.figure()
+        plt.figure(*args, **kwargs)
         plt.title(title)
 
         cls.intensity_measure = intensity_measure

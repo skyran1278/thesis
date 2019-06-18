@@ -286,45 +286,107 @@ def _main():
         '2F': 2,
     }
 
+    # earthquakes = {
+    #     'RSN725_SUPER.B_B-POE360': {'sa': 0.548, 'pga': 0.463},
+    #     'RSN900_LANDERS_YER270': {'sa': 0.448, 'pga': 0.224},
+    #     'RSN953_NORTHR_MUL279': {'sa': 0.648, 'pga': 0.343},
+    #     'RSN960_NORTHR_LOS000': {'sa': 0.388, 'pga': 0.426},
+    #     'RSN1111_KOBE_NIS000': {'sa': 0.296, 'pga': 0.483},
+    #     'RSN1116_KOBE_SHI000': {'sa': 0.486, 'pga': 0.336},
+    #     'RSN1148_KOCAELI_ARE090': {'sa': 0.140, 'pga': 0.157},
+    #     'RSN1158_KOCAELI_DZC180': {'sa': 0.343, 'pga': 0.248},
+    #     'RSN1602_DUZCE_BOL090': {'sa': 0.791, 'pga': 0.574},
+    #     'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501, 'pga': 0.460},
+    #     'RSN1787_HECTOR_HEC090': {'sa': 0.402, 'pga': 0.343},
+    # }
+
     earthquakes = {
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.548, 'pga': 0.463},
-        'RSN900_LANDERS_YER270': {'sa': 0.448, 'pga': 0.224},
-        'RSN953_NORTHR_MUL279': {'sa': 0.648, 'pga': 0.343},
-        'RSN960_NORTHR_LOS000': {'sa': 0.388, 'pga': 0.426},
-        'RSN1111_KOBE_NIS000': {'sa': 0.296, 'pga': 0.483},
-        'RSN1116_KOBE_SHI000': {'sa': 0.486, 'pga': 0.336},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.140, 'pga': 0.157},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.343, 'pga': 0.248},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.791, 'pga': 0.574},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.501, 'pga': 0.460},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.402, 'pga': 0.343},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.480, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.414, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.635, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.348, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.283, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.488, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.132, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.326, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.738, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.480, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.439, 'pga': 0.343},
     }
 
+    # path = {
+    #     'base_shear_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/base_shear',
+    #     'story_drifts_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts',
+    #     'story_displacements_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_displacements'
+    # }
+
     path = {
-        'base_shear_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/base_shear',
-        'story_drifts_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts',
-        'story_displacements_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_displacements'
+        'base_shear_path': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/Tradition/base_shear',
+        'story_drifts_path': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/Tradition/story_drifts',
+        'story_displacements_path': 'D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/Tradition/story_displacements'
     }
+
+    # pushover = np.array([
+    #     [0, 0],
+    #     [39.511, 213.737],
+    #     [79.622, 328.6849],
+    #     [119.045, 413.073],
+    #     [129.802, 423.8039],
+    #     [179.144, 445.1944],
+    #     [202.067, 452.0568],
+    # ])
+
+    # pushover_sa_sd = np.array([
+    #     [2.724, 0.010],
+    #     [27.416, 0.100],
+    #     [45.763, 0.200],
+    #     [67.865, 0.297],
+    #     [100.645, 0.396],
+    #     [102.078, 0.400],
+    #     [131.893, 0.500],
+    #     [136.188, 0.600],
+    # ])
+
+    pushover_sa_sd_error = np.array([
+        [0.000, 0.000],
+        [31.128, 0.115],
+        [53.802, 0.199],
+        [83.309, 0.263],
+        [98.370, 0.280],
+        [149.138, 0.296],
+        [180.220, 0.303],
+        [194.026, 0.306],
+        # [248.68, 195.6771],
+        # [254.835, 204.0808],
+        # [255.771, 204.8275],
+        # [255.819, 204.9047],
+    ])
 
     pushover = np.array([
         [0, 0],
-        [39.511, 213.737],
-        [79.622, 328.6849],
-        [119.045, 413.073],
-        [129.802, 423.8039],
-        [179.144, 445.1944],
-        [202.067, 452.0568],
+        [40, 112.4638],
+        [69.135, 194.3806],
+        [107.052, 256.7266],
+        [126.405, 272.7376],
+        [191.642, 288.5332],
+        [231.583, 295.5635],
+        [249.324, 298.7382],
+        # [248.68, 195.6771],
+        # [254.835, 204.0808],
+        # [255.771, 204.8275],
+        # [255.819, 204.9047],
     ])
 
     pushover_sa_sd = np.array([
-        [2.724, 0.010],
-        [27.416, 0.100],
-        [45.763, 0.200],
-        [67.865, 0.297],
-        [100.645, 0.396],
-        [102.078, 0.400],
-        [131.893, 0.500],
-        [136.188, 0.600],
+        [2.748, 0.010],
+        [27.480, 0.100],
+        [54.399, 0.200],
+        [70.900, 0.297],
+        [88.443, 0.396],
+        [89.045, 0.400],
+        [122.326, 0.500],
+        [150.748, 0.600],
+        [163.380, 0.650],
     ])
 
     color = {
@@ -346,32 +408,47 @@ def _main():
         ylim_max=800,
         xlim_max=300,
         intensity_measure='base_shear',
-        damage_measure='story_displacements'
+        damage_measure='story_displacements',
+        figsize=(6.4*1.3, 4.8*1.3)
     )
-    ida.plot_all(color=color['gray'])
 
     plt.plot(
         pushover[:, 0], pushover[:, 1],
         label='Pushover Curve', color=color['gray'], linestyle='--', marker='.')
 
+    ida.plot_all(color=color['gray'])
+
     plt.grid(True, which='both', linestyle=':')
     plt.legend(loc='upper left')
 
     ida.figure(
-        ylim_max=0.8,
-        xlim_max=200,
+        ylim_max=1,
+        xlim_max=300,
         intensity_measure='sa',
-        damage_measure='story_displacements'
+        damage_measure='story_displacements',
+        figsize=(6.4*1.3, 4.8*1.3)
     )
-    # ida.plot(
-    #     'RSN1158_KOCAELI_DZC180',
-    #     color=color['gray'], label='IDA Curve', marker='.'
-    # )
     ida.plot_median(color=color['gray'])
 
     plt.plot(
         pushover_sa_sd[:, 0], pushover_sa_sd[:, 1],
-        label='median pushover Curve', color=color['gray'], linestyle='--', marker='.')
+        label='Median Pushover Curve', color=color['gray'], linestyle='--', marker='.')
+
+    plt.legend(loc='upper left')
+    plt.grid(True, which='both', linestyle=':')
+
+    ida.figure(
+        ylim_max=1,
+        xlim_max=300,
+        intensity_measure='sa',
+        damage_measure='story_displacements',
+        figsize=(6.4*1.3, 4.8*1.3)
+    )
+    ida.plot_median(color=color['gray'])
+
+    plt.plot(
+        pushover_sa_sd_error[:, 0], pushover_sa_sd_error[:, 1] * 0.8,
+        label='Median Pushover Curve', color=color['gray'], linestyle='--', marker='.')
 
     plt.legend(loc='upper left')
     plt.grid(True, which='both', linestyle=':')

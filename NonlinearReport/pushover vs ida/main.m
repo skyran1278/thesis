@@ -1,6 +1,6 @@
 clc; clear; close all;
 
-config = Config;
+config = Tradition;
 
 scaled_factor = [0.01, 0.1, 0.2, 0.297, 0.396, 0.4, 0.5, 0.6, 0.65];
 
@@ -18,7 +18,7 @@ sa = NaN(1, length(scaled_factor));
 for index = 1 : length(scaled_factor)
     for filename = 1 : length(filenames)
         config.filename = filenames(filename);
-        [sd(filename, index), ~] = procedure_b(config, 'inverted_triangle', scaled_factor(index) / file_sa(filename));
+        [sd(filename, index), ~] = procedure_b(config, 'mode1', scaled_factor(index) / file_sa(filename));
         sa(1, index) = scaled_factor(index);
     end
 end

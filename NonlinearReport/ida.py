@@ -4,7 +4,7 @@ ida data and function
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+import statistics
 # from plotlib import EnhancePlotlib
 
 
@@ -225,7 +225,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 5)
+    plt.ylim(0, 2.5)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         (line_tradition, line_multi),
@@ -238,13 +238,26 @@ def _main():
     # multi.plot_interp(
     #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
 
+    # FIXME: 想把這裡改掉
+    damage, intensity = tradition.get_interp(0.16)
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
     damage, intensity = tradition.get_interp()
-    # print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
-    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    damage, intensity = tradition.get_interp(0.84)
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
 
+    damage, intensity = multi.get_interp(0.16)
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
     damage, intensity = multi.get_interp()
-    # print(round(intensity[np.isclose(damage, 0.025, atol=1e-04)][0], 2))
-    print(round(intensity[np.isclose(damage, 0.04, atol=1e-04)][0], 2))
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    damage, intensity = multi.get_interp(0.84)
+    print(round(statistics.median(
+        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
 
     plt.subplot(2, 1, 2)
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
@@ -285,7 +298,7 @@ def _main():
     )
 
     plt.xlim(right=0.15)
-    plt.ylim(top=5)
+    plt.ylim(top=2.5)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         ('16% Multi-Cut', '16% Tradition', '50% Multi-Cut',
