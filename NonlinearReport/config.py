@@ -85,6 +85,17 @@ midseismic_12floor_9m = {
         'RSN1602_DUZCE_BOL090': {'sa': 0.072, 'pga': 0.574},
         'RSN1633_MANJIL_ABBAR--T': {'sa': 0.286, 'pga': 0.460},
         'RSN1787_HECTOR_HEC090': {'sa': 0.111, 'pga': 0.343},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.259, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.163, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.149, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.327, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.165, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.217, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.086, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.247, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.221, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.413, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.226, 'pga': 0.343},
     },
     'story': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story.xlsx',
     'multi': 'D:/GitHub/thesis/Models/MidSeismic 12Floor 9M/Multi/story_drifts.xlsx',
@@ -114,4 +125,4 @@ midseismic_20floor_9m = {
     'tradition': 'D:/GitHub/thesis/Models/MidSeismic 20Floor 9M/Tradition/story_drifts.xlsx',
 }
 
-data = highseismic_4floor_6m
+data = midseismic_12floor_9m

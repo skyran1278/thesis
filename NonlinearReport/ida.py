@@ -225,7 +225,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 2.5)
+    plt.ylim(0, 4)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         (line_tradition, line_multi),
@@ -238,26 +238,29 @@ def _main():
     # multi.plot_interp(
     #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
 
+    # print(round(statistics.median(
+    #     intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
     # FIXME: 想把這裡改掉
     damage, intensity = tradition.get_interp(0.16)
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
+
+    # y2 = intensity[np.greater_equal(damage, 0.04)][0]
+    # x2 = damage[np.greater_equal(damage, 0.04)][0]
+    # x1 = [np.less_equal(damage, 0.04)][-1]
+    # y1 = intensity[np.less_equal(damage, 0.04)][-1]
+
     damage, intensity = tradition.get_interp()
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
+
     damage, intensity = tradition.get_interp(0.84)
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
 
     damage, intensity = multi.get_interp(0.16)
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
     damage, intensity = multi.get_interp()
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
     damage, intensity = multi.get_interp(0.84)
-    print(round(statistics.median(
-        intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
+    print(round(np.interp(0.04, damage, intensity), 2))
 
     plt.subplot(2, 1, 2)
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
@@ -298,7 +301,7 @@ def _main():
     )
 
     plt.xlim(right=0.15)
-    plt.ylim(top=2.5)
+    plt.ylim(top=4)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         ('16% Multi-Cut', '16% Tradition', '50% Multi-Cut',
@@ -307,6 +310,47 @@ def _main():
     )
 
     plt.tight_layout()
+
+    plt.figure()
+    plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    plt.title('(b) Tradition versus Multi-Cut median IDA curves')
+
+    # multi.plot_all(log=True, color=color['gray'])
+    # tradition.plot_all(log=True, color=color['gray'])
+    multi.plot_interp(
+        percentage=0.16,
+        label='Multi-Cut-2', linewidth=2.0, color=color['green'])
+    tradition.plot_interp(
+        percentage=0.16,
+        label='Tradition', linewidth=2.0, color=color['green'], linestyle='--')
+
+    multi.plot_interp(
+        label='Median Multi-Cut', linewidth=2.0, color=color['blue'])
+    tradition.plot_interp(
+        label='Median Tradition', linewidth=2.0, color=color['blue'], linestyle='--')
+
+    multi.plot_interp(
+        percentage=0.84,
+        label='Multi-Cut-2', linewidth=2.0, color=color['red'])
+    tradition.plot_interp(
+        percentage=0.84,
+        label='Tradition', linewidth=2.0, color=color['red'], linestyle='--')
+
+    plt.axvline(
+        0.04,
+        linestyle='-.',
+        color=color['gray']
+    )
+
+    plt.xlim(0, 0.05)
+    plt.ylim(0, 3.1)
+    plt.grid(True, which='both', linestyle=':')
+    plt.legend(
+        ('16% Multi-Cut', '16% Tradition', '50% Multi-Cut',
+         '50% Tradition', '84% Multi-Cut', '84% Tradition'),
+        loc='upper left'
+    )
 
     plt.show()
 
