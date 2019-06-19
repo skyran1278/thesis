@@ -33,4 +33,5 @@ const = {
     },
 
     'cover': 0.04,
+    'cut_num': 2
 }
