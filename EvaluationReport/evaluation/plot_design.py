@@ -54,7 +54,7 @@ class PlotDesign:
         if top:
             line, = plt.plot(
                 df['StnLoc'],
-                df['BarTopNumLd'] * top_size_area,
+                df['BarTopNumLd'] * top_size_area * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
@@ -62,7 +62,7 @@ class PlotDesign:
         if bot:
             line, = plt.plot(
                 df['StnLoc'],
-                - df['BarBotNumLd'] * bot_size_area,
+                - df['BarBotNumLd'] * bot_size_area * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
@@ -83,14 +83,14 @@ class PlotDesign:
         if top:
             line, = plt.plot(
                 df['StnLoc'],
-                df['BarTopNum'] * top_size_area,
+                df['BarTopNum'] * top_size_area * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
         if bot:
             line, = plt.plot(
                 df['StnLoc'],
-                - df['BarBotNum'] * bot_size_area,
+                - df['BarBotNum'] * bot_size_area * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
@@ -123,7 +123,7 @@ class PlotDesign:
             length.extend(df.get_abs_length(index, col, stirrup=True))
 
         line, = plt.plot(
-            length, area, color=self.c[color], linewidth=self.linewidth)
+            length, area * 100, color=self.c[color], linewidth=self.linewidth)
 
         return line
 
@@ -157,7 +157,7 @@ class PlotDesign:
                 length.extend(col_length)
         if top:
             line, = plt.plot(
-                length, area, color=self.c[color], linewidth=self.linewidth)
+                length, area * 10000, color=self.c[color], linewidth=self.linewidth)
 
         # 下層筋，取負號
         index += 2
@@ -177,7 +177,7 @@ class PlotDesign:
 
         if bot:
             line, = plt.plot(
-                length, -area, color=self.c[color], linewidth=self.linewidth
+                length, -area * 10000, color=self.c[color], linewidth=self.linewidth
             )
 
         return line
@@ -224,7 +224,7 @@ class PlotDesign:
         df = self.etabs_design_on_index()
 
         line, = plt.plot(
-            df['StnLoc'], df['VRebarConsiderVc'],
+            df['StnLoc'], df['VRebarConsiderVc'] * 100,
             color=self.c[color], linewidth=self.linewidth
         )
 
@@ -259,13 +259,13 @@ class PlotDesign:
 
         if top:
             line, = plt.plot(
-                df['StnLoc'], df['AsTop'],
+                df['StnLoc'], df['AsTop'] * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
         if bot:
             line, = plt.plot(
-                df['StnLoc'], -df['AsBot'],
+                df['StnLoc'], -df['AsBot'] * 10000,
                 color=self.c[color], linewidth=self.linewidth,
                 *args, **kwargs
             )
@@ -302,14 +302,6 @@ class PlotDesign:
         """
         zero
         """
-        index = self.index
-
-        start = self.design.get(index, ('支承寬', '左'))
-        end = (
-            self.design.get(index, ('梁長', '')) -
-            self.design.get(index, ('支承寬', '右'))
-        )
-
         # 基準線
         plt.axhline(
             0,
@@ -318,7 +310,7 @@ class PlotDesign:
             *args, **kwargs
         )
 
-    def min_line(self, top=True, bot=True):
+    def min_line(self, cover=6.5, top=True, bot=True):
         """
         min area
         """
@@ -328,19 +320,19 @@ class PlotDesign:
         bot_size_area = self.design.get_area(self.index + 3, ('主筋', '左1'))
 
         b = df['B'].iloc[0] * 100
-        d = df['H'].iloc[0] * 100 - 10  # 假設保護層 10cm
+        d = df['H'].iloc[0] * 100 - cover  # 假設保護層 10cm
         fc = df['Fc'].iloc[0] / 10
         fy = df['Fy'].iloc[0] / 10
 
-        asmin = max(0.8 * math.sqrt(fc) / fy * b * d, 14 / fy * b * d) / 10000
+        asmin = max(0.8 * math.sqrt(fc) / fy * b * d, 14 / fy * b * d)
 
         if top:
             plt.axhline(
-                max(asmin, 2 * top_size_area), linestyle='--', color=self.c['gray'])
+                max(asmin, 2 * top_size_area * 10000), linestyle='--', color=self.c['gray'])
 
         if bot:
             plt.axhline(
-                min(-asmin, -2 * bot_size_area), linestyle='--', color=self.c['gray'])
+                min(-asmin, -2 * bot_size_area * 10000), linestyle='--', color=self.c['gray'])
 
     def boundary_line(self, boundary=0.1):
         """
@@ -375,9 +367,9 @@ class PlotDesign:
         fc = df['Fc'].iloc[0] / 10
         fyt = df['Fy'].iloc[0] / 10
 
-        asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt) * 0.01
+        asmin = max(0.2 * np.sqrt(fc) * B / fyt, 3.5 * B / fyt)
 
-        asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt * 0.01
+        asmax = 4 * 0.53 * np.sqrt(fc) * B / fyt
 
         plt.axhline(asmin, linestyle='--', color=self.c['gray'])
         plt.axhline(asmax, linestyle='--', color=self.c['gray'])

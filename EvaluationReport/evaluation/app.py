@@ -770,24 +770,20 @@ def main():
 
     # script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    data = PlotDesign(
-        'D:/GitHub/thesis/LinearCut/data/20190615 144534 Cut 2 高雄物流中心.xlsx')
-    data = PlotDesign(
-        'D:/GitHub/thesis/LinearCut/data/20190616 072555 Cut 2 欣詮.xlsx')
+    data = PlotDesign(data9[9])
 
     # for index in range(0, data.design.get_len(), 4):
-    for index in (260, 332, 1252, 1028, 1056, 1068):
-        data.put_index(index)
+        # data.put_index(index)
 
     # etabs_to_addedld_sol(data)
     # tradition_flow(data)
     # multicut_flow(data)
-        multicut_compare_tradition(data)
+        # multicut_compare_tradition(data)
 
     # v_workflow(data)
     # v_multicut_compare_tradition(data)
 
-    # data.put_index(55)
+    data.put_index(0)
 
     # etabs_to_addedld_sol(data)
     # tradition_flow(data)
