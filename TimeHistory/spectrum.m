@@ -1,13 +1,8 @@
 clc; clear; close all;
 
-low_seismic_4floor_12m = {
-  'structure_period', 1.010;
-  'ss_s1', [0.5, 0.3, 0.7, 0.4];
-};
-
-mid_seismic_4floor_12m = {
-  'structure_period', 0.965;
-  'ss_s1', [0.66, 0.49, 0.8, 0.54];
+high_seismic_4floor_6m = {
+  'structure_period', 0.763;
+  'ss_s1', [0.8, 0.675, 1, 0.77];
 };
 
 mid_seismic_4floor_9m = {
@@ -15,10 +10,15 @@ mid_seismic_4floor_9m = {
   'ss_s1', [0.66, 0.49, 0.8, 0.54];
 };
 
-high_seismic_4floor_6m = {
-  'structure_period', 0.763;
-  'ss_s1', [0.8, 0.675, 1, 0.77];
+low_seismic_4floor_12m = {
+  'structure_period', 1.010;
+  'ss_s1', [0.5, 0.3, 0.7, 0.4];
 };
+
+% mid_seismic_4floor_12m = {
+%   'structure_period', 0.965;
+%   'ss_s1', [0.66, 0.49, 0.8, 0.54];
+% };
 
 mid_seismic_12floor_9m = {
   'structure_period', 2.01;
@@ -30,7 +30,9 @@ mid_seismic_20floor_9m = {
   'ss_s1', [0.66, 0.49, 0.8, 0.54];
 };
 
-data = high_seismic_4floor_6m;
+% =========================================================================
+data = mid_seismic_20floor_9m;
+% =========================================================================
 
 structure_period = data{1, 2};
 ss_s1 = data{2, 2};
@@ -79,7 +81,7 @@ period_index = abs(tn - structure_period) < tol;
 sa = median_acceleration(period_index);
 
 fprintf('Sa: %.3f, SaD Factor: %.3f, SaM Factor: %.3f\n', sa, sad(period_index), sam(period_index));
-fprintf("'%s': {'sa': %.3f, 'pga': %.3f},\n", [filenames; acceleration(:, period_index).'; acceleration(:, 1).']);
+fprintf("\t\t'%s': {'sa': %.3f, 'pga': %.3f},\n", [filenames; acceleration(:, period_index).'; acceleration(:, 1).']);
 
 green = [26 188 156] / 256;
 blue = [52 152 219] / 256;

@@ -4,8 +4,8 @@ generate function and loadcase e2k with peernga data
 import shlex
 
 high_seismic_4floor_6m = {
-    'factors': [0.5, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.5, 3, 4, 5],
-    'modal_participating_mass': [0.88, 0.09, 0.02],
+    'factors': [0.5, 0.8, 1, 1.2, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.2, 3.5, 3.7, 4, 5],
+    'modal_participating_mass': [0.88, 0.09],
     'period': [0.763, 0.241],
     'displacement': 0.4,
     'time_historys': {
@@ -24,8 +24,8 @@ high_seismic_4floor_6m = {
 }
 
 mid_seismic_4floor_9m = {
-    'factors': [0.2, 0.471, 0.519, 0.8, 1.1, 1.5, 1.8, 2, 2.5, 3, 4],
-    'modal_participating_mass': [0.836, 0.116, 0.039],
+    'factors': [0.2, 0.471, 0.519, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 3, 4],
+    'modal_participating_mass': [0.836, 0.116],
     'period': [1.041, 0.297],
     'displacement': 0.4,
     'time_historys': {
@@ -44,8 +44,8 @@ mid_seismic_4floor_9m = {
 }
 
 low_seismic_4floor_12m = {
-    'factors': [0.1, 0.297, 0.396, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 2, 2.5, 3, 4],
-    'modal_participating_mass': [0.853, 0.106, 0.034],
+    'factors': [0.1, 0.297, 0.396, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3, 4],
+    'modal_participating_mass': [0.853, 0.106],
     'period': [1.013, 0.3],
     'displacement': 0.4,
     'time_historys': {
@@ -63,30 +63,29 @@ low_seismic_4floor_12m = {
     },
 }
 
-# FIXME: 這裡地震歷時 scaled 有錯
 mid_seismic_12floor_9m = {
-    'factors': [0.1, 0.179, 0.198, 0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 3],
-    'modal_participating_mass': [0.782, 0.119, 0.037, 0.021],
+    'factors': [0.1, 0.244, 0.269, 0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 3],
+    'modal_participating_mass': [0.782, 0.119, 0.037],
     'period': [2.01, 0.681],
     'displacement': 0.5,
     'time_historys': {
-        'RSN725_SUPER.B_B-POE360': {'sa': 0.236, 'pga': 0.463},
-        'RSN900_LANDERS_YER270': {'sa': 0.114, 'pga': 0.224},
-        'RSN953_NORTHR_MUL279': {'sa': 0.091, 'pga': 0.343},
-        'RSN960_NORTHR_LOS000': {'sa': 0.158, 'pga': 0.426},
-        'RSN1111_KOBE_NIS000': {'sa': 0.126, 'pga': 0.483},
-        'RSN1116_KOBE_SHI000': {'sa': 0.178, 'pga': 0.336},
-        'RSN1148_KOCAELI_ARE090': {'sa': 0.085, 'pga': 0.157},
-        'RSN1158_KOCAELI_DZC180': {'sa': 0.112, 'pga': 0.248},
-        'RSN1602_DUZCE_BOL090': {'sa': 0.072, 'pga': 0.574},
-        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.286, 'pga': 0.460},
-        'RSN1787_HECTOR_HEC090': {'sa': 0.111, 'pga': 0.343},
+        'RSN725_SUPER.B_B-POE360': {'sa': 0.259, 'pga': 0.463},
+        'RSN900_LANDERS_YER270': {'sa': 0.163, 'pga': 0.224},
+        'RSN953_NORTHR_MUL279': {'sa': 0.149, 'pga': 0.343},
+        'RSN960_NORTHR_LOS000': {'sa': 0.327, 'pga': 0.426},
+        'RSN1111_KOBE_NIS000': {'sa': 0.165, 'pga': 0.483},
+        'RSN1116_KOBE_SHI000': {'sa': 0.217, 'pga': 0.336},
+        'RSN1148_KOCAELI_ARE090': {'sa': 0.086, 'pga': 0.157},
+        'RSN1158_KOCAELI_DZC180': {'sa': 0.247, 'pga': 0.248},
+        'RSN1602_DUZCE_BOL090': {'sa': 0.221, 'pga': 0.574},
+        'RSN1633_MANJIL_ABBAR--T': {'sa': 0.413, 'pga': 0.460},
+        'RSN1787_HECTOR_HEC090': {'sa': 0.226, 'pga': 0.343},
     },
 }
 
 mid_seismic_20floor_9m = {
-    'factors': [0.1, 0.264, 0.32, 0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 3, 4],
-    'modal_participating_mass': [0.746, 0.140, 0.035, 0.025],
+    'factors': [0.1, 0.179, 0.198, 0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 3],
+    'modal_participating_mass': [0.746, 0.140, 0.035],
     'period': [2.731, 0.972],
     'displacement': 1,
     'time_historys': {
@@ -104,7 +103,7 @@ mid_seismic_20floor_9m = {
     },
 }
 
-CONFIG = mid_seismic_12floor_9m
+CONFIG = high_seismic_4floor_6m
 
 
 def put_timehistorys(time_historys, factors, peernga_folder):
