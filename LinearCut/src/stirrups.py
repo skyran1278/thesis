@@ -20,6 +20,8 @@ def _calc_vc(df):
     fc = df['Fc'] / 10
     fyt = df['Fy'] / 10
 
+    df['vc'] = 0.53 * np.sqrt(fc) * B / fyt * 0.01
+
     # 不確定到底要不要 phi
     new_av = np.maximum.reduce([
         df['VRebar'] - 0.53 * np.sqrt(fc) * B / fyt * 0.01,
@@ -105,7 +107,6 @@ def check_seismic_spacing(df, usr_spacing):
         seismic_spacing,
         usr_spacing[0],
     )
-
 
     spacing = (df['H'] - 0.065) / 2
 

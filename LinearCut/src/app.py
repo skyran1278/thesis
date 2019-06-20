@@ -3,7 +3,7 @@ import time
 
 import pandas as pd
 
-from src.pkl import load_pkl
+# from src.pkl import load_pkl
 from src.execution_time import Execution
 
 from src.beam_name import load_beam_name, init_beam_name
@@ -39,7 +39,7 @@ def cut_multiple(etabs_design, const, vc, by='BayID', group_num=3):
     etabs_design = add_ld(etabs_design, 'Ld', const)
     etabs_design = add_max_d_12db(etabs_design, const)
     # 多點斷筋
-    beam = cut_optimization(beam, etabs_design, const, group_num)
+    beam = cut_optimization_v1(beam, etabs_design, const, group_num)
 
     beam = put_column_order(beam)
 
@@ -94,7 +94,7 @@ def cut_by_beam(const, group_num=3):
 
     beam_name_empty = init_beam_name(etabs_design)
 
-    # beam_name_empty, beam, beam_tra, etabs_design, etabs_design_tra = load_pkl(
+    beam_name_empty, beam, beam_tra, etabs_design, etabs_design_tra = load_pkl(
     #     const['output_dir'] + '/design.pkl')
 
     # 輸出成表格
@@ -144,14 +144,14 @@ def cut_by_frame(const, moment=3):
 #         beam, etabs_design, e2k, const, consider_vc=False)
 #     beam_traditional, _ = calc_stirrups(
 #         beam_traditional, etabs_design, e2k, const, consider_vc=False)
-#     (beam, beam_traditional, dh_design) = load_pkl(
+    (beam, beam_traditional, dh_design) = load_pkl(
 #         output_dir + '/dh_design.pkl', (beam, beam_traditional, dh_design))
 #     execution.time()
 
 #     # 以一台梁為單位 計算主筋
 #     execution.time('Calculate Rebar Size and Number by Frame')
 #     db_design = calc_db('FrameID', dh_design, e2k, const)
-#     db_design = load_pkl(output_dir + '/db_design.pkl', db_design)
+    db_design = load_pkl(output_dir + '/db_design.pkl', db_design)
 #     execution.time()
 
 #     # 計算延伸長度
@@ -162,7 +162,7 @@ def cut_by_frame(const, moment=3):
 #     # 加上延伸長度
 #     execution.time('Add Ld')
 #     ld_design = add_ld(ld_design, 'Ld', const)
-#     ld_design = load_pkl(output_dir + '/ld_design.pkl', ld_design)
+    ld_design = load_pkl(output_dir + '/ld_design.pkl', ld_design)
 #     execution.time()
 
 #     # 傳統斷筋
@@ -189,5 +189,5 @@ def cut_by_frame(const, moment=3):
 if __name__ == "__main__":
     from tests.const import const as constants
 
-    cut_by_beam(constants, 30)
+    cut_by_beam(constants, 3)
     # cut_by_frame(constants)

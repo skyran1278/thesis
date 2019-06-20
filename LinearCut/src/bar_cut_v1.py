@@ -8,7 +8,7 @@ from scipy.signal import find_peaks
 
 
 from src.bar_functions import concat_num_size, num_to_1st_2nd
-from src.rebar import rebar_area, get_diameter
+from src.rebar import rebar_area, get_diameter, get_area
 
 
 def add_ld_12db(df, loc, left, mid, right):
@@ -267,6 +267,24 @@ def cut_3(df, loc, boundary):
     return min_num, min_length, min_usage
 
 
+def review_vu(df, length, loc=None):
+    length = np.insert(length, 0, df['StnLoc'].min())
+    length = np.cumsum(length)
+    points = length[1:-1]
+
+    points = df[df['StnLoc'].isin(points)].index
+
+    vu = 0.6 * df.loc[points, 'VRebar']
+
+    vn = 2 / 3 * (
+        df.loc[points, 'RealVSize'].apply(get_area) * 2 / df.loc[points, 'RealSpacing'] +
+        df.loc[points, 'vc']
+    )
+
+    if any(vu > 2 / 3 * vn):
+        print(f'{df["Story"].iat[0]} {df["BayID"].iat[0]} {loc}')
+
+
 def cut_optimization(beam, etabs_design, const, group_num=3):
     """
     cut 3 or 5, optimization
@@ -300,6 +318,8 @@ def cut_optimization(beam, etabs_design, const, group_num=3):
 
             num, length, usage = cut_multiple(
                 group, loc, const['boundary'], group_num)
+
+            review_vu(group, length, loc)
 
             if len(num) % 2 == 1:
                 mid = len(num) // 2
