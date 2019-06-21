@@ -1,6 +1,7 @@
 # pylint: disable=missing-docstring
+# pylint: disable=invalid-name
 
-import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 
 from evaluation.plot_design import PlotDesign
@@ -530,7 +531,8 @@ def p18():
 
 
 def p19():
-    data = PlotDesign(data9[9])
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 104919 Cut 2 Procedure B.xlsx')
     data.put_index(0)
 
     plt.figure()
@@ -539,19 +541,96 @@ def p19():
 
     line1 = data.etabs_demand_line('blue')
 
-    line2 = data.add_ld_line('red')
+    line2 = data.add_ld_line('orange')
 
-    line3 = data.rebar_line('green', '多點斷筋')
+    line3 = data.rebar_line('red', '傳統斷筋')
+    line4 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length (m)')
     plt.ylabel('As ($cm^2$)')
     plt.legend(
-        (line1, line2, line3),
-        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Design'),
-        loc='best',
+        (line1, line2, line3, line4),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Tradition', 'Optimization'),
+        loc='upper center',
     )
     plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def p20():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line(2)
+
+    data.etabs_demand_line('blue')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.title('Moment Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    data = PlotDesign(data9[1])
+    data.put_index(44)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line(6)
+
+    data.etabs_demand_line('blue')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.title('Moment Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def p23():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line(2)
+
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.add_ld_line('red')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.title('Moment Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.legend(
+        (line1, line2),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)'),
+        loc='upper center',
+    )
+    plt.tight_layout()
+
+    data = PlotDesign(data9[1])
+    data.put_index(44)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line(6)
+
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.add_ld_line('red')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.title('Moment Demand')
+    plt.grid(True, which='both', linestyle=':')
+    plt.legend(
+        (line1, line2),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)'),
+        loc='upper center',
+    )
     plt.tight_layout()
 
 
@@ -559,7 +638,7 @@ def main():
     """
     test
     """
-    p19()
+    p23()
 
     # data = PlotDesign(data9[9])
 
