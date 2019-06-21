@@ -34,8 +34,8 @@ def etabs_to_addedld_sol(data):
 
     line3 = data.add_ld_line('green', label='Consider $l_d$')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Demand-Allowed-Cut', 'Consider $l_d$'),
@@ -57,8 +57,8 @@ def v_workflow(data):
 
     line3 = data.v_rabar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('$A_v$/s(cm)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2, line3),
         ('$V_u$', 'Consider $V_c$ Demand', 'Multi-Cut'),
@@ -80,8 +80,8 @@ def v_multicut_compare_tradition(data):
     line2 = data.v_rabar_line('red', '傳統斷筋')
     line3 = data.v_rabar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('$A_v$/s(cm)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2, line3),
         ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
@@ -102,8 +102,8 @@ def tradition_flow(data):
 
     line2 = data.rebar_line('green', '傳統斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Tradition'),
@@ -129,8 +129,8 @@ def multicut_flow(data):
 
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$', 'Multi-Cut'),
@@ -152,8 +152,8 @@ def multicut_compare_tradition(data):
     line2 = data.rebar_line('red', '傳統斷筋')
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
@@ -176,8 +176,8 @@ def p03():
     line1 = data.rebar_line('red', '傳統斷筋')
     line2 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Tradition', 'Optimization'),
@@ -202,8 +202,8 @@ def p04():
 
     line2 = data.rebar_line('green', '傳統斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Design'),
@@ -227,8 +227,8 @@ def p05():
 
     line2 = data.rebar_line('green', '傳統斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Design'),
@@ -249,8 +249,8 @@ def p08():
 
     data.etabs_demand_line('blue', bot=False)
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.title('Demand')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
@@ -268,8 +268,8 @@ def p09():
     line2 = data.rebar_number_line('red')
     # line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.title('Optimization Workflow')
     plt.legend(
         (line1, line2),
@@ -287,8 +287,8 @@ def p09():
     line2 = data.rebar_number_line('red')
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.title('Optimization Workflow')
     plt.legend(
         (line1, line2, line3),
@@ -311,8 +311,8 @@ def p10():
     line1 = data.etabs_demand_line('blue')
     line2 = data.rebar_number_line('red')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.title('Optimization Workflow')
     plt.legend(
         (line1, line2),
@@ -330,8 +330,8 @@ def p10():
 
     line2 = data.add_ld_line('red')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)'),
@@ -351,8 +351,8 @@ def p10():
 
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Design'),
@@ -378,8 +378,8 @@ def p11():
 
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
@@ -403,8 +403,8 @@ def p11():
 
     line3 = data.rebar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('As($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
@@ -422,17 +422,65 @@ def p14():
 
     plt.figure()
     data.zero_line()
+
+    df = data.etabs_design_on_index()
+    fyt = df['Fy'].iloc[0]
+    height = df['H'].iloc[0]
+    plt.plot(
+        df['StnLoc'], df['VRebar'] * fyt * height,
+        color=data.c['blue'], linewidth=data.linewidth
+    )
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('Shear (ton)')
+    plt.title('Design Shear')
+    plt.grid(True, which='both', linestyle=':')
+
+
+def p15():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.seismic_line()
     data.v_min_line()
+
+    line2 = data.v_consider_vc_demand_line('red')
     line1 = data.etabs_v_demand_line('blue')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('$A_v$/s(cm)')
-    # plt.legend(
-    #     (line1),
-    #     ('Consider $V_c$ Demand'),
-    #     loc='best'
-    # )
-    plt.title('Vu')
+    plt.xlabel('Length (m)')
+    plt.ylabel('$A_v$/s (cm)')
+    plt.legend(
+        (line1, line2),
+        ('$V_u$ Demand', 'Consider $V_c$ Demand'),
+        loc='upper center'
+    )
+    plt.title('Shear Reinforcement')
+    plt.grid(True, which='both', linestyle=':')
+
+
+def p16():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.seismic_line()
+    data.v_min_line()
+    data.boundary_line(0.25)
+
+    line1 = data.etabs_v_demand_line('blue')
+    line2 = data.v_rabar_line('red', '傳統斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('$A_v$/s (cm)')
+    plt.legend(
+        (line1, line2),
+        ('$V_u$ Demand', 'Tradition'),
+        loc='upper center'
+    )
+    plt.title('Optimization vs Tradition')
     plt.grid(True, which='both', linestyle=':')
 
     plt.figure()
@@ -440,29 +488,51 @@ def p14():
     data.seismic_line()
     data.v_min_line()
     data.boundary_line(0.25)
+
     line1 = data.etabs_v_demand_line('blue')
-
-    # line1 = data.v_consider_vc_demand_line('blue')
-
     line2 = data.v_rabar_line('red', '傳統斷筋')
     line3 = data.v_rabar_line('green', '多點斷筋')
 
-    plt.xlabel('Length(m)')
-    plt.ylabel('A_v/s(cm)')
+    plt.xlabel('Length (m)')
+    plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2, line3),
-        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
-        loc='best'
+        ('$V_u$ Demand', 'Tradition', 'Optimization'),
+        loc='upper center'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Tradition')
     plt.grid(True, which='both', linestyle=':')
+
+
+def p16():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    data.min_line(10)
+
+    line1 = data.etabs_demand_line('blue')
+    line2 = data.add_ld_line('red')
+    line3 = data.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
+        loc='best',
+    )
+    plt.title('Multi-Cut Workflow')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
 
 def main():
     """
     test
     """
-    p15()
+    p16()
 
     # data = PlotDesign(data9[9])
 

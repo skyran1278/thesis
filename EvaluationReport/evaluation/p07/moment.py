@@ -101,7 +101,7 @@ def plot_all_combos():
     x = b_force['Loc'][462530: 462557]
     # print(b_force[462530])
     y = -np.reshape(b_force['M3'][462530: 462530 + 99 * 27], (27, -1),
-                    order='F') / (0.9 * fy * 0.9 * (h - cover - dbt - 1.5 * db_top)) * 10000
+                    order='F')
     plt.plot(x, y, linewidth=2.0)
     def control_combo(cb1, cb2):
         envlope = cb1(y, axis=1)
@@ -128,7 +128,7 @@ def plot_control_combo():
     x = b_force['Loc'][462530: 462557]
     # print(b_force[462530])
     y = -np.reshape(b_force['M3'][462530: 462530 + 99 * 27], (27, -1),
-                    order='F') / (0.9 * fy * 0.9 * (h - cover - dbt - 1.5 * db_top)) * 10000
+                    order='F')
     plt.plot(x, np.amax(y, 1), linewidth=2.0, color=green)
     plt.plot(x, np.amin(y, 1), linewidth=2.0, color=blue)
     def control_combo(cb1, cb2):
@@ -170,8 +170,8 @@ plt.axhline(
     linewidth=2,
 )
 plot_all_combos()
-plt.xlabel('Length(m)')
-plt.ylabel('As($cm^2$)')
+plt.xlabel('Length (m)')
+plt.ylabel('Moment (ton-m)')
 plt.title('Consider Hundreds of Combination Demand')
 plt.grid(True, which='both', linestyle=':')
 # plt.tight_layout()
@@ -187,8 +187,8 @@ plt.axhline(
 plot_control_combo()
 # plot_top(True)
 # plot_bot(True)
-plt.xlabel('Length(m)')
-plt.ylabel('As($cm^2$)')
+plt.xlabel('Length (m)')
+plt.ylabel('Moment (ton-m)')
 plt.title('Critical Combination Demand')
 plt.grid(True, which='both', linestyle=':')
 # plt.tight_layout()
