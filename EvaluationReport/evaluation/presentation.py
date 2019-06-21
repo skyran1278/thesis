@@ -504,26 +504,53 @@ def p16():
     plt.grid(True, which='both', linestyle=':')
 
 
-def p16():
+def p18():
+    data = PlotDesign(data2[2])
+    data.put_index(160)
+
+    plt.figure()
+    data.zero_line()
+    # data.min_line(10)
+
+    # line1 = data.etabs_demand_line('blue')
+    # line2 = data.add_ld_line('red')
+    line2 = data.rebar_line('red', '傳統斷筋')
+    line3 = data.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line2, line3),
+        ('Tradition', 'Optimization'),
+        loc='upper center',
+    )
+    plt.title('Optimization vs Tradition')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+
+def p19():
     data = PlotDesign(data9[9])
     data.put_index(0)
 
     plt.figure()
     data.zero_line()
-    data.min_line(10)
+    data.min_line(2)
 
     line1 = data.etabs_demand_line('blue')
+
     line2 = data.add_ld_line('red')
+
     line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length (m)')
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Design'),
         loc='best',
     )
-    plt.title('Multi-Cut Workflow')
+    plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -532,7 +559,7 @@ def main():
     """
     test
     """
-    p16()
+    p19()
 
     # data = PlotDesign(data9[9])
 
