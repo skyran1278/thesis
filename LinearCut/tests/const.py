@@ -10,12 +10,12 @@ _test_dir = os.path.dirname(os.path.abspath(__file__))
 公尺的輸出一律四捨五入到小數點下第五位，公分一律第三位。
 """
 const = {
-    'etabs_design_path': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/Concrete Design 2 - Beam Summary Data - ACI 318-05_IBC 2003.xlsx',
-    'e2k_path': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/HighSeismic 4Floor 6M.e2k',
+    'etabs_design_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Concrete Design 2 - Beam Summary Data - ACI 318-05_IBC 2003.xlsx',
+    'e2k_path': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/LowSeismic 4Floor 12M.e2k',
 
     'beam_name_path': _test_dir + '/LowSeimic 4Floor 12M 20190416 174732 SmartCut.xlsx',
 
-    'output_dir': 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative',
+    'output_dir': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M',
 
     'stirrup_rebar': ['#4', '2#4', '2#5', '2#6'],
     'stirrup_spacing': np.array([10, 12, 15, 18, 20, 22, 25, 30]),

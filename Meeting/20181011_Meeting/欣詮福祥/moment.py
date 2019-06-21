@@ -113,6 +113,34 @@ def plot_all_combos():
     control_combo(np.amax, np.argmax)
     control_combo(np.amin, np.argmin)
 
+def plot_control_combo():
+    b_force, b_length = load_moment()
+
+    # beamLength = 1160
+    fy = 42000  # t/m^2
+    h = 0.8  # m
+    cover = 0.04  # m
+    dbt = 1.27 / 100  # m
+    db_top = 2.54 / 100  # 100
+    # a = b_force[['Loc', 'M3']][0: 7]
+    # print(b_force[['Loc', 'M3']][0: 7])
+    # np.reshape(b_force['M3'][0: 7], (-1, 7))
+    x = b_force['Loc'][462530: 462557]
+    # print(b_force[462530])
+    y = -np.reshape(b_force['M3'][462530: 462530 + 99 * 27], (27, -1),
+                    order='F') / (0.9 * fy * 0.9 * (h - cover - dbt - 1.5 * db_top)) * 10000
+    plt.plot(x, np.amax(y, 1), linewidth=2.0, color=green)
+    plt.plot(x, np.amin(y, 1), linewidth=2.0, color=blue)
+    def control_combo(cb1, cb2):
+        envlope = cb1(y, axis=1)
+        envlope_index = cb2(y, axis=1) + 1
+        # plt.plot(x, envlope, color=blue, linewidth=2.0)
+        for i in range(len(x)):
+            plt.text(x[i], envlope[i], envlope_index[i])
+
+    control_combo(np.amax, np.argmax)
+    control_combo(np.amin, np.argmin)
+
 def plot_beam_design():
     beam_design = load_beam_design()
     x = beam_design['StnLoc'][682: 682 + 27]
@@ -130,21 +158,22 @@ def plot_beam_design():
     plot_rabar_combo('Bot')
 
 plt.figure(facecolor=background)
-plt.xlabel('M')
-plt.ylabel('REBAR')
+plt.xlabel('Length(m)')
+plt.ylabel('As($cm^2$)')
 plot_all_combos()
-plot_top(linear=True)
-plot_bot()
+# plot_top(linear=True)
+# plot_bot()
 plt.figure(facecolor=background)
-plt.xlabel('M')
-plt.ylabel('REBAR')
+plt.xlabel('Length(m)')
+plt.ylabel('As($cm^2$)')
 plot_all_combos()
-plot_top(True, 'linear')
-plot_bot(True)
+# plot_top(True, 'linear')
+# plot_bot(True)
 plt.figure(facecolor=background)
-plot_beam_design()
-plot_top(True)
-plot_bot(True)
-plt.xlabel('M')
-plt.ylabel('REBAR')
+# plot_beam_design()
+plot_control_combo()
+# plot_top(True)
+# plot_bot(True)
+plt.xlabel('Length(m)')
+plt.ylabel('As($cm^2$)')
 plt.show()

@@ -94,8 +94,8 @@ def cut_by_beam(const, group_num=3):
 
     beam_name_empty = init_beam_name(etabs_design)
 
-    beam_name_empty, beam, beam_tra, etabs_design, etabs_design_tra = load_pkl(
-    #     const['output_dir'] + '/design.pkl')
+    # beam_name_empty, beam, beam_tra, etabs_design, etabs_design_tra = load_pkl(
+    # const['output_dir'] + '/design.pkl')
 
     # 輸出成表格
     execution.time('Output Result')
@@ -144,15 +144,15 @@ def cut_by_frame(const, moment=3):
 #         beam, etabs_design, e2k, const, consider_vc=False)
 #     beam_traditional, _ = calc_stirrups(
 #         beam_traditional, etabs_design, e2k, const, consider_vc=False)
-    (beam, beam_traditional, dh_design) = load_pkl(
+    # (beam, beam_traditional, dh_design) = load_pkl(
 #         output_dir + '/dh_design.pkl', (beam, beam_traditional, dh_design))
 #     execution.time()
 
 #     # 以一台梁為單位 計算主筋
 #     execution.time('Calculate Rebar Size and Number by Frame')
 #     db_design = calc_db('FrameID', dh_design, e2k, const)
-    db_design = load_pkl(output_dir + '/db_design.pkl', db_design)
-#     execution.time()
+    # db_design=load_pkl(output_dir + '/db_design.pkl', db_design)
+    # execution.time()
 
 #     # 計算延伸長度
 #     execution.time('Calculate Ld')
@@ -162,7 +162,7 @@ def cut_by_frame(const, moment=3):
 #     # 加上延伸長度
 #     execution.time('Add Ld')
 #     ld_design = add_ld(ld_design, 'Ld', const)
-    ld_design = load_pkl(output_dir + '/ld_design.pkl', ld_design)
+    # ld_design=load_pkl(output_dir + '/ld_design.pkl', ld_design)
 #     execution.time()
 
 #     # 傳統斷筋

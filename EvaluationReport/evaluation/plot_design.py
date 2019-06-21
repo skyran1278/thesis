@@ -208,7 +208,7 @@ class PlotDesign:
         df = self.etabs_design_on_index()
 
         line, = plt.plot(
-            df['StnLoc'], df['VRebar'],
+            df['StnLoc'], df['VRebar'] * 100,
             color=self.c[color], linewidth=self.linewidth
         )
 
