@@ -638,17 +638,40 @@ def main():
     """
     test
     """
-    p23()
+    # p23()
 
-    # data = PlotDesign(data9[9])
+    data = PlotDesign(data9[1])
 
-    # for index in range(0, data.design.get_len(), 4):
-    # data.put_index(index)
+    for index in range(0, data.design.get_len(), 4):
+        data.put_index(index)
+        # df = data.etabs_design_on_index()
+        # df['StnLoc'].min() + df['StnLoc'].iloc[0]
+
+        # plt.figure()
+        # data.zero_line()
+        # # data.min_line()
+
+        # line1 = data.etabs_demand_line('blue')
+        # line4 = data.add_ld_line('orange')
+
+        # line2 = data.rebar_line('red', '傳統斷筋')
+        # line3 = data.rebar_line('green', '多點斷筋')
+
+        # plt.xlabel('Length (m)')
+        # plt.ylabel('As ($cm^2$)')
+        # plt.legend(
+        #     (line1, line4, line2, line3),
+        #     ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        #     loc='best'
+        # )
+        # plt.title('Multi-Cut vs Tradition')
+        # plt.grid(True, which='both', linestyle=':')
+        # plt.tight_layout()
 
     # etabs_to_addedld_sol(data)
     # tradition_flow(data)
     # multicut_flow(data)
-    # multicut_compare_tradition(data)
+        multicut_compare_tradition(data)
 
     # v_workflow(data)
     # v_multicut_compare_tradition(data)
