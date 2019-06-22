@@ -634,16 +634,63 @@ def p23():
     plt.tight_layout()
 
 
+def p23():
+    data1 = PlotDesign(data9[2])
+    data2 = PlotDesign(data9[5])
+    data3 = PlotDesign(data9[8])
+
+    data1.put_index(24)
+    data2.put_index(24)
+    data3.put_index(24)
+
+    plt.figure()
+    data1.zero_line()
+
+    line1 = data1.etabs_demand_line('blue', top=False)
+    line2 = data1.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data1.rebar_line('green', '多點斷筋', top=False)
+
+    plt.ylabel('As ($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='upper left'
+    )
+    plt.title('High Seismic')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data3.zero_line()
+
+    line1 = data3.etabs_demand_line('blue', top=False)
+    line2 = data3.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data3.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='upper left'
+    )
+    plt.title('Low Seismic')
+    plt.grid(True, which='both', linestyle=':')
+
+    plt.tight_layout()
+
+
 def main():
     """
     test
     """
-    # p23()
+    p23()
 
-    data = PlotDesign(data9[1])
+    # data = PlotDesign(data9[1])
 
-    for index in range(0, data.design.get_len(), 4):
-        data.put_index(index)
+    # for index in range(0, data.design.get_len(), 4):
+        # data.put_index(index)
         # df = data.etabs_design_on_index()
         # df['StnLoc'].min() + df['StnLoc'].iloc[0]
 
@@ -671,7 +718,7 @@ def main():
     # etabs_to_addedld_sol(data)
     # tradition_flow(data)
     # multicut_flow(data)
-        multicut_compare_tradition(data)
+        # multicut_compare_tradition(data)
 
     # v_workflow(data)
     # v_multicut_compare_tradition(data)
