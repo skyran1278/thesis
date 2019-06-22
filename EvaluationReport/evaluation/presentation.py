@@ -770,34 +770,13 @@ def p31():
     plt.tight_layout()
 
 def p33():
-    data1 = PlotDesign(data9[5])
     data3 = PlotDesign(data2[2])
 
-    data1.put_index(0)
-    data3.put_index(0)
-
-    plt.figure()
-    data1.zero_line()
-    data1.min_line()
-
-    line1 = data1.etabs_demand_line('blue')
-    line2 = data1.rebar_line('red', '傳統斷筋')
-    line3 = data1.rebar_line('green', '多點斷筋')
-
-    plt.ylabel('As ($cm^2$)')
-    plt.xlabel('Length (m)')
-    plt.legend(
-        (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
-        loc='best'
-    )
-    plt.title('#8 Reinforcement')
-    plt.grid(True, which='both', linestyle=':')
-    plt.tight_layout()
+    data3.put_index(160)
 
     plt.figure()
     data3.zero_line()
-    data3.min_line()
+    data3.min_line(9)
 
     line1 = data3.etabs_demand_line('blue')
     line2 = data3.rebar_line('red', '傳統斷筋')
@@ -810,16 +789,33 @@ def p33():
         ('Demand', 'Tradition', 'Optimization'),
         loc='best'
     )
-    plt.title('#10 Reinforcement')
+    plt.title('20 stories')
     plt.grid(True, which='both', linestyle=':')
 
+    plt.tight_layout()
+
+def p43():
+    data = PlotDesign(data9[9])
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    # data.boundary_line(1/5)
+    # data.boundary_line(1/3)
+
+    # line1 = data.rebar_line('red', '傳統斷筋')
+    line2 = data.rebar_line('gray', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
 def main():
     """
     test
     """
-    p31()
+    p43()
 
     # data = PlotDesign(data9[1])
 
