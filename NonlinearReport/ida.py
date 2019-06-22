@@ -238,20 +238,10 @@ def _main():
     # multi.plot_interp(
     #     label='Multi-Cut-2', linewidth=3.0, color=color['green'])
 
-    # print(round(statistics.median(
-    #     intensity[np.isclose(damage, 0.04, atol=1e-01)]), 2))
-    # FIXME: 想把這裡改掉
     damage, intensity = tradition.get_interp(0.16)
     print(round(np.interp(0.04, damage, intensity), 2))
-
-    # y2 = intensity[np.greater_equal(damage, 0.04)][0]
-    # x2 = damage[np.greater_equal(damage, 0.04)][0]
-    # x1 = [np.less_equal(damage, 0.04)][-1]
-    # y1 = intensity[np.less_equal(damage, 0.04)][-1]
-
     damage, intensity = tradition.get_interp()
     print(round(np.interp(0.04, damage, intensity), 2))
-
     damage, intensity = tradition.get_interp(0.84)
     print(round(np.interp(0.04, damage, intensity), 2))
 

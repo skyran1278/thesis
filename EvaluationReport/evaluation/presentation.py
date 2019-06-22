@@ -634,13 +634,11 @@ def p23():
     plt.tight_layout()
 
 
-def p23():
+def p27():
     data1 = PlotDesign(data9[2])
-    data2 = PlotDesign(data9[5])
-    data3 = PlotDesign(data9[8])
+    data3 = PlotDesign(data9[5])
 
     data1.put_index(24)
-    data2.put_index(24)
     data3.put_index(24)
 
     plt.figure()
@@ -657,7 +655,7 @@ def p23():
         ('Demand', 'Tradition', 'Optimization'),
         loc='upper left'
     )
-    plt.title('High Seismic')
+    plt.title('Small Gravity')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -675,17 +673,153 @@ def p23():
         ('Demand', 'Tradition', 'Optimization'),
         loc='upper left'
     )
-    plt.title('Low Seismic')
+    plt.title('Large Gravity')
+    plt.grid(True, which='both', linestyle=':')
+
+    plt.tight_layout()
+
+def p28():
+    data1 = PlotDesign(data9[3])
+    data3 = PlotDesign(data9[9])
+
+    data1.put_index(0)
+    data3.put_index(0)
+
+    plt.figure()
+    data1.zero_line()
+
+    line1 = data1.etabs_demand_line('blue', top=False)
+    line2 = data1.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data1.rebar_line('green', '多點斷筋', top=False)
+
+    plt.ylabel('As ($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='upper left'
+    )
+    plt.title('Small Gravity')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data3.zero_line()
+
+    line1 = data3.etabs_demand_line('blue', top=False)
+    line2 = data3.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data3.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='upper left'
+    )
+    plt.title('Large Gravity')
     plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
 
 
+def p31():
+    data1 = PlotDesign(data9[4])
+    data3 = PlotDesign('D:/GitHub/thesis/Models/MidSeismic 4Floor 6M/20190616 071644 Cut 2 #10.xlsx')
+
+    data1.put_index(12)
+    data3.put_index(12)
+
+    plt.figure()
+    data1.zero_line()
+    data1.min_line()
+
+    line1 = data1.etabs_demand_line('blue')
+    line2 = data1.rebar_line('red', '傳統斷筋')
+    line3 = data1.rebar_line('green', '多點斷筋')
+
+    plt.ylabel('As ($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='best'
+    )
+    plt.title('#8 Reinforcement')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data3.zero_line()
+    data3.min_line()
+
+    line1 = data3.etabs_demand_line('blue')
+    line2 = data3.rebar_line('red', '傳統斷筋')
+    line3 = data3.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='best'
+    )
+    plt.title('#10 Reinforcement')
+    plt.grid(True, which='both', linestyle=':')
+
+    plt.tight_layout()
+
+def p33():
+    data1 = PlotDesign(data9[5])
+    data3 = PlotDesign(data2[2])
+
+    data1.put_index(0)
+    data3.put_index(0)
+
+    plt.figure()
+    data1.zero_line()
+    data1.min_line()
+
+    line1 = data1.etabs_demand_line('blue')
+    line2 = data1.rebar_line('red', '傳統斷筋')
+    line3 = data1.rebar_line('green', '多點斷筋')
+
+    plt.ylabel('As ($cm^2$)')
+    plt.xlabel('Length (m)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='best'
+    )
+    plt.title('#8 Reinforcement')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data3.zero_line()
+    data3.min_line()
+
+    line1 = data3.etabs_demand_line('blue')
+    line2 = data3.rebar_line('red', '傳統斷筋')
+    line3 = data3.rebar_line('green', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2, line3),
+        ('Demand', 'Tradition', 'Optimization'),
+        loc='best'
+    )
+    plt.title('#10 Reinforcement')
+    plt.grid(True, which='both', linestyle=':')
+
+    plt.tight_layout()
+
 def main():
     """
     test
     """
-    p23()
+    p31()
 
     # data = PlotDesign(data9[1])
 

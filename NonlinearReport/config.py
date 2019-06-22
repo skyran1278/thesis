@@ -67,7 +67,6 @@ lowseismic_4floor_12m = {
     'tradition': 'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/Tradition/story_drifts.xlsx',
 }
 
-# FIXME: 這裡地震歷時 scaled 有錯
 midseismic_12floor_9m = {
     'scaled_facotrs': {
         'DBE': 0.179,
@@ -125,4 +124,4 @@ midseismic_20floor_9m = {
     'tradition': 'D:/GitHub/thesis/Models/MidSeismic 20Floor 9M/Tradition/story_drifts.xlsx',
 }
 
-data = midseismic_12floor_9m
+data = midseismic_4floor_9m
