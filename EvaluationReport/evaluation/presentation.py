@@ -800,10 +800,24 @@ def p43():
 
     plt.figure()
     data.zero_line()
-    # data.boundary_line(1/5)
-    # data.boundary_line(1/3)
 
-    # line1 = data.rebar_line('red', '傳統斷筋')
+    line1 = data.rebar_line('red', '傳統斷筋')
+    line2 = data.rebar_line('gray', '多點斷筋')
+
+    plt.xlabel('Length (m)')
+    plt.ylabel('As ($cm^2$)')
+    plt.legend(
+        (line1, line2),
+        ('Tradition', 'Optimization'),
+        loc='best'
+    )
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
+
+    plt.figure()
+    data.zero_line()
+
+    data.rebar_line('red', '傳統斷筋')
     data.rebar_line('gray', '多點斷筋')
 
     plt.xlabel('Length (m)')
@@ -815,7 +829,7 @@ def main():
     """
     test
     """
-    p19()
+    p43()
 
     # data = PlotDesign(data9[1])
 
