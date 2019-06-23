@@ -384,7 +384,7 @@ def p11():
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
-        loc='best',
+        loc='center left',
     )
     plt.title('Multi-Cut Workflow')
     plt.grid(True, which='both', linestyle=':')
@@ -409,7 +409,7 @@ def p11():
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Multi-Cut'),
-        loc='best',
+        loc='center left',
     )
     plt.title('Multi-Cut Workflow')
     plt.grid(True, which='both', linestyle=':')
@@ -551,7 +551,7 @@ def p19():
     plt.legend(
         (line1, line2, line3, line4),
         ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Tradition', 'Optimization'),
-        loc='upper center',
+        loc='lower left',
     )
     plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
@@ -804,7 +804,7 @@ def p43():
     # data.boundary_line(1/3)
 
     # line1 = data.rebar_line('red', '傳統斷筋')
-    line2 = data.rebar_line('gray', '多點斷筋')
+    data.rebar_line('gray', '多點斷筋')
 
     plt.xlabel('Length (m)')
     plt.ylabel('As ($cm^2$)')
@@ -815,7 +815,7 @@ def main():
     """
     test
     """
-    p43()
+    p19()
 
     # data = PlotDesign(data9[1])
 
