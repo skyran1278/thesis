@@ -159,6 +159,7 @@ class Dynamic():
         """
         damage, intensity = self.get_interp(percentage, kind=kind)
         plt.plot(damage, intensity, marker='.', *args, **kwargs)
+        print(round(np.amax(damage), 4))
 
     def plot_mean(self, *args, kind='DBE', **kwargs):
         """
@@ -166,6 +167,7 @@ class Dynamic():
         """
         damage, intensity = self.get_mean(kind=kind)
         plt.plot(damage, intensity, marker='.', *args, **kwargs)
+        print(round(np.amax(damage), 4))
 
 
 def _main():
@@ -198,10 +200,11 @@ def _main():
         'background': np.array([247, 247, 247]) / 256
     }
 
-    plt.figure(figsize=(6.4, 8.6))
-    plt.subplot(2, 1, 1)
+    # plt.figure(figsize=(6.4, 8.6))
+    # plt.subplot(2, 1, 1)
+    plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
+    plt.ylabel('Height (m)')
 
     multi.plot_all(color=color['gray'], kind='DBE')
     multi.plot_interp(
@@ -214,13 +217,16 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(a) Multi-Cut')
+    # plt.title('(a) Optimization')
+    plt.title('Optimization')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
-    plt.subplot(2, 1, 2)
+    # plt.subplot(2, 1, 2)
+    plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
+    plt.ylabel('Height (m)')
 
     tradition.plot_all(color=color['gray'], kind='DBE')
     tradition.plot_interp(
@@ -233,16 +239,18 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(b) Tradition')
+    # plt.title('(b) Tradition')
+    plt.title('Tradition')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
 
-    plt.figure(figsize=(6.4, 8.6))
-    plt.subplot(2, 1, 1)
+    plt.figure()
+    # plt.figure(figsize=(6.4, 8.6))
+    # plt.subplot(2, 1, 1)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
+    plt.ylabel('Height (m)')
 
     multi.plot_all(color=color['gray'], kind='MCE')
     multi.plot_interp(
@@ -255,14 +263,17 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(a) Multi-Cut')
+    # plt.title('(a) Optimization')
+    plt.title('Optimization')
 
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
-    plt.subplot(2, 1, 2)
+    plt.figure()
+    # plt.subplot(2, 1, 2)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel('Height(m)')
+    plt.ylabel('Height (m)')
 
     tradition.plot_all(color=color['gray'], kind='MCE')
     tradition.plot_interp(
@@ -275,7 +286,8 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    plt.title('(b) Tradition')
+    # plt.title('(b) Tradition')
+    plt.title('Tradition')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
