@@ -66,8 +66,8 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
     figure;
     hold on;
     title('ATC-40 Procedure B');
-    xlabel('sd(mm)');
-    ylabel('sa(g)');
+    xlabel('Sd (mm)');
+    ylabel('Sa (g)');
     % axis([0 max(demand_sd) 0 max(demand_sa)]);
     plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
@@ -79,6 +79,8 @@ function [sd, sa] = procedure_b(config, load_pattern, scaled_factor)
     plot(sd, sa, 'o', 'DisplayName', 'Performance Point', 'Color', red);
     text(sd * 1.1, sa, ['(', num2str(sd), ', ', num2str(sa), ')'], 'Color', red)
     legend('show')
+    grid on;
+    grid minor;
 
 end
 

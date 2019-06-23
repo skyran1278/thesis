@@ -55,19 +55,21 @@ function [dy, sdd, sdm] = evalution(config, load_pattern, multi)
     sad = effective_mass * sad;
     sam = effective_mass * sam;
 
+    figure;
     if multi == "multi"
-        figure('Position', [10 10 640 860]);
-        subplot(2, 1, 1);
-        hold on;
-        title('(a) Multi-Cut');
+        % figure('Position', [10 10 640 860]);
+        % subplot(2, 1, 1);
+        % title('(a) Multi-Cut');
+        title('Optimization');
     else
-        subplot(2, 1, 2);
-        title('(b) Tradition');
-        hold on;
+        % subplot(2, 1, 2);
+        % title('(b) Tradition');
+        title('Tradition');
     end
 
-    xlabel('Displacement(mm)');
-    ylabel('Base Shear(tonf)');
+    hold on;
+    xlabel('Displacement (mm)');
+    ylabel('Base Shear (tonf)');
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
     plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
     plot(dy, ay, 'o', 'DisplayName', 'Yielding Point', 'Color', gray);

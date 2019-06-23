@@ -44,8 +44,8 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum, nofigure)
         figure;
         hold on;
         title('ADRS');
-        xlabel('sd(mm)');
-        ylabel('sa(g)');
+        xlabel('sd (mm)');
+        ylabel('sa (g)');
         plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
         plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
         plot(demand_sd, demand_sa, 'DisplayName', 'Demand', 'Color', blue, 'LineWidth', 1.5);
@@ -78,8 +78,8 @@ function [sd, sa] = procedure_b(config, load_pattern, spectrum, nofigure)
     figure;
     hold on;
     title('ADRS');
-    xlabel('sd(mm)');
-    ylabel('sa(g)');
+    xlabel('sd (mm)');
+    ylabel('sa (g)');
     plot(elastic_sd, elastic_sa, 'DisplayName', 'Elastic', 'Color', gray, 'LineWidth', 1.5);
     plot(bilinear_sd, bilinear_sa, 'DisplayName', 'Bilinear', 'Color', gray, 'LineWidth', 1.5);
     plot(capacity_sd, capacity_sa, 'DisplayName', 'Capacity', 'Color', green, 'LineWidth', 1.5);
