@@ -31,7 +31,7 @@ mid_seismic_20floor_9m = {
 };
 
 % =========================================================================
-data = mid_seismic_20floor_9m;
+data = high_seismic_4floor_6m;
 % =========================================================================
 
 structure_period = data{1, 2};
@@ -91,13 +91,13 @@ gray = [0.5 0.5 0.5];
 background = [247 247 247] / 256;
 
 figure;
-xlabel('T(sec)');
-ylabel('Sa(g)');
+xlabel('T (sec)');
+ylabel('Sa (g)');
 hold on;
 
 plot(tn, sad, 'Color', blue, 'LineWidth', 1.5, 'DisplayName', 'Design Base Spectrum');
 plot(tn, sam, 'Color', green, 'LineWidth', 1.5, 'DisplayName', 'Maximum Consider Spectrum');
-plot(tn, median_acceleration, 'Color', red, 'DisplayName', 'Time History Spectrum');
+plot(tn, median_acceleration, 'Color', red, 'DisplayName', 'Time History Response Spectrum');
 plot([tn(period_index) tn(period_index)], [0 sam(period_index)], '--', 'Color', gray, 'LineWidth', 1.5, 'DisplayName', 'Structure Period');
 legend('show');
 
