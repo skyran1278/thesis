@@ -159,7 +159,7 @@ class Dynamic():
         """
         damage, intensity = self.get_interp(percentage, kind=kind)
         plt.plot(damage, intensity, marker='.', *args, **kwargs)
-        print(round(np.amax(damage), 4))
+        print(round(np.amax(damage), 4) * 100)
 
     def plot_mean(self, *args, kind='DBE', **kwargs):
         """
@@ -167,7 +167,7 @@ class Dynamic():
         """
         damage, intensity = self.get_mean(kind=kind)
         plt.plot(damage, intensity, marker='.', *args, **kwargs)
-        print(round(np.amax(damage), 4))
+        print(round(np.amax(damage), 4) * 100)
 
 
 def _main():
