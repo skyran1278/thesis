@@ -274,7 +274,7 @@ class IDA():
         """
         damage, intensity = self.interp(num=1000)
         plt.plot(damage.quantile(0.5, axis=1, interpolation='nearest'),
-                 intensity, label='median IDA curve', *args, **kwargs)
+                 intensity, label='Median IDA curve', *args, **kwargs)
         # plt.plot(damage, intensity, *args, **kwargs)
 
 
@@ -452,7 +452,7 @@ def _main():
         xlim_max=300,
         intensity_measure='sa',
         damage_measure='story_displacements',
-        # figsize=(6.4*1.3, 4.8*1.3)
+        figsize=(6.4*1.3, 4.8*1.3)
     )
     ida.plot_median(color=color['gray'])
 

@@ -63,8 +63,8 @@ function [dy, sdd, sdm] = evalution(config, load_pattern, multi)
         title('Optimization');
     else
         % subplot(2, 1, 2);
-        % title('(b) Tradition');
-        title('Tradition');
+        % title('(b) Convention');
+        title('Convention');
     end
 
     hold on;

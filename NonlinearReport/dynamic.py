@@ -144,7 +144,7 @@ class Dynamic():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq, kind=kind)
 
-            plt.plot(damage, intensity, marker='.', *args, **kwargs)
+            plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
 
     def plot(self, earthquake, *args, kind='DBE', **kwargs):
         """
@@ -239,8 +239,8 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(b) Tradition')
-    plt.title('Tradition')
+    # plt.title('(b) Convention')
+    plt.title('Convention')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
 
@@ -286,8 +286,8 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(b) Tradition')
-    plt.title('Tradition')
+    # plt.title('(b) Convention')
+    plt.title('Convention')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()

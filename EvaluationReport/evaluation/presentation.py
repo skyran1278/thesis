@@ -69,7 +69,7 @@ def v_workflow(data):
     plt.grid(True, which='both', linestyle=':')
 
 
-def v_multicut_compare_tradition(data):
+def v_multicut_compare_convention(data):
     plt.figure()
     data.zero_line()
     data.seismic_line()
@@ -85,19 +85,19 @@ def v_multicut_compare_tradition(data):
     plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2, line3),
-        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
+        ('Consider $V_c$ Demand', 'Convention', 'Multi-Cut'),
         loc='best'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Multi-Cut vs Convention')
     plt.grid(True, which='both', linestyle=':')
 
 
-def tradition_flow(data):
+def convention_flow(data):
     plt.figure()
 
     data.zero_line()
     data.min_line()
-    data.tradition_boundary_line()
+    data.Convention_boundary_line()
 
     line1 = data.etabs_demand_line('blue')
 
@@ -107,10 +107,10 @@ def tradition_flow(data):
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
-        ('Demand', 'Tradition'),
+        ('Demand', 'Convention'),
         loc='best'
     )
-    plt.title('Tradition Workflow')
+    plt.title('Convention Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -142,7 +142,7 @@ def multicut_flow(data):
     plt.tight_layout()
 
 
-def multicut_compare_tradition(data):
+def multicut_compare_convention(data):
     plt.figure()
     data.zero_line()
     # data.min_line()
@@ -157,10 +157,10 @@ def multicut_compare_tradition(data):
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Consider Ld', 'Convention', 'Multi-Cut'),
         loc='best'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Multi-Cut vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -181,10 +181,10 @@ def p03():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
-        ('Tradition', 'Optimization'),
+        ('Convention', 'Optimization'),
         loc='upper center'
     )
-    plt.title('Optimization vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -210,7 +210,7 @@ def p04():
         ('Demand', 'Design'),
         loc='upper center'
     )
-    plt.title('Tradition Workflow')
+    plt.title('Convention Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -233,9 +233,9 @@ def p05():
     plt.legend(
         (line1, line2),
         ('Demand', 'Design'),
-        loc='upper left'
+        loc='upper right'
     )
-    plt.title('Tradition Workflow')
+    plt.title('Convention Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -422,16 +422,23 @@ def p14():
     data.put_index(0)
 
     plt.figure()
-    data.zero_line()
+    # data.zero_line()
 
-    df = data.etabs_design_on_index()
-    fyt = df['Fy'].iloc[0]
-    height = df['H'].iloc[0]
+    # df = data.etabs_design_on_index()
+    # fyt = df['Fy'].iloc[0]
+    # height = df['H'].iloc[0]
+    # plt.plot(
+    #     df['StnLoc'], df['VRebar'] * fyt * height,
+    #     color=data.c['blue'], linewidth=data.linewidth
+    # )
     plt.plot(
-        df['StnLoc'], df['VRebar'] * fyt * height,
+        [0.3, 3, 5.7], [38, 28, 38],
         color=data.c['blue'], linewidth=data.linewidth
     )
 
+
+    plt.xlim(0, 6)
+    plt.ylim(0, 50)
     plt.xlabel('Length (m)')
     plt.ylabel('Shear (ton)')
     plt.title('Design Shear')
@@ -478,10 +485,10 @@ def p16():
     plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2),
-        ('$V_u$ Demand', 'Tradition'),
+        ('$V_u$ Demand', 'Convention'),
         loc='upper center'
     )
-    plt.title('Optimization vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
 
     plt.figure()
@@ -498,10 +505,10 @@ def p16():
     plt.ylabel('$A_v$/s (cm)')
     plt.legend(
         (line1, line2, line3),
-        ('$V_u$ Demand', 'Tradition', 'Optimization'),
+        ('$V_u$ Demand', 'Convention', 'Optimization'),
         loc='upper center'
     )
-    plt.title('Optimization vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
 
 
@@ -522,10 +529,10 @@ def p18():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line2, line3),
-        ('Tradition', 'Optimization'),
+        ('Convention', 'Optimization'),
         loc='upper center',
     )
-    plt.title('Optimization vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -550,7 +557,7 @@ def p19():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3, line4),
-        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Tradition', 'Optimization'),
+        ('Demand', 'Consider $l_d$, max(d, 12$d_b$)', 'Convention', 'Optimization'),
         loc='lower left',
     )
     plt.title('Optimization Workflow')
@@ -652,7 +659,7 @@ def p27():
     plt.xlabel('Length (m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('Small Gravity')
@@ -670,7 +677,7 @@ def p27():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('Large Gravity')
@@ -696,7 +703,7 @@ def p28():
     plt.xlabel('Length (m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('Small Gravity')
@@ -714,7 +721,7 @@ def p28():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('Large Gravity')
@@ -740,10 +747,11 @@ def p31():
 
     plt.ylabel('As ($cm^2$)')
     plt.xlabel('Length (m)')
+    plt.ylim(-25, 45)
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
-        loc='best'
+        ('Demand', 'Convention', 'Optimization'),
+        loc='center right'
     )
     plt.title('#8 Reinforcement')
     plt.grid(True, which='both', linestyle=':')
@@ -759,10 +767,11 @@ def p31():
 
     plt.xlabel('Length (m)')
     plt.ylabel('As ($cm^2$)')
+    plt.ylim(-25, 45)
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
-        loc='best'
+        ('Demand', 'Convention', 'Optimization'),
+        loc='center right'
     )
     plt.title('#10 Reinforcement')
     plt.grid(True, which='both', linestyle=':')
@@ -777,6 +786,7 @@ def p33():
     plt.figure()
     data3.zero_line()
     data3.min_line(9)
+    data3.boundary_line(1/3)
 
     line1 = data3.etabs_demand_line('blue')
     line2 = data3.rebar_line('red', '傳統斷筋')
@@ -786,10 +796,10 @@ def p33():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Optimization'),
-        loc='best'
+        ('Demand', 'Convention', 'Optimization'),
+        loc='upper left'
     )
-    plt.title('20 stories')
+    plt.title('20 Stories 8FB2 B80X100')
     plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
@@ -808,7 +818,7 @@ def p43():
     plt.ylabel('As ($cm^2$)')
     plt.legend(
         (line1, line2),
-        ('Tradition', 'Optimization'),
+        ('Convention', 'Optimization'),
         loc='best'
     )
     plt.grid(True, which='both', linestyle=':')
@@ -829,7 +839,7 @@ def main():
     """
     test
     """
-    p43()
+    p33()
 
     # data = PlotDesign(data9[1])
 
@@ -852,30 +862,30 @@ def main():
         # plt.ylabel('As ($cm^2$)')
         # plt.legend(
         #     (line1, line4, line2, line3),
-        #     ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        #     ('Demand', 'Consider Ld', 'Convention', 'Multi-Cut'),
         #     loc='best'
         # )
-        # plt.title('Multi-Cut vs Tradition')
+        # plt.title('Multi-Cut vs Convention')
         # plt.grid(True, which='both', linestyle=':')
         # plt.tight_layout()
 
     # etabs_to_addedld_sol(data)
-    # tradition_flow(data)
+    # convention_flow(data)
     # multicut_flow(data)
-        # multicut_compare_tradition(data)
+        # multicut_compare_convention(data)
 
     # v_workflow(data)
-    # v_multicut_compare_tradition(data)
+    # v_multicut_compare_convention(data)
 
     # data.put_index(0)
 
     # etabs_to_addedld_sol(data)
-    # tradition_flow(data)
+    # convention_flow(data)
     # multicut_flow(data)
-    # multicut_compare_tradition(data)
+    # multicut_compare_convention(data)
 
     # v_workflow(data)
-    # v_multicut_compare_tradition(data)
+    # v_multicut_compare_convention(data)
 
     # to_excel_orderby_effect(
     #     data,
