@@ -240,7 +240,7 @@ def _main():
     #     label='Convention', linewidth=3.0, color=color['blue'])
     # multi.plot_interp(
     #     label='Optimization', linewidth=3.0, color=color['green'])
-
+    print('Optimization')
     damage, intensity = multi.get_interp(0.16)
     print(round(np.interp(0.04, damage, intensity), 2))
     damage, intensity = multi.get_interp()
@@ -248,6 +248,7 @@ def _main():
     damage, intensity = multi.get_interp(0.84)
     print(round(np.interp(0.04, damage, intensity), 2))
 
+    print('Convention')
     damage, intensity = tradition.get_interp(0.16)
     print(round(np.interp(0.04, damage, intensity), 2))
     damage, intensity = tradition.get_interp()
