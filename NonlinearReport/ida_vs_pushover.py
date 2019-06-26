@@ -452,7 +452,7 @@ def _main():
         xlim_max=300,
         intensity_measure='sa',
         damage_measure='story_displacements',
-        figsize=(6.4*1.3, 4.8*1.3)
+        # figsize=(6.4*1.3, 4.8*1.3)
     )
     ida.plot_median(color=color['gray'])
 
