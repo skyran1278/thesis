@@ -79,7 +79,7 @@ def _ld(df, loc, cover):
         ld = 1.3 * ld  # pylint: disable=invalid-name
         simple_ld = 1.3 * simple_ld
 
-    ld[ld > simple_ld] = simple_ld
+    # ld[ld > simple_ld] = simple_ld
 
     # 5.3.1
     ld[ld < 30] = 30
