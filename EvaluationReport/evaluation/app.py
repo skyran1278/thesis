@@ -48,10 +48,10 @@ def v_workflow(data):
     plt.ylabel('Av/s(m)')
     plt.legend(
         (line1, line2, line3),
-        ('$V_u$', 'Consider $V_c$ Demand', 'Multi-Cut'),
+        ('$V_u$', 'Consider $V_c$ Demand', 'Optimization'),
         loc='best'
     )
-    plt.title('Multi-Cut Workflow')
+    plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
 
 
@@ -71,10 +71,10 @@ def v_multicut_compare_tradition(data):
     plt.ylabel('Av/s(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
+        ('Consider $V_c$ Demand', 'Convention', 'Optimization'),
         loc='best'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
 
 
@@ -93,10 +93,10 @@ def tradition_flow(data):
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2),
-        ('Demand', 'Tradition'),
+        ('Demand', 'Convention'),
         loc='best'
     )
-    plt.title('Tradition Workflow')
+    plt.title('Convention Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -120,10 +120,10 @@ def multicut_flow(data):
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Consider $l_d$', 'Multi-Cut'),
+        ('Demand', 'Consider $l_d$', 'Optimization'),
         loc='best',
     )
-    plt.title('Multi-Cut Workflow')
+    plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -143,10 +143,10 @@ def multicut_compare_tradition(data):
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Consider Ld', 'Convention', 'Optimization'),
         loc='best'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -230,7 +230,7 @@ def f4_():
     # plt.xlabel('Length(m)')
     plt.legend(
         (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Consider Ld', 'Convention', 'Optimization'),
         loc='lower right'
     )
     plt.title('(a)High Seismic Case')
@@ -249,7 +249,7 @@ def f4_():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line4, line2, line3),
-        ('Demand', 'Consider Ld', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Consider Ld', 'Convention', 'Optimization'),
         loc='lower right'
     )
     plt.title('(b)Mid Seismic Case')
@@ -283,7 +283,7 @@ def f4_8():
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(a)Mid Seismic Beam Length 6m Case')
@@ -301,7 +301,7 @@ def f4_8():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(b)Mid Seismic Beam Length 9m Case')
@@ -320,7 +320,7 @@ def f4_8():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(c)Mid Seismic Beam Length 12m Case')
@@ -357,7 +357,7 @@ def f4_9():
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(a)High Seismic Case')
@@ -375,7 +375,7 @@ def f4_9():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(b)Mid Seismic Case')
@@ -393,7 +393,7 @@ def f4_9():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(c)Low Seismic Case')
@@ -430,7 +430,7 @@ def f4_10():
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(a)High Seismic Case')
@@ -448,7 +448,7 @@ def f4_10():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(b)Mid Seismic Case')
@@ -466,7 +466,7 @@ def f4_10():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
     plt.title('(c)Low Seismic Case')
@@ -488,6 +488,30 @@ def f3_3and3_4():
     multicut_flow(data1)
     tradition_flow(data1)
 
+def f3_5():
+    data = PlotDesign(
+        'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
+    data.put_index(0)
+
+    plt.figure()
+    data.zero_line()
+    # data.min_line(top=False)
+
+    line1 = data.etabs_demand_line('blue', top=False)
+
+    # line2 = data.rebar_line('red', '傳統斷筋', top=False)
+    line3 = data.rebar_line('green', '多點斷筋', top=False)
+
+    plt.xlabel('Length(m)')
+    plt.ylabel('As($m^2$)')
+    plt.legend(
+        (line1, line3),
+        ('Demand', 'Optimization'),
+        loc='upper left'
+    )
+    plt.title('Optimization vs Convention')
+    plt.grid(True, which='both', linestyle=':')
+    plt.tight_layout()
 
 def f3_5and3_6and3_7():
     data = PlotDesign(
@@ -606,10 +630,10 @@ def f4_4():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -632,10 +656,10 @@ def f4_5():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -658,10 +682,10 @@ def f4_6():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='upper left'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -685,10 +709,10 @@ def f3_8():
     plt.ylabel('Av/s(m)')
     plt.legend(
         (line1, line3),
-        ('$V_u$', 'Multi-Cut'),
+        ('$V_u$', 'Optimization'),
         loc='upper left'
     )
-    plt.title('Multi-Cut Workflow')
+    plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -711,11 +735,11 @@ def f4_7():
     plt.ylabel('Av/s(m)')
     plt.legend(
         (line1, line2, line3),
-        ('Consider $V_c$ Demand', 'Tradition', 'Multi-Cut'),
+        ('Consider $V_c$ Demand', 'Convention', 'Optimization'),
         loc='best'
     )
 
-    plt.title('Multi-Cut Workflow')
+    plt.title('Optimization Workflow')
     plt.grid(True, which='both', linestyle=':')
 
 
@@ -737,10 +761,10 @@ def f4_11():
     plt.ylabel('As($m^2$)')
     plt.legend(
         (line1, line2, line3),
-        ('Demand', 'Tradition', 'Multi-Cut'),
+        ('Demand', 'Convention', 'Optimization'),
         loc='best'
     )
-    plt.title('Multi-Cut vs Tradition')
+    plt.title('Optimization vs Convention')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
@@ -749,7 +773,7 @@ def main():
     """
     test
     """
-    # f4_10()
+    f3_5()
 
     data9 = {
         1: 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 154022 Cut 2.xlsx',
