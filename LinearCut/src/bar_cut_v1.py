@@ -268,6 +268,9 @@ def cut_3(df, loc, boundary):
 
 
 def review_vu(df, length, loc=None):
+    """
+    vn >= vu
+    """
     length = np.insert(length, 0, df['StnLoc'].min())
     length = np.cumsum(length)
     points = length[1:-1]
@@ -282,7 +285,7 @@ def review_vu(df, length, loc=None):
     )
 
     if any(vu > 2 / 3 * vn):
-        print(f'{df["Story"].iat[0]} {df["BayID"].iat[0]} {loc}')
+        print(f'5.11.5.1 {df["Story"].iat[0]} {df["BayID"].iat[0]} {loc}')
 
 
 def cut_optimization(beam, etabs_design, const, group_num=3):
