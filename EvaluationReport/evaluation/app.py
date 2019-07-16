@@ -22,7 +22,7 @@ def etabs_to_addedld_sol(data):
     line3 = data.add_ld_line('green', label='Consider $l_d$')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Demand-Allowed-Cut', 'Consider $l_d$'),
@@ -45,7 +45,7 @@ def v_workflow(data):
     line3 = data.v_rabar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('Av/s(m)')
+    plt.ylabel('Av/s(cm)')
     plt.legend(
         (line1, line2, line3),
         ('$V_u$', 'Consider $V_c$ Demand', 'Optimization'),
@@ -68,7 +68,7 @@ def v_multicut_compare_tradition(data):
     line3 = data.v_rabar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('Av/s(m)')
+    plt.ylabel('Av/s(cm)')
     plt.legend(
         (line1, line2, line3),
         ('Consider $V_c$ Demand', 'Convention', 'Optimization'),
@@ -90,7 +90,7 @@ def tradition_flow(data):
     line2 = data.rebar_line('green', '傳統斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Convention'),
@@ -117,7 +117,7 @@ def multicut_flow(data):
     line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Consider $l_d$', 'Optimization'),
@@ -140,7 +140,7 @@ def multicut_compare_tradition(data):
     line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Convention', 'Optimization'),
@@ -195,7 +195,7 @@ def f3_1():
     # line3 = data.add_ld_line('green', label='Consider $l_d$')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Top', 'Bottom'),
@@ -226,7 +226,7 @@ def f4_():
     line2 = data1.rebar_line('red', '傳統斷筋', bot=False)
     line3 = data1.rebar_line('green', '多點斷筋', bot=False)
 
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     # plt.xlabel('Length(m)')
     plt.legend(
         (line1, line4, line2, line3),
@@ -246,7 +246,7 @@ def f4_():
     line3 = data2.rebar_line('green', '多點斷筋', bot=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line4, line2, line3),
         ('Demand', 'Consider Ld', 'Convention', 'Optimization'),
@@ -279,7 +279,7 @@ def f4_8():
     line2 = data1.rebar_line('red', '傳統斷筋', top=False)
     line3 = data1.rebar_line('green', '多點斷筋', top=False)
 
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
@@ -298,7 +298,7 @@ def f4_8():
     line3 = data2.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -317,7 +317,7 @@ def f4_8():
     line3 = data3.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -353,7 +353,7 @@ def f4_9():
     line2 = data1.rebar_line('red', '傳統斷筋', top=False)
     line3 = data1.rebar_line('green', '多點斷筋', top=False)
 
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
@@ -372,7 +372,7 @@ def f4_9():
     line3 = data2.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -390,7 +390,7 @@ def f4_9():
     line3 = data3.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -426,7 +426,7 @@ def f4_10():
     line2 = data1.rebar_line('red', '傳統斷筋', top=False)
     line3 = data1.rebar_line('green', '多點斷筋', top=False)
 
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.xlabel('Length(m)')
     plt.legend(
         (line1, line2, line3),
@@ -445,7 +445,7 @@ def f4_10():
     line3 = data2.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -463,7 +463,7 @@ def f4_10():
     line3 = data3.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -503,7 +503,7 @@ def f3_5():
     line3 = data.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line3),
         ('Demand', 'Optimization'),
@@ -513,7 +513,7 @@ def f3_5():
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
-def f3_5and3_6and3_7():
+def f3_6and3_7and3_8():
     data = PlotDesign(
         'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 104919 Cut 2 Procedure B.xlsx')
     data.put_index(0)
@@ -526,7 +526,7 @@ def f3_5and3_6and3_7():
     line2 = data.rebar_number_line('red')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Demand-Allowed-Cut'),
@@ -546,7 +546,7 @@ def f3_5and3_6and3_7():
     line3 = data.add_ld_line('green', label='Consider $l_d$')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Demand-Allowed-Cut', 'Consider $l_d$'),
@@ -566,7 +566,7 @@ def f4_1():
 
     plt.figure()
     data.zero_line()
-    data.min_line()
+    data.min_line(10)
 
     line1 = data.etabs_demand_line('blue')
     # line2 = data.rebar_number_line('red')
@@ -574,7 +574,7 @@ def f4_1():
     line2 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2),
         ('Demand', 'Minimum reinforcement'),
@@ -593,7 +593,7 @@ def f4_3():
     plt.figure()
 
     data.zero_line()
-    data.min_line()
+    data.min_line(2)
 
     line1 = data.etabs_demand_line('blue')
     # line2 = data.rebar_number_line('red')
@@ -601,7 +601,7 @@ def f4_3():
     line3 = data.add_ld_line('green', label='Consider $l_d$')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line3),
         ('Demand', 'Consider $l_d$'),
@@ -627,7 +627,7 @@ def f4_4():
     line3 = data.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -653,7 +653,7 @@ def f4_5():
     line3 = data.rebar_line('green', '多點斷筋', top=False)
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -671,7 +671,7 @@ def f4_6():
 
     plt.figure()
     data.zero_line()
-    data.min_line()
+    data.min_line(-23)
 
     line1 = data.etabs_demand_line('blue')
 
@@ -679,7 +679,7 @@ def f4_6():
     line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -690,7 +690,7 @@ def f4_6():
     plt.tight_layout()
 
 
-def f3_8():
+def f3_9():
     data = PlotDesign(
         'D:/GitHub/thesis/Models/LowSeismic 4Floor 12M/20190615 103351 Cut 2.xlsx')
     data.put_index(0)
@@ -706,7 +706,7 @@ def f3_8():
     line3 = data.v_rabar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('Av/s(m)')
+    plt.ylabel('Av/s(cm)')
     plt.legend(
         (line1, line3),
         ('$V_u$', 'Optimization'),
@@ -732,7 +732,7 @@ def f4_7():
     line3 = data.v_rabar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('Av/s(m)')
+    plt.ylabel('Av/s(cm)')
     plt.legend(
         (line1, line2, line3),
         ('Consider $V_c$ Demand', 'Convention', 'Optimization'),
@@ -758,7 +758,7 @@ def f4_11():
     line3 = data.rebar_line('green', '多點斷筋')
 
     plt.xlabel('Length(m)')
-    plt.ylabel('As($m^2$)')
+    plt.ylabel('As($cm^2$)')
     plt.legend(
         (line1, line2, line3),
         ('Demand', 'Convention', 'Optimization'),
@@ -773,7 +773,7 @@ def main():
     """
     test
     """
-    f3_5()
+    f4_7()
 
     data9 = {
         1: 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 154022 Cut 2.xlsx',
