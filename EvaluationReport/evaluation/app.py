@@ -773,7 +773,7 @@ def main():
     """
     test
     """
-    f4_7()
+    # f4_11()
 
     data9 = {
         1: 'D:/GitHub/thesis/Models/HighSeismic 4Floor 6M/Conservative/20190614 154022 Cut 2.xlsx',
@@ -794,7 +794,7 @@ def main():
 
     # script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    data = PlotDesign(data9[9])
+    data = PlotDesign('D:/GitHub/thesis/Models/MidSeismic 4Floor 9M/20190717 101834 Cut 100.xlsx')
 
     # for index in range(0, data.design.get_len(), 4):
         # data.put_index(index)
@@ -812,7 +812,7 @@ def main():
     # etabs_to_addedld_sol(data)
     # tradition_flow(data)
     # multicut_flow(data)
-    # multicut_compare_tradition(data)
+    multicut_compare_tradition(data)
 
     # v_workflow(data)
     # v_multicut_compare_tradition(data)
