@@ -55,16 +55,16 @@ function [dy, sdd, sdm] = evalution(config, load_pattern, multi)
     sad = effective_mass * sad;
     sam = effective_mass * sam;
 
-    figure;
+    % figure;
     if multi == "multi"
-        % figure('Position', [10 10 640 860]);
-        % subplot(2, 1, 1);
-        % title('(a) Multi-Cut');
-        title('Optimization');
+        figure('Position', [10 10 640 860]);
+        subplot(2, 1, 1);
+        title('(a) Optimization');
+        % title('Optimization');
     else
-        % subplot(2, 1, 2);
-        % title('(b) Convention');
-        title('Convention');
+        subplot(2, 1, 2);
+        title('(b) Convention');
+        % title('Convention');
     end
 
     hold on;

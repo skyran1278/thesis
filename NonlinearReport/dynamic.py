@@ -144,7 +144,7 @@ class Dynamic():
         for eq in self.earthquakes:
             damage, intensity = self.get_points(eq, kind=kind)
 
-            plt.plot(damage, intensity, label=eq, marker='.', *args, **kwargs)
+            plt.plot(damage, intensity, marker='.', *args, **kwargs)
 
     def plot(self, earthquake, *args, kind='DBE', **kwargs):
         """
@@ -200,9 +200,9 @@ def _main():
         'background': np.array([247, 247, 247]) / 256
     }
 
-    # plt.figure(figsize=(6.4, 8.6))
-    # plt.subplot(2, 1, 1)
-    plt.figure()
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
+    # plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height (m)')
 
@@ -217,14 +217,14 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(a) Optimization')
-    plt.title('Optimization')
+    plt.title('(a) Optimization')
+    # plt.title('Optimization')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
-    # plt.subplot(2, 1, 2)
-    plt.figure()
+    plt.subplot(2, 1, 2)
+    # plt.figure()
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height (m)')
 
@@ -239,16 +239,16 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(b) Convention')
-    plt.title('Convention')
+    plt.title('(b) Convention')
+    # plt.title('Convention')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
 
     plt.tight_layout()
 
-    plt.figure()
-    # plt.figure(figsize=(6.4, 8.6))
-    # plt.subplot(2, 1, 1)
+    # plt.figure()
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height (m)')
 
@@ -263,15 +263,15 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(a) Optimization')
-    plt.title('Optimization')
+    plt.title('(a) Optimization')
+    # plt.title('Optimization')
 
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()
 
-    plt.figure()
-    # plt.subplot(2, 1, 2)
+    # plt.figure()
+    plt.subplot(2, 1, 2)
     plt.xlabel(r'Interstorey drift ratio, $\theta_{max}$')
     plt.ylabel('Height (m)')
 
@@ -286,8 +286,8 @@ def _main():
         linestyle='--',
         color=color['gray']
     )
-    # plt.title('(b) Convention')
-    plt.title('Convention')
+    plt.title('(b) Convention')
+    # plt.title('Convention')
     plt.legend(loc='upper right')
     plt.grid(True, which='both', linestyle=':')
     plt.tight_layout()

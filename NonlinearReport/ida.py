@@ -209,13 +209,13 @@ def _main():
         'background': np.array([247, 247, 247]) / 256
     }
 
-    plt.figure()
-    # plt.figure(figsize=(6.4, 8.6))
-    # plt.subplot(2, 1, 1)
+    # plt.figure()
+    plt.figure(figsize=(6.4, 8.6))
+    plt.subplot(2, 1, 1)
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-    plt.title('Convention versus Optimization eleven IDA curves')
-    # plt.title('(a) Convention versus Optimization eleven IDA curves')
+    # plt.title('Convention versus Optimization eleven IDA curves')
+    plt.title('(a) Convention versus Optimization eleven IDA curves')
 
     line_tradition = tradition.plot_all(color=color['gray'], linestyle='--')
     line_multi = multi.plot_all(color=color['gray'])
@@ -227,7 +227,7 @@ def _main():
     )
 
     plt.xlim(0, 0.05)
-    plt.ylim(0, 4)
+    plt.ylim(0, 2.5)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         (line_tradition, line_multi),
@@ -255,12 +255,12 @@ def _main():
     print(round(np.interp(0.04, damage, intensity), 2))
     damage, intensity = tradition.get_interp(0.84)
     print(round(np.interp(0.04, damage, intensity), 2))
-    # plt.subplot(2, 1, 2)
-    plt.figure()
+    plt.subplot(2, 1, 2)
+    # plt.figure()
     plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
     plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-    plt.title('Convention versus Optimization median IDA curves')
-    # plt.title('(b) Convention versus Optimization median IDA curves')
+    # plt.title('Convention versus Optimization median IDA curves')
+    plt.title('(b) Convention versus Optimization median IDA curves')
 
     # multi.plot_all(log=True, color=color['gray'])
     # tradition.plot_all(log=True, color=color['gray'])
@@ -296,7 +296,7 @@ def _main():
     )
 
     plt.xlim(right=0.15)
-    plt.ylim(top=4)
+    plt.ylim(top=2.5)
     plt.grid(True, which='both', linestyle=':')
     plt.legend(
         ('16% Optimization', '16% Convention', '50% Optimization',
@@ -306,10 +306,10 @@ def _main():
 
     plt.tight_layout()
 
-    plt.figure()
-    plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
-    plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
-    plt.title('Convention versus Optimization median IDA curves')
+    # plt.figure()
+    # plt.xlabel(r'Maximum interstorey drift ratio, $\theta_{max}$')
+    # plt.ylabel(r'"first-mode"spectral acceleration $S_a(T_1$, 5%)(g)')
+    # plt.title('Convention versus Optimization median IDA curves')
 
     # multi.plot_all(color=color['gray'])
     # tradition.plot_all(color=color['gray'], linestyle='--')
@@ -320,8 +320,8 @@ def _main():
     #     percentage=0.16,
     #     label='Convention', linewidth=2.0, color=color['green'], linestyle='--')
 
-    multi.plot_interp(
-        label='Median IDA Curve', linewidth=2.0, color=color['gray'])
+    # multi.plot_interp(
+    #     label='Median IDA Curve', linewidth=2.0, color=color['gray'])
     # tradition.plot_interp(
     #     label='Median Convention', linewidth=2.0, color=color['gray'], linestyle='--')
 
@@ -332,20 +332,20 @@ def _main():
     #     percentage=0.84,
     #     label='Convention', linewidth=2.0, color=color['red'], linestyle='--')
 
-    plt.axvline(
-        0.04,
-        linestyle='-.',
-        color=color['gray']
-    )
+    # plt.axvline(
+    #     0.04,
+    #     linestyle='-.',
+    #     color=color['gray']
+    # )
 
-    plt.xlim(0, 0.05)
-    plt.ylim(0, 1.5)
-    plt.grid(True, which='both', linestyle=':')
-    plt.legend(
-        # ('16% Optimization', '16% Convention', '50% Optimization',
-        #  '50% Convention', '84% Optimization', '84% Convention'),
-        loc='upper left'
-    )
+    # plt.xlim(0, 0.05)
+    # plt.ylim(0, 1.5)
+    # plt.grid(True, which='both', linestyle=':')
+    # plt.legend(
+    # ('16% Optimization', '16% Convention', '50% Optimization',
+    #  '50% Convention', '84% Optimization', '84% Convention'),
+    #     loc='upper left'
+    # )
 
     plt.show()
 
