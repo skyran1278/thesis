@@ -10,7 +10,7 @@ pylint = "*"
 
 [packages]
 pandas = "==0.23.4"
-numpy = "==1.15.4"
+numpy = "==1.22.0"
 xlrd = "==1.2.0"
 colorama = "*"
 wxpython = "*"
